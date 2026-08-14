@@ -1,0 +1,42 @@
+Castellano
+
+Título
+Estudio, adaptación y evaluación de técnicas de superresolución para la mejora de partituras digitalizadas
+
+Resumen
+Este Trabajo de Fin de Grado aborda el estudio, la adaptación y la evaluación de técnicas de superresolución aplicadas a partituras digitalizadas. El objetivo principal es analizar su capacidad para recuperar información visual y mejorar la calidad de partituras de baja resolución, cuyos elementos gráficos, como las líneas del pentagrama, las notas, los símbolos musicales y el texto, pueden verse especialmente afectados por la pérdida de detalle.
+
+Para realizar el estudio, se utilizarán conjuntos de datos de partituras de alta calidad, a partir de los cuales se generarán versiones de baja resolución mediante un proceso de degradación controlada. Estas imágenes serán procesadas utilizando diferentes técnicas o modelos de superresolución, adaptados cuando corresponda a las características específicas de las partituras mediante procedimientos de ajuste fino. Los resultados obtenidos se compararán con las imágenes originales de alta resolución utilizadas como referencia.
+
+La evaluación combinará métricas objetivas de calidad de imagen con un análisis visual centrado en la recuperación del detalle, la conservación de la estructura musical y la legibilidad de los distintos elementos de la partitura. De este modo, el trabajo permitirá comparar las técnicas seleccionadas y determinar su adecuación para la mejora de partituras digitalizadas.
+
+Palabras clave: superresolución; partituras digitalizadas; procesamiento de imagen; degradación de imagen; ajuste fino; calidad de imagen.
+
+
+Valencià
+
+Títol
+Estudi, adaptació i avaluació de tècniques de superresolució per a la millora de partitures digitalitzades
+
+Resum
+Aquest Treball de Fi de Grau aborda l’estudi, l’adaptació i l’avaluació de tècniques de superresolució aplicades a partitures digitalitzades. L’objectiu principal és analitzar la seua capacitat per a recuperar informació visual i millorar la qualitat de partitures de baixa resolució, els elements gràfics de les quals, com ara les línies del pentagrama, les notes, els símbols musicals i el text, poden veure’s especialment afectats per la pèrdua de detall.
+
+Per a dur a terme l’estudi, s’utilitzaran conjunts de dades de partitures d’alta qualitat, a partir dels quals es generaran versions de baixa resolució mitjançant un procés de degradació controlada. Aquestes imatges seran processades utilitzant diferents tècniques o models de superresolució, adaptats, quan corresponga, a les característiques específiques de les partitures mitjançant procediments d’ajust fi. Els resultats obtinguts es compararan amb les imatges originals d’alta resolució utilitzades com a referència.
+
+L’avaluació combinarà mètriques objectives de qualitat d’imatge amb una anàlisi visual centrada en la recuperació del detall, la conservació de l’estructura musical i la llegibilitat dels diferents elements de la partitura. D’aquesta manera, el treball permetrà comparar les tècniques seleccionades i determinar-ne l’adequació per a la millora de partitures digitalitzades.
+
+Paraules clau: superresolució; partitures digitalitzades; processament d’imatge; degradació d’imatge; ajust fi; qualitat d’imatge.
+
+English
+
+Title
+Study, Adaptation, and Evaluation of Super-Resolution Techniques for Enhancing Digitized Music Scores
+
+Abstract
+This Bachelor’s Thesis addresses the study, adaptation, and evaluation of super-resolution techniques applied to digitized music scores. Its main objective is to analyse their ability to recover visual information and improve the quality of low-resolution scores, whose graphical elements, such as staff lines, notes, musical symbols, and text, may be particularly affected by the loss of detail.
+
+To conduct the study, datasets of high-quality music scores will be used to generate low-resolution versions through a controlled degradation process. These images will be processed using different super-resolution techniques or models, adapted, where appropriate, to the specific characteristics of music scores through fine-tuning procedures. The resulting images will be compared with the original high-resolution images used as references.
+
+The evaluation will combine objective image-quality metrics with a visual analysis focused on detail recovery, preservation of musical structure, and readability of the different elements of the score. In this way, the project will enable the selected techniques to be compared and their suitability for enhancing digitized music scores to be determined.
+
+Keywords: super-resolution; digitized music scores; image processing; image degradation; fine-tuning; image quality.
