@@ -1,0 +1,71 @@
+\chapter{Introducción}
+
+\section{Motivación y problema profesional}
+La digitalización permite consultar y preservar colecciones musicales, pero una resolución
+insuficiente puede degradar líneas de pentagrama, cabezas y plicas de nota, alteraciones, texto y
+otros elementos pequeños. La superresolución puede mejorar la legibilidad aparente de estas
+imágenes, aunque una reconstrucción visualmente convincente no garantiza que conserve la
+información musical. El problema profesional de este TFG es, por tanto, determinar cuándo y cómo
+puede utilizarse esta técnica sin introducir cambios plausibles pero musicalmente significativos.
+
+Los destinatarios principales son profesionales de digitalización, bibliotecas, archivos,
+conservación y patrimonio musical. Como usuarios secundarios se consideran intérpretes,
+investigadores y editoriales. Para todos ellos, la utilidad de una técnica dependerá no solo de la
+calidad visual, sino también de la fidelidad de la notación, el coste computacional, las licencias
+y las condiciones concretas de uso.
+
+\section{Objetivo general y objetivos específicos}
+El objetivo general es evaluar un conjunto pequeño y científicamente contrastado de técnicas de
+superresolución sobre degradaciones controladas de partituras digitalizadas, medir su fidelidad,
+coste y errores de notación, y convertir la evidencia en un marco de decisión por método,
+degradación y uso profesional. Una conclusión válida puede ser que ningún método resulte adecuado
+para una condición determinada.
+
+Los objetivos específicos son:
+\begin{itemize}
+  \item construir un estado del arte trazable basado en fuentes primarias y oficiales;
+  \item auditar e inventariar de forma inmutable el conjunto SMB, manteniéndolo reservado para la
+        evaluación final;
+  \item predeclarar degradaciones, comparadores, unidades independientes, resultados y límites de
+        interpretación antes de observar resultados finales;
+  \item comparar los métodos sobre entradas emparejadas mediante evidencia de fidelidad, recursos
+        y fallos específicos de notación;
+  \item decidir de forma explícita si una adaptación acotada está justificada, utilizando para
+        ello datos de entrenamiento y validación independientes de SMB; y
+  \item producir recomendaciones profesionales reproducibles y limitadas a la evidencia obtenida.
+\end{itemize}
+
+Estos objetivos se concretan en cinco preguntas de evaluación: diferencias entre comparadores bajo
+cada degradación; variación por severidad y características auditadas; compromisos de fidelidad,
+riesgo y coste; valor añadido frente a la interpolación bicúbica; y, solo si la validación descubre
+una carencia concreta, utilidad de una adaptación acotada. No se formula por ahora una hipótesis
+estadística: cualquier hipótesis posterior deberá fijarse antes de observar la evidencia relevante.
+
+\section{Impacto esperado y alcance}
+La contribución prevista es una guía de decisión que identifique condiciones de uso, límites y
+casos en los que no debe recomendarse la superresolución. Las conclusiones quedarán restringidas a
+la población auditada de SMB, a los métodos finalmente congelados y a las degradaciones controladas
+realmente evaluadas. No se asumirá que los resultados sean válidos para escaneos reales no
+controlados, reconstrucción de PDF, reconocimiento óptico de música, aplicaciones de usuario o
+despliegue. Estas posibilidades permanecen como extensiones futuras salvo que un protocolo
+posterior aporte evidencia directa.
+
+\section{Metodología}
+El estudio sigue un enfoque de contrato primero. Antes de la evaluación final se fijan la identidad
+del conjunto de datos, las unidades independientes, el manifiesto, los operadores de degradación,
+los comparadores, las métricas, el muestreo cualitativo y las reglas de interpretación. SMB no se
+emplea para elegir modelos, puntos de control, hiperparámetros ni umbrales. Las páginas reciben
+entradas idénticas para todos los comparadores y se agrupan por obra o fuente auditada, mientras que
+las regiones se tratan como observaciones anidadas.
+
+La evaluación combinará medidas de fidelidad con una revisión sistemática de discontinuidades de
+pentagrama, pérdida o deformación de símbolos, uniones indebidas, alteraciones de texto y marcas
+alucinadas. También se registrarán tiempo, memoria y demás recursos relevantes. Cada afirmación
+material deberá resolver a evidencia revisada, con denominador y limitaciones explícitos.
+
+\section{Estructura de la memoria}
+Tras esta introducción, el capítulo 2 sintetiza el estado del arte y delimita la brecha; el capítulo
+3 analiza alternativas, restricciones y riesgos; y el capítulo 4 documenta los datos y su gobierno.
+Los capítulos posteriores describirán metodología, resultados, validación profesional, conclusiones
+y trabajo futuro. Los anexos conservarán la información de reproducibilidad y, al final, la
+reflexión sobre los Objetivos de Desarrollo Sostenible compartida con su entrega independiente.

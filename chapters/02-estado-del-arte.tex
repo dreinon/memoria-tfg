@@ -1,0 +1,70 @@
+\chapter{Estado del arte}
+
+\section{Superresolución de imágenes}
+La interpolación cúbica constituye una referencia transparente para reconstruir muestras sobre una
+rejilla de mayor resolución, pero su formulación no demuestra por sí misma fidelidad en partituras
+\cite{keys1981cubic}. % Claim evidence: SOTA-INTERPOLATION-ROLE
+Por ello, este trabajo conservará las interpolaciones vecina, bilineal y bicúbica como comparadores
+simples, no como soluciones cuya idoneidad se presuponga.
+
+La superresolución convolucional introdujo una correspondencia aprendida de extremo a extremo y
+los modelos residuales posteriores ampliaron esa familia orientada a la fidelidad
+\cite{dong2015srcnn,lim2017edsr}. Sus resultados publicados proceden principalmente de imágenes
+naturales degradadas de forma sintética; sirven para definir familias de comparación, pero no se
+transfieren como resultados sobre SMB ni seleccionan un modelo para este TFG.
+% Claim evidence: SOTA-CNN-FOUNDATION
+
+Los enfoques adversariales mostraron que una imagen percibida como más realista puede obtener peores
+medidas de distorsión, y la literatura formalizó el compromiso entre percepción y distorsión
+\cite{ledig2017srgan,blau2018perception,wang2018esrgan}.
+% Claim evidence: SOTA-PERCEPTION-DISTORTION
+Este compromiso es especialmente relevante en notación musical: generar un detalle verosímil no
+equivale a recuperar el símbolo presente en la fuente. Los transformadores de restauración, como
+SwinIR y HAT, amplían el contexto modelado y presentan avances en bancos de imágenes naturales
+\cite{liang2021swinir,chen2023hat}; su progresión arquitectónica tampoco decide todavía la
+implementación ni los pesos que se estudiarán en la fase experimental.
+% Claim evidence: SOTA-TRANSFORMER-PROGRESSION
+
+La literatura reciente incorpora además superresolución generativa de un solo paso y controles del
+equilibrio entre fidelidad y realismo \cite{kim2026fidesr,zhang2026tadsr}. En paralelo, el trabajo
+sobre texto de escena introduce guías estructurales de glifos \cite{luo2026tiger}. Los resultados
+publicados en esos dominios justifican examinar el riesgo semántico, pero no establecen seguridad
+para símbolos musicales ni compatibilidad ejecutable con este estudio.
+% Claim evidence: SOTA-CURRENT-GENERATIVE-RISK
+
+\section{Restauración de documentos y partituras}
+La restauración documental abarca problemas que no son equivalentes a la superresolución, como
+descurvado, eliminación de sombras, binarización o mezclas de degradaciones
+\cite{zhang2024docres,li2026mmdir}. Un estudio de superresolución de escaneos documentales muestra
+además que la fidelidad alineada y el beneficio para reconocimiento de texto pueden evolucionar de
+forma distinta \cite{zyrek2025document}. Estas fuentes motivan controles de geometría y de tarea,
+pero no demuestran la conservación de la notación musical.
+% Claim evidence: SOTA-DOCUMENT-SCOPE
+
+Existe trabajo primario directamente orientado a superresolución de partituras, evaluado sobre
+DeepScores con una red residual normalizada por instancia \cite{tran2019scoresr}. El conjunto Sheet
+Music Benchmark (SMB) aporta un contexto oficial posterior para la evaluación de reconocimiento
+óptico de música y de errores sobre elementos musicales \cite{martinez2025smb}. Esta evidencia no
+convierte las métricas de reconocimiento en métricas de superresolución ni prueba que la búsqueda
+enfocada sea exhaustiva.
+% Claim evidence: SOTA-DIRECT-SCORE-EVIDENCE
+
+También debe separarse la degradación sintética controlada de la degradación real. SwinIR estudia
+tareas clásicas y reales, mientras que Real-ESRGAN utiliza una cadena sintética de degradación de
+orden alto y el trabajo documental de Zyrek et al. emplea escaneos registrados
+\cite{liang2021swinir,wang2021realesrgan,zyrek2025document}. Cada configuración responde a una
+pregunta distinta; sus resultados no pueden agruparse como una única validación.
+% Claim evidence: SOTA-DEGRADATION-BOUNDARY
+
+\section{Evaluación y brecha identificada}
+El estado del arte muestra que PSNR, SSIM y medidas perceptuales describen propiedades
+complementarias, no una noción única de calidad. En partituras debe añadirse evidencia sobre
+continuidad de pentagramas, geometría de símbolos, elementos pequeños, uniones o separaciones
+indebidas, texto y marcas musicalmente significativas. Las mejoras publicadas en imágenes naturales,
+documentos o reconocimiento no bastan para responder a esas preguntas.
+
+La brecha abordada por este TFG es una evaluación trazable que combine fidelidad emparejada,
+fallos específicos de notación, recursos y condiciones profesionales. La contribución no será un
+ranking universal de modelos, sino un marco condicionado por método, degradación y uso, con límites
+y casos de no recomendación. La selección exacta de modelos, repositorios, licencias y puntos de
+control se actualizará antes de la fase de comparación; no queda fijada por esta revisión inicial.

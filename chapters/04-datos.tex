@@ -1,0 +1,46 @@
+\chapter{Preparación y comprensión de los datos}
+
+\section{Procedencia, licencia y versión}
+El conjunto principal de evaluación es Sheet Music Benchmark (SMB), publicado como
+\texttt{PRAIG/SMB}. Su artículo y ficha oficial informan de 685 páginas de notación musical impresa,
+acceso manualmente controlado, una única partición oficial \texttt{test} y licencia declarada CC
+BY-NC 4.0 \cite{martinez2025smb}.
+% Claim evidence: SOTA-DIRECT-SCORE-EVIDENCE
+El proyecto fija además una revisión inmutable del repositorio en su descriptor versionado. Estos
+son hechos reportados por la fuente y por el descriptor; no se presentan como resultados de la
+auditoría del TFG.
+
+Cualquier fuente futura de entrenamiento o validación deberá disponer de identidad, licencia,
+procedencia y agrupación propias. SMB no se reutilizará para ese fin aunque una adaptación llegue a
+aprobarse.
+
+\section{Auditoría, cobertura y calidad}
+La auditoría debe conservar el inventario completo y registrar para cada elemento identidad,
+dimensiones, modo, integridad de imagen y anotaciones, agrupación de fuente, calidad, duplicados,
+procedencia, derechos y aptitud como referencia. Los elementos corruptos, difíciles o relacionados
+no se eliminarán por conveniencia: conservarán estado y motivo explícitos dentro del denominador
+esperado.
+
+\emph{Pendiente de revisión: no se incorporan todavía conclusiones sobre agrupación, duplicados,
+calidad, idoneidad, procedencia detallada ni derechos de reproducción de SMB. Tampoco se publicarán
+figuras del conjunto hasta que la disposición de derechos esté revisada.}
+
+\section{Particiones y prevención de fugas}
+La única partición oficial de SMB se reserva íntegramente para evaluación final. No se utilizará
+para entrenamiento, validación, ajuste de hiperparámetros, elección de métodos o puntos de control,
+definición de umbrales ni selección de ejemplos por resultado. Las fases de desarrollo emplearán
+fixtures o datos independientes.
+
+La unidad independiente será la obra o fuente musical confirmada por la auditoría. Las páginas se
+evaluarán de forma emparejada y las regiones o recortes serán observaciones anidadas. El manifiesto
+inmutable deberá reconciliar todos los índices esperados y evitar que material relacionado cruce
+particiones adaptativas.
+
+\section{Degradación controlada}
+La evaluación se basará en versiones de baja resolución generadas mediante operadores controlados
+y versionados. Para cada condición se fijarán escala, interpolación, desenfoque, ruido, compresión,
+modo de color, orden de operaciones, bordes, distribuciones de parámetros y semillas. Se comprobarán
+dimensiones, rango, determinismo y alineación con la referencia antes de ejecutar comparadores.
+
+\emph{Pendiente: los valores y distribuciones exactos se congelarán con evidencia independiente en
+la fase metodológica; este capítulo no los deduce de SMB ni anticipa resultados experimentales.}
