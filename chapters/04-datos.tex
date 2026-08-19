@@ -2,28 +2,53 @@
 
 \section{Procedencia, licencia y versión}
 El conjunto principal de evaluación es Sheet Music Benchmark (SMB), publicado como
-\texttt{PRAIG/SMB}. Su artículo y ficha oficial informan de 685 páginas de notación musical impresa,
-acceso manualmente controlado, una única partición oficial \texttt{test} y licencia declarada CC
-BY-NC 4.0 \cite{martinez2025smb}.
+\texttt{PRAIG/SMB}. La auditoría utiliza la revisión inmutable
+\texttt{96332e8c4ac8\ldots}. Su artículo y ficha oficial informan de
+685 páginas de notación musical impresa, acceso manualmente controlado, una única partición oficial
+\texttt{test} y licencia del conjunto CC BY-NC 4.0 \cite{martinez2025smb}.
 % Claim evidence: SOTA-DIRECT-SCORE-EVIDENCE
-El proyecto fija además una revisión inmutable del repositorio en su descriptor versionado. Estos
-son hechos reportados por la fuente y por el descriptor; no se presentan como resultados de la
-auditoría del TFG.
+% Source revision: 96332e8c4ac81cbdb7f61093ec5a4bfff76a0adb
+% Evidence: proyecto/data/manifests/smb-evaluation-v1.yaml and
+% proyecto/data/manifests/smb-evaluation-v1-recovery.yaml
+El manifiesto activo y recuperable es la generación de contenido direccionado
+\allowbreak{\footnotesize\texttt{881d576e604ec9faef73ae1a302222cd21575116505f2146bfe2b1f45ffcde38}}, cuyos registros
+tienen SHA-256
+\allowbreak{\footnotesize\texttt{59c038b4105b0df81878b1feec30155b52602371ace48a9044a7f7c8edad6e30}}. La procedencia de
+la ejecución identifica de forma determinista la revisión y el estado con cambios del código, el
+árbol de fuentes, el parche y \texttt{uv.lock}; el paquete de recuperación verifica estos datos antes
+de materializar la generación.
+
+La licencia y el acceso están confirmados en el nivel del conjunto, pero la procedencia por elemento
+no está disponible. Por ello, la redistribución no queda establecida y la reproducción de figuras
+permanece prohibida mientras no exista evidencia separada que autorice el elemento concreto. No se
+incorporan imágenes de SMB a esta memoria con la evidencia actual.
 
 Cualquier fuente futura de entrenamiento o validación deberá disponer de identidad, licencia,
 procedencia y agrupación propias. SMB no se reutilizará para ese fin aunque una adaptación llegue a
 aprobarse.
 
 \section{Auditoría, cobertura y calidad}
-La auditoría debe conservar el inventario completo y registrar para cada elemento identidad,
-dimensiones, modo, integridad de imagen y anotaciones, agrupación de fuente, calidad, duplicados,
-procedencia, derechos y aptitud como referencia. Los elementos corruptos, difíciles o relacionados
-no se eliminarán por conveniencia: conservarán estado y motivo explícitos dentro del denominador
-esperado.
+% Evidence: proyecto/data/audits/smb-audit-v1.yaml,
+% proyecto/data/audits/smb-visual-sample-v1.csv and proyecto/data/audits/smb-review-v1.csv
+La auditoría automatizada conserva las 685 filas del inventario y todas se procesaron. De ellas,
+681 son elegibles para comparación emparejada; las cuatro restantes permanecen en el denominador,
+pero son inelegibles por geometría no válida en las anotaciones de región
+(\texttt{invalid\_region\_annotation}). La política de agrupación humana revisada asigna el
+inventario a 260 grupos de fuente sin convertir las páginas de una misma fuente en observaciones
+independientes.
 
-\emph{Pendiente de revisión: no se incorporan todavía conclusiones sobre agrupación, duplicados,
-calidad, idoneidad, procedencia detallada ni derechos de reproducción de SMB. Tampoco se publicarán
-figuras del conjunto hasta que la disposición de derechos esté revisada.}
+La revisión visual humana se limitó a 64 páginas seleccionadas mediante una regla fijada antes de
+cualquier resultado. Las otras 621 páginas no se revisaron visualmente de forma individual. Dentro
+del alcance de esa muestra no se observaron incidencias materiales de calidad o idoneidad; esta
+observación no permite atribuir la misma valoración a las 685 páginas ni estimar su prevalencia en
+toda la población.
+
+La comparación criptográfica no produjo ningún par exacto. Se conservaron 14 pares candidatos por
+hash perceptual y la revisión humana los clasificó como distintos, sin eliminarlos del inventario.
+El benchmark permanece en estado \texttt{AUDITED\_LOCKED}, reservado para evaluación, sin
+imágenes de baja o superresolución, métricas, clasificaciones ni resultados de modelos. La
+sincronización, la inspección de los dos renderizados y la aceptación de estas afirmaciones en el
+Overleaf autoritativo continúan pendientes bajo D-16 y ACAD-03.
 
 \section{Particiones y prevención de fugas}
 La única partición oficial de SMB se reserva íntegramente para evaluación final. No se utilizará
