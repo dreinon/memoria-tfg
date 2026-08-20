@@ -8,16 +8,20 @@ El conjunto principal de evaluación es Sheet Music Benchmark (SMB), publicado c
 \texttt{test} y licencia del conjunto CC BY-NC 4.0 \cite{martinez2025smb}.
 % Claim evidence: SOTA-DIRECT-SCORE-EVIDENCE
 % Source revision: 96332e8c4ac81cbdb7f61093ec5a4bfff76a0adb
-% Evidence: proyecto/data/manifests/smb-evaluation-v1.yaml and
-% proyecto/data/manifests/smb-evaluation-v1-recovery.yaml
+% Resolver of record: proyecto/data/manifests/smb-evaluation-v1.yaml
+% Selected recovery descriptor:
+% proyecto/data/manifests/recovery/canonical-pixel-v2/
+% c8d62c14724b38e1c4a415db503a689dad87f0ce9308cf0121a3fe9bd688f69f/manifest-recovery.yaml
 El manifiesto activo y recuperable es la generación de contenido direccionado
-\allowbreak{\footnotesize\texttt{55cde80731df19ad40b5ddbb1dd59b1f0d389674cb85fcf2407d49d517d8caea}}, cuyos registros
+\allowbreak{\footnotesize\texttt{d97ac77f7ee672fca2c3d09b8d6fbf319719306d4ed8315e9cf8b56ec373e3fe}}, cuyos registros
 tienen SHA-256
 \allowbreak{\footnotesize\texttt{56cebb344ae512a3dea16ce4848bce197f971493c98c5c388fe9a094922b820b}}. La procedencia de
-la ejecución identifica de forma determinista la revisión limpia del código de auditoría, su árbol
-de fuentes y \texttt{uv.lock}; el paquete de recuperación verifica estos datos antes de materializar
-la generación. En particular, la auditoría final se generó desde una revisión confirmada sin cambios
-locales pendientes, no desde un parche imposible de reconstruir.
+la ejecución vincula de forma determinista la revisión limpia del código de auditoría, su árbol de
+fuentes y \texttt{uv.lock}. La recuperación sin conexión verifica los hashes, los contratos, la
+concordancia de la procedencia embebida y la identidad de la generación antes de materializarla;
+no reconstruye por sí sola el repositorio ni \texttt{uv.lock}. Como comprobación separada, la revisión
+independiente reconstruyó desde el commit limpio registrado los mismos digests del árbol de fuentes,
+del parche vacío y del fichero de bloqueo.
 
 La licencia y el acceso están confirmados en el nivel del conjunto, pero la procedencia por elemento
 no está disponible. Por ello, la redistribución no queda establecida y la reproducción de figuras
