@@ -11,12 +11,13 @@ El conjunto principal de evaluación es Sheet Music Benchmark (SMB), publicado c
 % Evidence: proyecto/data/manifests/smb-evaluation-v1.yaml and
 % proyecto/data/manifests/smb-evaluation-v1-recovery.yaml
 El manifiesto activo y recuperable es la generación de contenido direccionado
-\allowbreak{\footnotesize\texttt{881d576e604ec9faef73ae1a302222cd21575116505f2146bfe2b1f45ffcde38}}, cuyos registros
+\allowbreak{\footnotesize\texttt{55cde80731df19ad40b5ddbb1dd59b1f0d389674cb85fcf2407d49d517d8caea}}, cuyos registros
 tienen SHA-256
-\allowbreak{\footnotesize\texttt{59c038b4105b0df81878b1feec30155b52602371ace48a9044a7f7c8edad6e30}}. La procedencia de
-la ejecución identifica de forma determinista la revisión y el estado con cambios del código, el
-árbol de fuentes, el parche y \texttt{uv.lock}; el paquete de recuperación verifica estos datos antes
-de materializar la generación.
+\allowbreak{\footnotesize\texttt{56cebb344ae512a3dea16ce4848bce197f971493c98c5c388fe9a094922b820b}}. La procedencia de
+la ejecución identifica de forma determinista la revisión limpia del código de auditoría, su árbol
+de fuentes y \texttt{uv.lock}; el paquete de recuperación verifica estos datos antes de materializar
+la generación. En particular, la auditoría final se generó desde una revisión confirmada sin cambios
+locales pendientes, no desde un parche imposible de reconstruir.
 
 La licencia y el acceso están confirmados en el nivel del conjunto, pero la procedencia por elemento
 no está disponible. Por ello, la redistribución no queda establecida y la reproducción de figuras
@@ -28,12 +29,15 @@ procedencia y agrupación propias. SMB no se reutilizará para ese fin aunque un
 aprobarse.
 
 \section{Auditoría, cobertura y calidad}
-% Evidence: proyecto/data/audits/smb-audit-v1.yaml,
-% proyecto/data/audits/smb-visual-sample-v1.csv and proyecto/data/audits/smb-review-v1.csv
+% Evidence: proyecto/data/manifests/smb-evaluation-v1.yaml and the recovery bundle selected by it;
+% human decisions: proyecto/data/audits/smb-visual-sample-v1.csv and smb-review-v1.csv
 La auditoría automatizada conserva las 685 filas del inventario y todas se procesaron. De ellas,
-681 son elegibles para comparación emparejada; las cuatro restantes permanecen en el denominador,
-pero son inelegibles por geometría no válida en las anotaciones de región
-(\texttt{invalid\_region\_annotation}). La política de agrupación humana revisada asigna el
+618 son elegibles para comparación emparejada; las 67 restantes permanecen en el denominador,
+pero son inelegibles: 66 contienen al menos una región sin alguno de los textos obligatorios
+\texttt{raw}, \texttt{kern} o \texttt{ekern}
+(\texttt{missing\_required\_region\_text}) y una presenta una caja regional fuera del dominio
+porcentual permitido (\texttt{invalid\_region\_annotation}). La validación admite únicamente una
+tolerancia numérica de \(10^{-9}\) puntos porcentuales para ruido de representación. La política de agrupación humana revisada asigna el
 inventario a 260 grupos de fuente sin convertir las páginas de una misma fuente en observaciones
 independientes.
 
