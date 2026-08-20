@@ -1,0 +1,67 @@
+\documentclass[11pt,spanish,listoffigures,listoftables]{tfgetsinf}
+
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=cyan
+}
+
+% El título debe coincidir exactamente con el aprobado por la CAT.
+\title{Estudio, adaptación y evaluación de técnicas de superresolución para la mejora de partituras digitalizadas}
+\author{Nombre y apellidos del estudiante}
+\tutor{Nombre y apellidos del tutor o tutora}
+\curs{20XX--20XX}
+
+\keywords
+  {superresolució; partitures digitalitzades; processament d'imatge; degradació d'imatge; ajust fi; qualitat d'imatge}
+  {superresolución; partituras digitalizadas; procesamiento de imagen; degradación de imagen; ajuste fino; calidad de imagen}
+  {super-resolution; digitized music scores; image processing; image degradation; fine-tuning; image quality}
+
+\begin{document}
+
+\input{frontmatter/acknowledgements}
+
+\begin{abstract}[spanish]
+\input{frontmatter/abstract-es}
+\end{abstract}
+
+\begin{abstract}[catalan]
+\input{frontmatter/abstract-va}
+\end{abstract}
+
+\begin{abstract}[english]
+\input{frontmatter/abstract-en}
+\end{abstract}
+
+\input{frontmatter/glossary}
+
+\mainmatter
+
+\input{chapters/01-introduccion}
+\input{chapters/02-estado-del-arte}
+\input{chapters/03-analisis-del-problema}
+\input{chapters/04-datos}
+\input{chapters/05-metodologia-y-evaluacion}
+\input{chapters/06-resultados}
+\input{chapters/07-validacion-y-aplicacion-profesional}
+\input{chapters/08-conclusiones}
+\input{chapters/09-trabajo-futuro}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\cleardoublepage
+
+\APPENDIX
+\input{appendices/reproducibility}
+
+% El anexo ODS debe ser el último de la memoria.
+\chapter{Relación del TFG con los Objetivos de Desarrollo Sostenible}
+\input{ods/content}
+
+\end{document}
