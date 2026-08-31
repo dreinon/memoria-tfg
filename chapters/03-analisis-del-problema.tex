@@ -12,6 +12,25 @@ decisiones adaptativas se reservaron para datos independientes de SMB. Cada mét
 condiciones, denominadores y reglas de agregación, y la interpretación integró fidelidad,
 errores de notación, recursos, licencias y restricciones operativas.
 
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \caption{Alternativas valoradas antes de cerrar el alcance. Fuente: elaboración propia.}
+  \label{tab:alternatives}
+  \begin{tabular}{p{0.20\textwidth}p{0.23\textwidth}p{0.24\textwidth}p{0.23\textwidth}}
+    \toprule
+    Alternativa & Valor que aportaba & Coste o amenaza & Decisión \\
+    \midrule
+    Bicúbica únicamente & Referencia rápida y explicable & No representa un método aprendido & Incluir como línea base, no como única solución \\
+    EDSR y SwinIR preentrenados & Dos familias y pesos oficiales para x2/x4 & Transferencia desde imágenes naturales & Incluir y auditar fallos musicales \\
+    Modelos perceptuales o difusión & Mayor realismo aparente & Alucinación, más coste y menor trazabilidad & Excluir del núcleo orientado a fidelidad \\
+    Ajuste fino & Posible adaptación al dominio & Sin datos independientes contaminaría SMB & \emph{NO-GO} condicionado \\
+    Aplicación web u OMR & Demostración o tarea posterior & Pregunta nueva sin validación externa & Trabajo futuro tras asegurar el núcleo \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \section{Riesgos técnicos y científicos}
 El primer riesgo era la contaminación del benchmark: inspeccionar resultados, ajustar umbrales o
 seleccionar modelos con SMB habría invalidado su papel de evaluación final. El control adoptado mantuvo
@@ -26,26 +45,55 @@ y se agrupó por fuente u obra auditada.
 Los métodos perceptuales y generativos pueden producir detalle visualmente plausible sin garantizar
 su correspondencia con la fuente \cite{ledig2017srgan,wang2018esrgan,kim2026fidesr}.
 % Claim evidence: SOTA-PERCEPTION-DISTORTION, SOTA-CURRENT-GENERATIVE-RISK
-Por ello, una mejora agregada no bastará: se revisarán pentagramas, símbolos, dígitos y texto, y se
-retendrán también ejemplos negativos. Los riesgos de tiempo, memoria y energía se registrarán por
-ejecución y podrán justificar detener extensiones opcionales antes de comprometer el núcleo o el
-margen de entrega.
+Por ello, una mejora agregada no bastó: se revisaron pentagramas, símbolos, dígitos y texto, y se
+retuvieron también ejemplos negativos. Los riesgos de tiempo, memoria y energía se registraron por
+ejecución y justificaron detener extensiones opcionales antes de comprometer el núcleo o el margen
+de entrega.
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \caption{Riesgos principales, controles aplicados y resultado. Fuente: elaboración propia a
+  partir del registro de riesgos del proyecto.}
+  \label{tab:risk-matrix}
+  \begin{tabular}{p{0.22\textwidth}p{0.10\textwidth}p{0.10\textwidth}p{0.29\textwidth}p{0.19\textwidth}}
+    \toprule
+    Riesgo & Prob. & Impacto & Control & Resultado \\
+    \midrule
+    Contaminar SMB & Media & Crítico & Bloqueo hasta congelar protocolo; sin entrenamiento ni selección & Evitado \\
+    Degradación no transferible & Media & Crítico & Calibración visual y trazas por página & Ocurrió en v1; corregido y repetido como v2 \\
+    Métricas favorables con error musical & Media & Crítico & Revisión cualitativa fija y regla de contradicción & Ocurrió en casos; limita la recomendación \\
+    Peso, licencia o entorno incompatible & Media & Alto & Fuentes oficiales, hashes y prueba Kaggle & Resuelto antes de la ejecución final \\
+    Coste o plazo excesivo & Alta & Crítico & Núcleo primero y \emph{NO-GO} a extensiones & Controlado; se preservó la evaluación \\
+    Derechos por imagen insuficientes & Media & Alto & Separar licencia de dataset y procedencia por elemento & No se reproducen imágenes SMB \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Marco legal, ético y medioambiental}
 La documentación oficial de SMB informa de acceso controlado y licencia CC BY-NC 4.0
-\cite{martinez2025smb}, pero esa etiqueta no se interpretará automáticamente como autorización para
+\cite{martinez2025smb,smbDatasetCard,ccByNc40}, pero esa etiqueta no se interpretó automáticamente como autorización para
 reproducir en la memoria cualquier escaneo o transformación. Deben separarse la licencia del
 conjunto, la procedencia y derechos de cada partitura, las licencias del código y los pesos, y el
-permiso específico para publicar figuras. Hasta cerrar la revisión de procedencia y derechos no se
-incorporarán imágenes de SMB a la memoria.
+permiso específico para publicar figuras. Como la auditoría no pudo establecer esa autorización por
+elemento, no se incorporan imágenes de SMB a la memoria.
 
-La evaluación deberá considerar representaciones insuficientes de fuentes, estilos de grabado,
+La evaluación consideró como amenazas las representaciones insuficientes de fuentes, estilos de grabado,
 densidades de notación, tamaños de pentagrama, tipografías y calidades de digitalización. También se
-evitarán afirmaciones de beneficio universal o de reconocimiento no medido. El principal riesgo
+evitaron afirmaciones de beneficio universal o de reconocimiento no medido. El principal riesgo
 ético es presentar una reconstrucción inventada como documento fiel, con posibles consecuencias
-para consulta, interpretación, edición o conservación. El análisis medioambiental registrará
+para consulta, interpretación, edición o conservación. El análisis medioambiental registró
 hardware, duración y consumo computacional pertinente en lugar de asumir que un modelo más complejo
 es profesionalmente preferible.
+
+No se trataron datos personales ni se entrenó un sistema de decisión sobre personas, por lo que no
+se identificó un tratamiento de categorías personales ni un riesgo de discriminación individual.
+Sí existe un sesgo documental: solo se estudió notación impresa compatible con SMB y la selección
+final exigió una escala de pentagrama mensurable. Quedan fuera manuscritos, tradiciones de notación
+no representadas, escaneos reales heterogéneos y páginas que el estimador no pudo caracterizar. La
+consecuencia ética no es asignar un resultado a una persona, sino ofrecer peor cobertura o una falsa
+sensación de fidelidad para determinados documentos.
 
 \section{Plan de trabajo y recursos}
 El trabajo se organiza en incrementos de evidencia: contrato y gobierno de SMB; degradaciones e
@@ -72,3 +120,36 @@ final aumenta 18 horas (un 5,5\,\%) respecto de las 330 iniciales sin salir del 
 de 300--360 horas asociado a los 12 ECTS. Los recursos materiales fueron el equipo local ya
 disponible, Overleaf y una GPU gratuita de Kaggle; no se imputa un coste salarial ficticio ni un
 gasto no documentado.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/context/effort-plan-vs-reconstruction.pdf}
+  \caption{Comparación entre el plan inicial y la reconstrucción retrospectiva por fase. Las barras
+  de error expresan el intervalo plausible, no variabilidad estadística. Fuente: elaboración propia
+  a partir del registro de esfuerzo.}
+  \label{fig:effort}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Recursos y costes directos planificados. Fuente: elaboración propia.}
+  \label{tab:resources-cost}
+  \begin{tabular}{p{0.27\textwidth}p{0.37\textwidth}p{0.22\textwidth}}
+    \toprule
+    Recurso & Uso & Coste incremental \\
+    \midrule
+    Equipo local disponible & Desarrollo, auditoría, pruebas y análisis & 0 € de adquisición; 20--80 € estimados de electricidad y red \\
+    Kaggle con Tesla T4 & Inferencia aprendida acotada & 0 € en el plan ejecutado \\
+    Overleaf y TeX Live local & Edición autoritativa y prevalidación & 0 € incremental \\
+    Almacenamiento y copias & Datos restringidos y artefactos fuera de Git & 0--30 € de contingencia \\
+    Impresión y trámites & Solo si el proceso vigente lo exige & 0--50 € provisionales \\
+    \midrule
+    Total externo & Rango de planificación; no gasto acreditado & 20--160 € \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+El trabajo del estudiante se expresa en horas y no se monetiza con una tarifa inventada. Del mismo
+modo, disponer de una cuota gratuita no equivale a coste ambiental nulo: al no medirse energía, el
+análisis se limita a duración, hardware y decisiones de reducción de cálculo.

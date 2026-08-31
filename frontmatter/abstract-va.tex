@@ -14,6 +14,11 @@ temps d'inferència i una revisió qualitativa preseleccionada d'errors de notac
 reproduïble es va desenvolupar en Python amb PyTorch, OpenCV i \texttt{uv}, i l'execució accelerada
 es va realitzar en Kaggle sobre GPU Tesla T4.
 
+L'ajust fi previst en l'oferta es va avaluar com a decisió metodològica, però no es va executar:
+SMB no proporciona particions independents d'entrenament i validació i utilitzar-lo per a adaptar
+els models hauria contaminat la prova. Aquesta decisió \emph{NO-GO} conserva el valor de
+l'avaluació i delimita les dades que requeriria una adaptació futura.
+
 EDSR i SwinIR van superar la interpolació bicúbica en les dues mètriques primàries per a les sis
 condicions. No obstant això, SwinIR només va millorar clarament EDSR en les condicions x2 neta, x2
 moderada i x4 neta, i va ser entre 5,2 i 8,5 vegades més lent. La revisió visual va detectar símbols

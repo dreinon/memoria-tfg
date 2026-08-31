@@ -1,15 +1,26 @@
 \documentclass[11pt,spanish,listoffigures,listoftables]{tfgetsinf}
 
 \usepackage[utf8]{inputenc}
+\usepackage[nomath]{lmodern}
+\renewcommand{\rmdefault}{ppl}
 \usepackage{array}
+\usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+\input{glyphtounicode}
+\pdfgentounicode=1
 
 \hypersetup{
   colorlinks=true,
   linkcolor=black,
   citecolor=black,
-  urlcolor=cyan
+  urlcolor=cyan,
+  pdftitle={Estudio, adaptación y evaluación de técnicas de superresolución para la mejora de partituras digitalizadas},
+  pdfauthor={Daniel Reinón García},
+  pdfsubject={Trabajo de Fin de Grado en Ciencia de Datos, Universitat Politècnica de València},
+  pdfkeywords={superresolución, partituras digitalizadas, procesamiento de imagen, degradación de imagen, ajuste fino, calidad de imagen}
 }
 
 % El título debe coincidir exactamente con el aprobado por la CAT.
@@ -53,6 +64,7 @@
 \input{chapters/08-conclusiones}
 \input{chapters/09-trabajo-futuro}
 
+\nocite{un2030Agenda}
 \bibliographystyle{plain}
 \bibliography{references}
 \cleardoublepage

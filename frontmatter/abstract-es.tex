@@ -15,6 +15,11 @@ y una revisión cualitativa preseleccionada de errores de notación. La implemen
 se desarrolló en Python con PyTorch, OpenCV y \texttt{uv}, y la ejecución acelerada se realizó en
 Kaggle sobre GPU Tesla T4.
 
+El ajuste fino previsto en la oferta se evaluó como decisión metodológica, pero no se ejecutó: SMB
+no proporciona particiones independientes de entrenamiento y validación y emplearlo para adaptar
+los modelos habría contaminado la prueba. Esta decisión \emph{NO-GO} conserva el valor de la
+evaluación y delimita los datos que requeriría una adaptación futura.
+
 EDSR y SwinIR superaron a bicúbica en las dos métricas primarias para las seis condiciones. Sin
 embargo, SwinIR solo mejoró claramente a EDSR en las condiciones x2 limpia, x2 moderada y x4 limpia,
 y fue entre 5,2 y 8,5 veces más lento. La revisión visual detectó símbolos alterados, corrupción de

@@ -5,8 +5,9 @@ La comparación se limitó deliberadamente a tres métodos con funciones cientí
 interpolación bicúbica de OpenCV actuó como referencia transparente y de bajo coste. EDSR representó
 una red neuronal convolucional residual orientada a fidelidad \cite{lim2017edsr}; se utilizaron los
 modelos oficiales \emph{baseline} de 16 bloques y 64 características para \(\times 2\) y
-\(\times 4\). SwinIR representó un transformador de restauración \cite{liang2021swinir}; se
-utilizaron los modelos oficiales ligeros \texttt{s64w8} entrenados con DIV2K para ambas escalas.
+\(\times 4\) \cite{edsrOfficialRepository}. SwinIR representó un transformador de restauración \cite{liang2021swinir}; se
+utilizaron los modelos oficiales ligeros \texttt{s64w8} entrenados con DIV2K para ambas escalas
+\cite{swinirOfficialRepository}.
 La implementación de EDSR procede del repositorio oficial bajo licencia MIT y los modelos ligeros
 de SwinIR se distribuyen bajo Apache-2.0.
 
@@ -18,11 +19,17 @@ prefijos son \texttt{1bc95232} y \texttt{6b446fab} para EDSR \(\times 2\) y \(\t
 con la referencia. La descarga se restringe a URL declaradas y se rechaza un peso cuyo hash no
 coincida.
 
+La Tabla~\ref{tab:method-selection} hace explícita la función de cada método. Los pesos aprendidos
+proceden de imágenes naturales y degradación bicúbica, no de SMB ni del protocolo con ruido y JPEG;
+esta discrepancia de dominio es deliberada porque la pregunta es cuánto transfieren modelos
+preentrenados. No se reentrenaron ni se seleccionaron puntos de control por su resultado final.
+
 \begin{table}[htbp]
   \centering
   \small
   \setlength{\tabcolsep}{3pt}
-  \caption{Métodos comparados y función dentro del diseño experimental.}
+  \caption{Métodos comparados y función dentro del diseño experimental. Fuente: elaboración propia
+  a partir de los artículos y repositorios oficiales.}
   \label{tab:method-selection}
   \begin{tabular}{p{0.17\textwidth}p{0.22\textwidth}p{0.22\textwidth}p{0.28\textwidth}}
     \toprule
@@ -46,11 +53,22 @@ valor: la traslada a trabajo futuro bajo un protocolo independiente y sin fugas.
 
 \section{Métricas y unidades de análisis}
 Las medidas primarias fueron PSNR y SSIM sobre el canal de luminancia Y de la transformación
-BT.601. Se conservaron PSNR y SSIM en RGB como diagnóstico, pero no sustituyeron las medidas
+BT.601 \cite{ituBt601}. Se conservaron PSNR y SSIM en RGB como diagnóstico, pero no sustituyeron las medidas
 predeclaradas. PSNR expresa logarítmicamente la relación entre el rango de señal y el error
 cuadrático medio; SSIM compara luminancia, contraste y estructura \cite{wang2004ssim}. En ambos
 casos un valor mayor indica mayor similitud con la página de alta resolución alineada, no mayor
 corrección musical demostrada.
+
+Para una referencia \(I\), una reconstrucción \(\hat I\) de \(N\) píxeles y rango \(L=255\), se
+empleó
+\[
+  \operatorname{MSE}=\frac{1}{N}\sum_{i=1}^{N}(I_i-\hat I_i)^2,
+  \qquad
+  \operatorname{PSNR}=10\log_{10}\!\left(\frac{L^2}{\operatorname{MSE}}\right).
+\]
+SSIM combina comparaciones locales de luminancia, contraste y covarianza mediante las constantes
+estándar de su implementación. El cálculo se realizó después de alinear y recortar la salida al
+tamaño HR; no se compararon imágenes de dimensiones diferentes.
 
 Cada página se comparó con los tres métodos bajo exactamente la misma degradación. La obra o fuente
 fue la unidad independiente y las comparaciones se realizaron dentro de cada condición. La muestra
@@ -58,7 +76,9 @@ final contiene una sola página por cada una de las 64 obras, por lo que la medi
 con la observación de página sin introducir pseudorreplicación. Para cada par de métodos se calculó
 la diferencia media emparejada y un intervalo percentil del 95\,\% mediante 2.000 remuestreos de
 las 64 fuentes con semilla 20260831. Un intervalo que cruza cero se interpreta como comparación no
-resuelta, no como igualdad entre métodos.
+resuelta, no como igualdad entre métodos. Los intervalos no corrigen una familia de 36
+comparaciones ni constituyen pruebas de superioridad universal; se usan para describir magnitud y
+estabilidad de comparaciones predeclaradas, junto con la evidencia cualitativa.
 
 El tiempo por página se midió alrededor de cada reconstrucción después de cargar el modelo. Se
 presenta la mediana por condición porque el objetivo es describir el coste operativo observado, no
@@ -75,21 +95,58 @@ texto o dígitos; cambios musicalmente plausibles; y textura o \emph{ringing} pr
 naturales. También se admitió \emph{sin incidencia clara} cuando el método no añadía un defecto,
 aunque no consiguiera mejorar de forma apreciable la entrada.
 
+La lectura distinguió tres orígenes: un defecto ya visible en LR y no recuperado; un defecto
+introducido o amplificado por la reconstrucción respecto de LR; y ausencia de defecto claro sin
+mejora apreciable. Esta distinción evita atribuir al método el daño causado por la degradación y,
+al mismo tiempo, evita llamar éxito a una salida que solo agranda una entrada legible.
+
 Este diseño conserva casos positivos y negativos, pero no estima prevalencias: seis páginas
 preseleccionadas no permiten inferir la frecuencia de defectos en las 64 obras ni en SMB. La
 revisión sirve para detectar contradicciones entre fidelidad promedio y comportamiento de la
 notación, y para formular límites profesionales.
 
 \section{Reproducibilidad}
+La Figura~\ref{fig:experimental-workflow} resume el flujo. Las decisiones adaptativas se cerraron
+antes de desbloquear SMB; después de la inferencia, el análisis cuantitativo y el cualitativo se
+integraron antes de formular recomendaciones.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+      node distance=5mm and 7mm,
+      box/.style={draw, rounded corners=2pt, align=center, text width=0.26\textwidth,
+        minimum height=11mm, fill=blue!5},
+      decision/.style={box, fill=orange!9},
+      evidence/.style={box, fill=green!8},
+      arrow/.style={-{Latex[length=2mm]}, thick}]
+    \node[box] (audit) {Auditoría y agrupación de SMB};
+    \node[decision, right=of audit] (freeze) {Congelación: muestra, degradación, métodos y métricas};
+    \node[box, right=of freeze] (run) {Inferencia emparejada\\64 obras × 6 condiciones × 3 métodos};
+    \node[evidence, below=of run] (quant) {PSNR-Y, SSIM-Y, intervalos y tiempos};
+    \node[evidence, below=of freeze] (qual) {Revisión fija de seis casos y 18 valoraciones};
+    \node[decision, below=of qual] (decision) {Triangulación, límites y marco profesional};
+    \draw[arrow] (audit) -- (freeze);
+    \draw[arrow] (freeze) -- (run);
+    \draw[arrow] (run) -- (quant);
+    \draw[arrow] (run) |- (qual);
+    \draw[arrow] (quant.south) |- (decision.east);
+    \draw[arrow] (qual) -- (decision);
+  \end{tikzpicture}
+  \caption{Flujo de evaluación y síntesis de evidencia. Fuente: elaboración propia.}
+  \label{fig:experimental-workflow}
+\end{figure}
+
 La configuración congelada identifica la revisión inmutable de SMB, la muestra, métodos, puntos de
 control, degradaciones, métricas, unidades, exclusiones, semillas, selección cualitativa
 y reglas de interpretación. La ejecución verificó antes de inferir los hashes de píxel y la
 identidad de las 64 páginas contra el manifiesto auditado. Reconciliaron 1.152 combinaciones únicas
----64 páginas, seis condiciones y tres métodos---, 384 trazas de degradación y 30 paneles
-cualitativos predeclarados, sin resultados ausentes.
+---64 páginas, seis condiciones y tres métodos---, 384 trazas de degradación y 30 imágenes
+cualitativas organizadas en seis casos, sin resultados ausentes. Cada caso contiene HR, LR y tres
+reconstrucciones; de esas imágenes se derivaron las 18 valoraciones método--condición.
 
 El entorno acelerado registrado empleó Python 3.12.13, PyTorch 2.10.0 con CUDA 12.8, NumPy 2.0.2,
-OpenCV 4.13.0 y dos GPU Tesla T4. La semilla de ejecución fue 20260830 y la revisión del código
+OpenCV 4.13.0 y expuso dos GPU Tesla T4. La inferencia se ejecutó en el dispositivo CUDA por defecto
+(\texttt{cuda:0}), por lo que no se atribuye paralelismo entre ambas GPU. La semilla de ejecución fue 20260830 y la revisión del código
 \texttt{28d18966a103\ldots}. El paquete descargado tiene SHA-256
 \texttt{18d904eda110\ldots}; su manifiesto vincula entradas congeladas, resultados, trazas,
 entorno y hashes de salida. El análisis posterior genera CSV y JSON con un manifiesto de hashes,

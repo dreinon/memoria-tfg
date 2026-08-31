@@ -20,7 +20,7 @@ mejora profesional relevante.
 \end{figure}
 
 La comparación directa entre las dos redes evita declarar un ganador por sus medias aisladas
-(Tabla~\ref{tab:swinir-edsr}). SwinIR fue claramente superior en las dos métricas para
+(Tabla~\ref{tab:swinir-edsr}). Los intervalos favorecieron a SwinIR en las dos métricas para
 \texttt{x2-clean}, \texttt{x2-moderate} y \texttt{x4-clean}. En \texttt{x2-strong} y
 \texttt{x4-moderate}, el intervalo de PSNR cruzó cero y SSIM favoreció a EDSR. En
 \texttt{x4-strong}, EDSR fue superior en ambas medidas. Por tanto, la mayor complejidad del
@@ -30,7 +30,7 @@ transformador no produjo una ventaja general.
   \centering
   \small
   \caption{Diferencia media emparejada SwinIR menos EDSR e intervalo percentil del 95\,\% por
-  fuente. Un intervalo que cruza cero se marca como no resuelto.}
+  fuente. Un intervalo que cruza cero se marca como no resuelto. Fuente: elaboración propia.}
   \label{tab:swinir-edsr}
   \begin{tabular}{lrr}
     \toprule
@@ -75,18 +75,58 @@ que EDSR en el caso revisado, pese a mantener defectos en otros símbolos o díg
 parte del daño procedía ya de la degradación y ninguno de los tres métodos lo
 recuperó de manera fiable.
 
+La Tabla~\ref{tab:qualitative-origin} separa el origen observable del problema. \emph{No claro} no
+significa que la salida sea perfecta, sino que no se identificó un defecto atribuible al método en
+el caso. \emph{Introducido/amplificado} indica una diferencia problemática respecto de LR, mientras
+que \emph{no recuperado} indica que el daño ya estaba presente en LR. La tabla evita sumar ambos
+fenómenos como si fueran equivalentes.
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \caption{Origen observable de las incidencias en los seis casos cualitativos fijos. Fuente:
+  elaboración propia a partir de la revisión del estudiante.}
+  \label{tab:qualitative-origin}
+  \begin{tabular}{p{0.15\textwidth}p{0.24\textwidth}p{0.25\textwidth}p{0.25\textwidth}}
+    \toprule
+    Condición & Bicúbica & EDSR & SwinIR \\
+    \midrule
+    x2 limpia & No claro & No claro & No claro \\
+    x2 moderada & No claro & No claro & No claro \\
+    x2 fuerte & No claro; sin mejora apreciable & Introducido/amplificado & Introducido/amplificado \\
+    x4 limpia & No claro; sin mejora apreciable & Introducido/amplificado & Introducido/amplificado \\
+    x4 moderada & Introducido/amplificado & Introducido/amplificado & Introducido/amplificado \\
+    x4 fuerte & Presente en LR y no recuperado & Introducido/amplificado sobre LR dañada & Introducido/amplificado sobre LR dañada \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 No se marcó ningún \emph{cambio musicalmente plausible} como categoría separada, pero sí símbolos
 alterados o perdidos en cuatro casos EDSR y tres SwinIR. Por ello, la ausencia de aquella etiqueta
 no demuestra conservación semántica. La evidencia cualitativa contradice cualquier interpretación
 según la cual una mejora promedio de PSNR o SSIM garantice que todos los elementos musicales se
 reconstruyan correctamente.
 
+Estos datos no permiten estimar sensibilidad, especificidad ni tasa de errores. La selección
+determinista cubre condiciones, no tipos de símbolo, compositores, tipografías o severidades reales;
+además, la revisión fue realizada por un único evaluador no ciego. Su fuerza reside en refutar una
+interpretación demasiado amplia de las métricas y en documentar modos de fallo concretos, no en
+probar que un método sea más seguro que otro en toda la población.
+
 \section{Coste y comportamiento operativo}
-La Figura~\ref{fig:runtime} resume la mediana por página en las dos Tesla T4 registradas. Bicúbica
+La Figura~\ref{fig:runtime} resume la mediana por página en el dispositivo \texttt{cuda:0} de la
+sesión Kaggle, que expuso dos Tesla T4 pero no ejecutó inferencia distribuida. Bicúbica
 empleó entre 0,0038 y 0,0055 segundos; EDSR, entre 0,357 y 0,674; y SwinIR, entre 1,899 y 5,668.
 SwinIR fue entre 5,2 y 8,5 veces más lento que EDSR y entre 486 y 1.045 veces más lento que
 bicúbica, según la condición. Los tiempos \(\times 2\) fueron mayores porque la imagen de entrada
 contiene más píxeles que en \(\times 4\) antes de reconstruir el mismo tamaño final.
+
+A modo de escala operativa, procesar 1.000 páginas consecutivas bajo ese mismo entorno y sin contar
+carga, descarga ni revisión supondría aproximadamente 4--6 segundos con bicúbica, 6--11 minutos con
+EDSR y 32--95 minutos con SwinIR, según condición. Es una proyección aritmética del tiempo mediano,
+no una prueba de rendimiento de un servicio: no incorpora concurrencia, memoria, colas ni
+variabilidad entre documentos.
 
 \begin{figure}[htbp]
   \centering

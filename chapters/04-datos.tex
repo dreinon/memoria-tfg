@@ -5,7 +5,8 @@ El conjunto principal de evaluación es Sheet Music Benchmark (SMB), publicado c
 \texttt{PRAIG/SMB}. La auditoría utiliza la revisión inmutable
 \texttt{96332e8c4ac8\ldots}. Su artículo y ficha oficial informan de
 685 páginas de notación musical impresa, acceso manualmente controlado, una única partición oficial
-\texttt{test} y licencia del conjunto CC BY-NC 4.0 \cite{martinez2025smb}.
+\texttt{test} y licencia del conjunto CC BY-NC 4.0
+\cite{martinez2025smb,smbDatasetCard,ccByNc40}.
 % Claim evidence: SOTA-DIRECT-SCORE-EVIDENCE
 % Source revision: 96332e8c4ac81cbdb7f61093ec5a4bfff76a0adb
 % Resolver of record: proyecto/data/manifests/smb-evaluation-v1.yaml
@@ -40,7 +41,7 @@ La auditoría automatizada conserva las 685 filas del inventario y todas se proc
 pero son inelegibles: 66 contienen al menos una región sin alguno de los textos obligatorios
 \texttt{raw}, \texttt{kern} o \texttt{ekern}
 (\texttt{missing\_required\_region\_text}) y una presenta una caja regional fuera del dominio
-porcentual permitido (\texttt{invalid\_region\_annotation}). La validación admite únicamente una
+porcentual permitido (\texttt{invalid\_region\_}\allowbreak\texttt{annotation}). La validación admite únicamente una
 tolerancia numérica de \(10^{-9}\) puntos porcentuales para ruido de representación. La política de agrupación humana revisada asigna el
 inventario a 260 grupos de fuente sin convertir las páginas de una misma fuente en observaciones
 independientes.
@@ -56,8 +57,7 @@ hash perceptual y la revisión humana los clasificó como distintos, sin elimina
 La generación auditada permaneció en estado \texttt{AUDITED\_LOCKED}. La autorización final no
 modificó ese inventario: un registro separado vinculó previamente métodos, puntos de control,
 degradaciones, métricas, muestra y reglas de interpretación, y únicamente entonces permitió la
-evaluación v2. La sincronización, la inspección de los dos renderizados y la aceptación de estas
-afirmaciones en el Overleaf autoritativo continúan pendientes bajo D-16 y ACAD-03.
+evaluación v2.
 
 La Tabla~\ref{tab:smb-audit-summary} distingue el inventario auditado de la muestra confirmatoria.
 Esta separación evita presentar las 64 obras evaluadas como si representaran automáticamente las
@@ -67,7 +67,8 @@ Esta separación evita presentar las 64 obras evaluadas como si representaran au
   \centering
   \small
   \setlength{\tabcolsep}{3pt}
-  \caption{Cobertura de la auditoría y de la evaluación final de SMB.}
+  \caption{Cobertura de la auditoría y de la evaluación final de SMB. Fuente: elaboración propia a
+  partir del manifiesto auditado.}
   \label{tab:smb-audit-summary}
   \begin{tabular}{p{0.25\textwidth}p{0.14\textwidth}p{0.52\textwidth}}
     \toprule
@@ -84,16 +85,58 @@ Esta separación evita presentar las 64 obras evaluadas como si representaran au
   \end{tabular}
 \end{table}
 
+La Figura~\ref{fig:smb-profile} caracteriza el inventario sin reproducir sus imágenes. Las 685
+páginas se reparten entre 260 obras: 132 aportan una sola página, mientras que el grupo mayor aporta
+14. Las dimensiones varían entre 900 y 2.550 píxeles de anchura y entre 277 y 3.289 de altura, y el
+número de regiones anotadas va de 1 a 12, con mediana 6. Los clústeres visibles de resolución
+sugieren procesos de generación o captura diferenciados; esta observación describe el corpus, pero
+no identifica por sí sola equipos, épocas o calidad.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/context/smb-dataset-profile.pdf}
+  \caption{Perfil de páginas por obra, dimensiones y regiones anotadas en el inventario completo.
+  Fuente: elaboración propia a partir de 685 registros del manifiesto SMB.}
+  \label{fig:smb-profile}
+\end{figure}
+
+El recorrido desde el conjunto hasta la muestra final se resume en la
+Figura~\ref{fig:sample-flow}. La elegibilidad de 618 páginas no implica que todas puedan entrar en
+la evaluación v2: se exigió además una estimación estable de escala, una obra no usada en el piloto
+v1 y una selección determinista de una sola página por obra. La reducción hasta 64 mejora la
+independencia y la comparabilidad, pero introduce un sesgo de mensurabilidad que debe acompañar a
+cualquier conclusión.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+      node distance=6mm,
+      box/.style={draw, rounded corners=2pt, align=center, minimum width=0.82\textwidth,
+        minimum height=8mm, fill=blue!5},
+      arrow/.style={-{Latex[length=2mm]}, thick}]
+    \node[box] (all) {685 páginas auditadas en 260 obras};
+    \node[box, below=of all] (eligible) {618 páginas elegibles por anotación\\67 conservadas como no elegibles};
+    \node[box, below=of eligible] (scale) {Escala de pentagrama mensurable y exclusión de obras del piloto v1};
+    \node[box, below=of scale, fill=green!8] (sample) {64 páginas de 64 obras independientes\\muestra confirmatoria SMB v2};
+    \draw[arrow] (all) -- (eligible);
+    \draw[arrow] (eligible) -- (scale);
+    \draw[arrow] (scale) -- (sample);
+  \end{tikzpicture}
+  \caption{Flujo de selección del inventario a la muestra confirmatoria. Fuente: elaboración
+  propia a partir del manifiesto y de la selección congelada.}
+  \label{fig:sample-flow}
+\end{figure}
+
 \section{Particiones y prevención de fugas}
-La única partición oficial de SMB se reserva íntegramente para evaluación final. No se utilizará
+La única partición oficial de SMB se reservó íntegramente para evaluación final. No se utilizó
 para entrenamiento, validación, ajuste de hiperparámetros, elección de métodos o puntos de control,
 definición de umbrales ni selección de ejemplos por resultado. Las fases de desarrollo emplearán
 fixtures o datos independientes.
 
-La unidad independiente será la obra o fuente musical confirmada por la auditoría. Las páginas se
-evaluarán de forma emparejada y las regiones o recortes serán observaciones anidadas. El manifiesto
-inmutable deberá reconciliar todos los índices esperados y evitar que material relacionado cruce
-particiones adaptativas.
+La unidad independiente fue la obra o fuente musical confirmada por la auditoría. Las páginas se
+evaluaron de forma emparejada y las regiones o recortes se trataron como observaciones anidadas. El manifiesto
+inmutable reconcilió todos los índices esperados y evitó que material relacionado cruzara
+particiones adaptativas; en la muestra final se retuvo una sola página por obra.
 
 \section{Degradación controlada}
 La evaluación final utilizó el protocolo \texttt{staff-scale-score-v2}. Se mantuvieron seis
@@ -112,7 +155,7 @@ semilla efectiva.
   \centering
   \small
   \caption{Operadores del protocolo de degradación final. \(s\) es la separación entre líneas de
-  pentagrama medida en la imagen HR.}
+  pentagrama medida en la imagen HR. Fuente: elaboración propia.}
   \label{tab:degradation-v2}
   \begin{tabular}{lccc}
     \toprule
@@ -135,3 +178,18 @@ páginas ni obras del piloto. La separación de pentagrama de estas páginas aba
 píxeles, con mediana 9,996. Por tanto, los resultados finales se refieren solo a páginas SMB para
 las que el estimador determinista pudo medir esta escala, no a todo SMB ni a escaneos reales no
 controlados.
+
+La Figura~\ref{fig:staff-scale} muestra la cobertura. La mayoría de obras se concentra entre 8 y
+11 píxeles, con un segundo grupo pequeño entre 16 y 18 píxeles. La fórmula hace que el desenfoque
+crezca con la estructura observada: dentro de la muestra, \(\sigma\) abarca aproximadamente
+0,33--0,91 píxeles HR en el perfil moderado y 0,98--2,74 en el fuerte. De este modo, una misma
+etiqueta de severidad conserva una relación comparable con el pentagrama, aunque no convierte las
+degradaciones sintéticas en una simulación de todos los escaneos reales.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/context/staff-scale-and-blur.pdf}
+  \caption[Escala de pentagrama y desenfoque en la muestra v2]{Distribución de separación entre líneas y desenfoque resultante en la muestra v2.
+  Fuente: elaboración propia a partir de las 64 obras seleccionadas y del protocolo congelado.}
+  \label{fig:staff-scale}
+\end{figure}

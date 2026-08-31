@@ -9,7 +9,7 @@ referencia casi inmediata, una red residual intermedia y un transformador notabl
 
 La triangulación impide convertir un único valor en una recomendación. EDSR ofrece el compromiso
 más defendible entre fidelidad y coste como opción general dentro de este experimento. SwinIR aporta
-una ganancia clara frente a EDSR en \texttt{x2-clean}, \texttt{x2-moderate} y
+intervalos favorables frente a EDSR en \texttt{x2-clean}, \texttt{x2-moderate} y
 \texttt{x4-clean}, pero no en las otras condiciones y requiere entre cinco y nueve veces más
 tiempo. Bicúbica conserva valor como previsualización transparente y rápida, y en degradación
 \texttt{x2-strong} las ventajas numéricas de las redes fueron demasiado pequeñas para prometer un
@@ -30,7 +30,8 @@ pueda influir en lectura, edición o descripción patrimonial.
   \centering
   \footnotesize
   \setlength{\tabcolsep}{3pt}
-  \caption{Marco de decisión limitado a las condiciones SMB v2 evaluadas.}
+  \caption{Marco de decisión limitado a las condiciones SMB v2 evaluadas. Fuente: elaboración
+  propia a partir de la triangulación cuantitativa, cualitativa y operativa.}
   \label{tab:professional-framework}
   \begin{tabular}{p{0.16\textwidth}p{0.20\textwidth}p{0.25\textwidth}p{0.29\textwidth}}
     \toprule
@@ -52,6 +53,45 @@ fuente. En preparación editorial puede actuar como ayuda previa a una correcci�
 entrada que se publique sin cotejo. En preservación, autenticación, transcripción crítica o
 reconocimiento automático, esta evaluación no autoriza sustituir el documento ni asumir que un
 detalle generado existía en la fuente.
+
+\section{Requisitos de una integración profesional}
+El resultado no exige construir una aplicación, pero sí permite describir el proceso mínimo para
+usar la técnica de forma responsable. La entrada debe conservarse sin modificación y recibir un
+identificador estable. El operador seleccionaría la escala y el método, generaría un derivado y
+guardaría versión del modelo, hash de pesos, parámetros, fecha y relación con el original. La
+interfaz de revisión debería mostrar HR no disponible en producción como referencia del estudio,
+pero en uso real mostraría al menos original y derivado sincronizados, ampliables y sin ocultar la
+procedencia.
+
+La aceptación no puede reducirse a un umbral de PSNR, pues en producción no existe normalmente una
+referencia HR alineada. Debe definirse por tarea: legibilidad para consulta, ausencia de cambio
+observable en una corrección editorial o impacto medido sobre OMR. Un revisor identificaría
+pentagramas discontinuos o engrosados, símbolos pequeños, alteraciones, dígitos, texto, uniones y
+textura. Si existe duda, el sistema debe permitir rechazar el derivado, escoger bicúbica o continuar
+con el original; nunca debería sobrescribir el máster.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Controles mínimos para una futura integración profesional. Fuente: elaboración propia.}
+  \label{tab:professional-controls}
+  \begin{tabular}{p{0.22\textwidth}p{0.35\textwidth}p{0.31\textwidth}}
+    \toprule
+    Etapa & Evidencia que debe conservarse & Regla de seguridad \\
+    \midrule
+    Ingesta & Identidad, derechos, resolución y original inmutable & Rechazar formatos o permisos no resueltos \\
+    Procesamiento & Método, escala, pesos, parámetros, versión y tiempo & Generar siempre un derivado reversible \\
+    Revisión & Original y salida comparables; defectos y decisión & Revisión humana para usos con consecuencias \\
+    Publicación & Procedencia visible, licencia y finalidad & No presentar el derivado como fuente histórica \\
+    Seguimiento & Rechazos, incidencias por colección y rendimiento & Suspender el método ante patrones de alteración \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+El seguimiento debería estratificar incidencias por colección, escala de pentagrama, tipo de
+degradación y método. Una caída en la tasa de aceptación o un aumento de alteraciones musicales es
+una señal de deriva, aunque el tiempo de inferencia permanezca estable. Estos controles son una
+propuesta derivada de los hallazgos; no fueron desplegados ni validados como producto en este TFG.
 
 \section{Aplicabilidad fuera del benchmark}
 Se decidió no añadir antes del depósito una prueba sobre escaneos reales ni un piloto ciego con

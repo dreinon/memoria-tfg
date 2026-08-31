@@ -1,11 +1,31 @@
 \chapter{Estado del arte}
 
+\section{Estrategia de revisión}
+La revisión se planteó para responder tres preguntas: qué familias representan la evolución de la
+superresolución, qué evidencia existe en documentos y partituras, y qué criterios permiten evaluar
+fidelidad sin confundirla con apariencia. Se partió de artículos primarios conocidos y se realizó
+una búsqueda enfocada por combinaciones de \emph{single-image super-resolution}, \emph{document
+restoration}, \emph{music score}, \emph{sheet music}, \emph{notation} y \emph{optical music
+recognition}. Las referencias de los trabajos directamente relacionados permitieron rastrear
+antecedentes, mientras que repositorios, fichas de datos y licencias se comprobaron en fuentes
+oficiales. La búsqueda principal y la matriz se cerraron el 18 de agosto de 2026; el 1 de
+septiembre se actualizaron de forma dirigida las fuentes oficiales de los recursos seleccionados.
+
+No se presenta como revisión sistemática exhaustiva: no se predeclararon bases bibliográficas,
+ecuaciones de consulta ni doble cribado. Sí se mantuvo un registro de afirmaciones y fuentes, se
+priorizaron publicaciones revisadas por pares y se evitó trasladar resultados de imágenes naturales
+o texto a notación musical. El criterio de inclusión fue que la fuente aportara una arquitectura,
+un modelo de degradación, una métrica, un conjunto musical o una limitación directamente útil para
+el diseño. Se excluyeron comparativas secundarias sin identidad de pesos y demostraciones sin un
+protocolo reproducible.
+
 \section{Superresolución de imágenes}
 La interpolación cúbica constituye una referencia transparente para reconstruir muestras sobre una
 rejilla de mayor resolución, pero su formulación no demuestra por sí misma fidelidad en partituras
 \cite{keys1981cubic}. % Claim evidence: SOTA-INTERPOLATION-ROLE
-Por ello, este trabajo conservará las interpolaciones vecina, bilineal y bicúbica como comparadores
-simples, no como soluciones cuya idoneidad se presuponga.
+Las interpolaciones vecina, bilineal y bicúbica se contrastaron durante el desarrollo; el protocolo
+final retuvo bicúbica como única referencia simple por ser el comparador habitual de los modelos
+seleccionados, no porque se presupusiera su idoneidad.
 
 La superresolución convolucional introdujo una correspondencia aprendida de extremo a extremo y
 los modelos residuales posteriores ampliaron esa familia orientada a la fidelidad
@@ -21,8 +41,8 @@ medidas de distorsión, y la literatura formalizó el compromiso entre percepci�
 Este compromiso es especialmente relevante en notación musical: generar un detalle verosímil no
 equivale a recuperar el símbolo presente en la fuente. Los transformadores de restauración, como
 SwinIR y HAT, amplían el contexto modelado y presentan avances en bancos de imágenes naturales
-\cite{liang2021swinir,chen2023hat}; su progresión arquitectónica tampoco decide todavía la
-implementación ni los pesos que se estudiarán en la fase experimental.
+\cite{liang2021swinir,chen2023hat}; su progresión arquitectónica tampoco determinó la
+implementación ni los pesos del experimento.
 % Claim evidence: SOTA-TRANSFORMER-PROGRESSION
 
 La literatura reciente incorpora además superresolución generativa de un solo paso y controles del
@@ -31,6 +51,14 @@ sobre texto de escena introduce guías estructurales de glifos \cite{luo2026tige
 publicados en esos dominios justifican examinar el riesgo semántico, pero no establecen seguridad
 para símbolos musicales ni compatibilidad ejecutable con este estudio.
 % Claim evidence: SOTA-CURRENT-GENERATIVE-RISK
+
+Esta evolución permite distinguir tres objetivos de optimización. Los métodos orientados a
+distorsión intentan aproximarse píxel a píxel a una referencia y son compatibles con PSNR y SSIM.
+Los métodos perceptuales privilegian la apariencia natural, incluso si se alejan de esa referencia.
+Los métodos dirigidos por tarea optimizan un reconocimiento posterior. En una partitura, ninguno de
+los tres objetivos equivale por sí solo a conservar la información musical: la fidelidad píxel a
+píxel puede ocultar un error local, el realismo puede inventarlo y una tarea automática puede no
+representar la lectura o la conservación profesional.
 
 \section{Restauración de documentos y partituras}
 La restauración documental abarca problemas que no son equivalentes a la superresolución, como
@@ -44,7 +72,10 @@ pero no demuestran la conservación de la notación musical.
 Existe trabajo primario directamente orientado a superresolución de partituras, evaluado sobre
 DeepScores con una red residual normalizada por instancia \cite{tran2019scoresr}. El conjunto Sheet
 Music Benchmark (SMB) aporta un contexto oficial posterior para la evaluación de reconocimiento
-óptico de música y de errores sobre elementos musicales \cite{martinez2025smb}. Esta evidencia no
+óptico de música y de errores sobre elementos musicales
+\cite{martinez2025smb,smbDatasetCard}. ScoreSR constituye el antecedente más próximo, pero su
+evaluación sobre material sintético, su arquitectura y su dominio no proporcionan un modelo oficial
+directamente comparable sobre SMB. Esta evidencia no
 convierte las métricas de reconocimiento en métricas de superresolución ni prueba que la búsqueda
 enfocada sea exhaustiva.
 % Claim evidence: SOTA-DIRECT-SCORE-EVIDENCE
@@ -62,7 +93,8 @@ transferir sus resultados al dominio musical.
 
 \setlength{\tabcolsep}{3pt}
 \begin{longtable}{p{0.18\textwidth}p{0.19\textwidth}p{0.25\textwidth}p{0.28\textwidth}}
-  \caption{Síntesis crítica de las principales líneas relacionadas con el TFG.}
+  \caption{Síntesis crítica de las principales líneas relacionadas con el TFG. Fuente:
+  elaboración propia a partir de las referencias citadas.}
   \label{tab:sota-synthesis} \\
   \toprule
   Trabajo o línea & Dominio y enfoque & Aportación relevante & Límite para este TFG \\
@@ -95,3 +127,12 @@ fallos específicos de notación, recursos y condiciones profesionales. La contr
 ranking universal de modelos, sino un marco condicionado por método, degradación y uso, con límites
 y casos de no recomendación. La fase experimental concretó esta revisión en bicúbica, EDSR y
 SwinIR, con repositorios, licencias y puntos de control fijados antes de la comparación final.
+
+La selección no pretende representar cada arquitectura publicada. EDSR ofrece una referencia
+convolucional residual consolidada y SwinIR una alternativa basada en transformadores con pesos
+ligeros oficiales; ambos incluyen escalas \(\times2\) y \(\times4\). Se dejaron fuera modelos
+adversariales o de difusión porque su objetivo perceptual aumenta el riesgo de detalle plausible y
+porque añadir familias habría reducido la profundidad del análisis. HAT se conserva como contexto
+de progresión arquitectónica, no como comparador, y ScoreSR como antecedente directo, no como peso
+reutilizado. Esta decisión equilibra diversidad conceptual, disponibilidad reproducible y tiempo de
+evaluación, sin convertir novedad o tamaño en criterios de calidad.

@@ -14,6 +14,15 @@ investigadores y editoriales. Para todos ellos, la utilidad de una técnica depe
 calidad visual, sino también de la fidelidad de la notación, el coste computacional, las licencias
 y las condiciones concretas de uso.
 
+La elección del problema combina interés formativo y relevancia aplicada. Permite integrar visión
+por computador, aprendizaje profundo, tratamiento de datos y evaluación estadística en un objeto
+con estructura semántica exigente. A diferencia de una fotografía natural, una variación mínima
+puede cambiar una alteración, un dígito o la continuidad de una línea. Esta propiedad convierte la
+partitura en un caso especialmente útil para aprender a distinguir mejora visual, fidelidad y
+seguridad de uso. El trabajo cuenta con la orientación conjunta de Elena Vázquez Barrachina y
+Jorge Calvo Zaragoza; el diseño, la implementación, la revisión de resultados y las conclusiones
+son responsabilidad del autor.
+
 \section{Objetivo general y objetivos específicos}
 El objetivo general es evaluar un conjunto pequeño y científicamente contrastado de técnicas de
 superresolución sobre degradaciones controladas de partituras digitalizadas, medir su fidelidad,
@@ -35,11 +44,21 @@ Los objetivos específicos son:
   \item producir recomendaciones profesionales reproducibles y limitadas a la evidencia obtenida.
 \end{itemize}
 
-Estos objetivos se concretan en cinco preguntas de evaluación: diferencias entre comparadores bajo
-cada degradación; variación por severidad y características auditadas; compromisos de fidelidad,
-riesgo y coste; valor añadido frente a la interpolación bicúbica; y, solo si la validación descubre
-una carencia concreta, utilidad de una adaptación acotada. No se formula por ahora una hipótesis
-estadística: cualquier hipótesis posterior deberá fijarse antes de observar la evidencia relevante.
+Estos objetivos se concretan en cinco preguntas de evaluación:
+\begin{enumerate}
+  \item ¿qué diferencia de PSNR-Y y SSIM-Y presenta cada red respecto de bicúbica dentro de cada
+        combinación predeclarada de escala y severidad?;
+  \item ¿cambia la relación entre EDSR y SwinIR al aumentar la escala o la severidad?;
+  \item ¿qué defectos de pentagramas, símbolos, texto o textura aparecen en los casos cualitativos
+        fijados y cuál es su origen observable: entrada degradada, reconstrucción o falta de
+        recuperación?;
+  \item ¿qué compromiso existe entre fidelidad, tiempo de inferencia, licencias y riesgo de uso?; y
+  \item ¿existen datos independientes y una carencia suficientemente definida para justificar un
+        ajuste fino sin contaminar SMB?
+\end{enumerate}
+No se formuló una hipótesis nula única ni se aplicó un contraste confirmatorio global. Los
+intervalos emparejados cuantifican incertidumbre descriptiva sobre comparaciones predeclaradas;
+la relevancia profesional requiere además magnitud, evidencia cualitativa y coste.
 
 \section{Impacto esperado y alcance}
 La contribución obtenida es una guía de decisión que identifica condiciones de uso, límites y

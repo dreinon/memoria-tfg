@@ -40,9 +40,10 @@ semillas, selección cualitativa y reglas de interpretación.
 El cuaderno \path{notebooks/03-smb-model-comparison-v2.ipynb} utiliza el mismo paquete que las
 pruebas locales. En Kaggle debe habilitarse GPU e instalarse el proyecto desde la revisión elegida;
 el token de Hugging Face se recupera desde los secretos del cuaderno. La ejecución final registró
-Python 3.12.13, PyTorch 2.10.0 con CUDA 12.8, dos Tesla T4 y revisión del código
+Python 3.12.13, PyTorch 2.10.0 con CUDA 12.8, dos Tesla T4 visibles y revisión del código
 \texttt{28d18966a103\ldots}. El archivo resultante tiene SHA-256
 \texttt{18d904eda110\ldots} y reconcilia 1.152 resultados y 384 trazas.
+La inferencia utilizó el dispositivo \texttt{cuda:0}; no se empleó paralelismo multi-GPU.
 
 La revisión cualitativa fija se valida con
 \path{scripts/validate_smb_v2_qualitative_review.py}. El análisis final se regenera mediante:
@@ -50,6 +51,7 @@ La revisión cualitativa fija se valida con
 \begin{verbatim}
 uv run python scripts/analyze_smb_v2.py
 uv run python scripts/generate_smb_v2_figures.py
+uv run python scripts/generate_thesis_context_figures.py
 uv run python scripts/build_smb_v2_report.py
 \end{verbatim}
 
@@ -65,3 +67,16 @@ constantes universales. El remuestreo estadístico es determinista con semilla 2
 repetición puede diferir en tiempos y en detalles numéricos de bajo nivel entre plataformas. La
 licencia del conjunto no establece los derechos de reproducción de cada partitura, por lo que los
 paneles cualitativos no se distribuyen ni se incluyen en esta memoria.
+
+\section{Lista de comprobación de reproducción}
+Una repetición se considera reconciliada cuando: (1) resuelve la revisión exacta de SMB; (2)
+verifica 64 identidades de píxel y de obra; (3) produce las 384 trazas esperadas; (4) genera las
+1.152 tuplas únicas página--condición--método; (5) conserva los cuatro hashes de pesos; (6) valida
+las 18 valoraciones cualitativas; y (7) vuelve a calcular agregados, intervalos y figuras sin
+alterar denominadores. Un fallo en cualquiera de estos puntos debe quedar explícito y no puede
+rellenarse con la salida de otra ejecución.
+
+La reproducibilidad computacional tampoco equivale a generalización. Repetir exactamente los
+resultados confirma el pipeline y sus entradas, no demuestra que las conclusiones se transfieran a
+otra colección, una degradación real o una tarea de OMR. Esa distinción es parte del contrato de
+evidencia del trabajo.

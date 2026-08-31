@@ -11,7 +11,12 @@ staff-line spacing so that severity remained comparable across pages. Bicubic in
 EDSR residual network, and the lightweight SwinIR transformer were compared using luminance PSNR
 and SSIM, work-paired intervals, inference time, and a preselected qualitative review of notation
 failures. The reproducible implementation was developed in Python with PyTorch, OpenCV, and
-\texttt{uv}; GPU execution used Tesla T4 accelerators on Kaggle.
+\texttt{uv}; GPU execution used one Tesla T4 device on Kaggle.
+
+The fine-tuning proposed in the approved offer was assessed as a methodological decision but was
+not performed. SMB provides no independent training and validation splits, and adapting the models
+with it would have contaminated the test. This \emph{NO-GO} decision preserves the evaluation and
+defines the data requirements for future adaptation.
 
 EDSR and SwinIR outperformed bicubic interpolation on both primary metrics in all six conditions.
 However, SwinIR clearly exceeded EDSR only for x2 clean, x2 moderate, and x4 clean inputs, while

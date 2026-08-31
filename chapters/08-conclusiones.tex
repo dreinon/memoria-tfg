@@ -23,6 +23,30 @@ SMB habría contaminado la evaluación. El resultado profesional es un marco con
 EDSR constituye la opción general por equilibrio entre fidelidad y coste, SwinIR una opción
 selectiva y bicúbica una referencia rápida y transparente.
 
+La Tabla~\ref{tab:objective-evidence} cierra la trazabilidad entre lo prometido y lo entregado. El
+ajuste fino no se oculta como objetivo incumplido: se estudió su viabilidad y se rechazó con una
+regla compatible con la integridad del benchmark.
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \caption{Relación entre objetivos, evidencia y estado final. Fuente: elaboración propia.}
+  \label{tab:objective-evidence}
+  \begin{tabular}{p{0.31\textwidth}p{0.45\textwidth}p{0.14\textwidth}}
+    \toprule
+    Objetivo & Evidencia principal & Estado \\
+    \midrule
+    Estado del arte trazable & Síntesis crítica, fuentes primarias y criterios de selección & Cumplido \\
+    Auditar y gobernar SMB & 685 registros, 260 obras, elegibilidad, licencias y hashes & Cumplido \\
+    Predeclarar el experimento & Protocolo v2, muestra, pesos, métricas, semillas y reglas & Cumplido \\
+    Comparar métodos emparejados & 1.152 resultados, intervalos, revisión fija y tiempos & Cumplido \\
+    Decidir sobre adaptación & Falta de datos independientes; \emph{NO-GO} documentado & Cumplido como decisión \\
+    Producir una guía profesional & Marco por condición, salvaguardas y casos de no uso & Cumplido con límites \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \section{Limitaciones, problemas y aprendizaje}
 La principal desviación fue metodológica. El primer protocolo aplicó un desenfoque absoluto
 calibrado sobre fragmentos sintéticos de pentagrama mayor. En páginas SMB completas, las condiciones
@@ -71,11 +95,10 @@ El TFG integra programación, visión por computador, aprendizaje profundo, trat
 estadística, gestión de proyectos y comunicación técnica. La contribución
 individual comprende el análisis bibliográfico, el diseño experimental, la implementación y las
 pruebas. También abarca las ejecuciones local y remota, la revisión visual, el análisis estadístico,
-la interpretación profesional y la redacción. Elena Vázquez Barrachina, tutora del TFG, aporta la
-orientación académica y la revisión estructural. Jorge Calvo Zaragoza, director experimental,
-propuso el tema y SMB, facilitó el acceso al conjunto y realiza la primera revisión técnica y
-científica. Estas funciones de orientación y revisión no alteran la autoría ni la responsabilidad
-individual sobre las decisiones, la implementación y las conclusiones.
+la interpretación profesional y la redacción. Elena Vázquez Barrachina, tutora del TFG, y Jorge
+Calvo Zaragoza, director experimental, contribuyen conjuntamente a la orientación y revisión
+integral del trabajo. Esta contribución no altera la autoría ni la responsabilidad individual
+sobre las decisiones, la implementación y las conclusiones.
 
 Respecto a las cinco competencias transversales vigentes, el compromiso social y medioambiental se
 evidencia en el análisis de derechos, acceso al patrimonio, riesgo de información inventada y coste
