@@ -1,11 +1,103 @@
 \chapter{Resultados}
 
 \section{Resultados cuantitativos}
-\emph{Pendiente: generar tablas y figuras desde artefactos reconciliados, con denominadores y
-condiciones explícitos.}
+La Figura~\ref{fig:fidelity-means} muestra las medias por condición. Tanto EDSR como SwinIR
+superaron a la interpolación bicúbica en PSNR-Y y SSIM-Y en las seis condiciones; los 24 intervalos
+correspondientes ---dos métodos aprendidos, dos métricas y seis condiciones--- quedaron por encima
+de cero. La magnitud, sin embargo, dependió claramente de la degradación. En \texttt{x2-clean},
+EDSR mejoró a bicúbica en 4,345 dB y 0,0595 SSIM, mientras que SwinIR alcanzó 5,670 dB y 0,0695.
+En \texttt{x2-strong} las ventajas se redujeron a 0,199 dB y 0,0074 para EDSR, y 0,176 dB y
+0,0043 para SwinIR. Que los intervalos excluyan cero no convierte estos últimos efectos en una
+mejora profesional relevante.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/results/fidelity-means.pdf}
+  \caption{PSNR-Y y SSIM-Y medios para las 64 fuentes independientes en cada condición. Las
+  comparaciones solo son válidas dentro de la misma escala y perfil. Fuente: elaboración propia a
+  partir del experimento SMB v2.}
+  \label{fig:fidelity-means}
+\end{figure}
+
+La comparación directa entre las dos redes evita declarar un ganador por sus medias aisladas
+(Tabla~\ref{tab:swinir-edsr}). SwinIR fue claramente superior en las dos métricas para
+\texttt{x2-clean}, \texttt{x2-moderate} y \texttt{x4-clean}. En \texttt{x2-strong} y
+\texttt{x4-moderate}, el intervalo de PSNR cruzó cero y SSIM favoreció a EDSR. En
+\texttt{x4-strong}, EDSR fue superior en ambas medidas. Por tanto, la mayor complejidad del
+transformador no produjo una ventaja general.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Diferencia media emparejada SwinIR menos EDSR e intervalo percentil del 95\,\% por
+  fuente. Un intervalo que cruza cero se marca como no resuelto.}
+  \label{tab:swinir-edsr}
+  \begin{tabular}{lrr}
+    \toprule
+    Condición & \(\Delta\) PSNR-Y (dB) & \(\Delta\) SSIM-Y \\
+    \midrule
+    x2 limpia    &  1,325 [1,178; 1,480]  &  0,0100 [0,0092; 0,0109] \\
+    x2 moderada  &  0,704 [0,574; 0,835]  &  0,0014 [0,0002; 0,0024] \\
+    x2 fuerte    & -0,023 [-0,074; 0,020] & -0,0031 [-0,0050; -0,0015] \\
+    x4 limpia    &  0,230 [0,137; 0,336]  &  0,0094 [0,0074; 0,0116] \\
+    x4 moderada  & -0,011 [-0,054; 0,033] & -0,0029 [-0,0042; -0,0015] \\
+    x4 fuerte    & -0,152 [-0,197; -0,107]& -0,0142 [-0,0165; -0,0117] \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+La Figura~\ref{fig:paired-deltas} completa esta lectura mostrando las ganancias de cada red frente
+a la referencia bicúbica con su incertidumbre emparejada. Los resultados negativos y las
+comparaciones no resueltas se conservaron en el análisis y no se sustituyeron por una selección de
+condiciones favorables.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/results/paired-deltas-vs-bicubic.pdf}
+  \caption{Ganancia media emparejada de EDSR y SwinIR respecto a bicúbica, con intervalos del
+  95\,\% obtenidos al remuestrear las 64 fuentes. Fuente: elaboración propia.}
+  \label{fig:paired-deltas}
+\end{figure}
 
 \section{Resultados cualitativos y fallos musicales}
-\emph{Pendiente: aplicar el muestreo predeclarado y mostrar resultados positivos y negativos.}
+En las 18 valoraciones fijas se registró \emph{sin incidencia clara} en cuatro de los seis casos
+bicúbicos y en dos de los seis casos de cada red. Se observaron incidencias en dos casos bicúbicos,
+cuatro EDSR y cuatro SwinIR. Estos recuentos describen únicamente las seis páginas fijadas y no son
+tasas de error ni permiten ordenar métodos por seguridad.
+
+Los tres métodos quedaron sin incidencias claras en las condiciones x2 limpia y x2 moderada. En el
+caso x2 fuerte, la entrada seguía siendo legible y bicúbica no
+añadió un defecto claro, pero tampoco produjo una mejora apreciable; EDSR y SwinIR perdieron detalle
+en símbolos y añadieron textura o \emph{ringing}. En los casos \(\times 4\) aparecieron
+simplificación de símbolos, corrupción de texto o dígitos y reconstrucción de líneas rectas como
+trazos ligeramente curvos. En \texttt{x4-moderate}, SwinIR reconstruyó visualmente las notas mejor
+que EDSR en el caso revisado, pese a mantener defectos en otros símbolos o dígitos. En x4 fuerte,
+parte del daño procedía ya de la degradación y ninguno de los tres métodos lo
+recuperó de manera fiable.
+
+No se marcó ningún \emph{cambio musicalmente plausible} como categoría separada, pero sí símbolos
+alterados o perdidos en cuatro casos EDSR y tres SwinIR. Por ello, la ausencia de aquella etiqueta
+no demuestra conservación semántica. La evidencia cualitativa contradice cualquier interpretación
+según la cual una mejora promedio de PSNR o SSIM garantice que todos los elementos musicales se
+reconstruyan correctamente.
 
 \section{Coste y comportamiento operativo}
-\emph{Pendiente: tiempo, memoria, tamaño, hardware y compromisos observados.}
+La Figura~\ref{fig:runtime} resume la mediana por página en las dos Tesla T4 registradas. Bicúbica
+empleó entre 0,0038 y 0,0055 segundos; EDSR, entre 0,357 y 0,674; y SwinIR, entre 1,899 y 5,668.
+SwinIR fue entre 5,2 y 8,5 veces más lento que EDSR y entre 486 y 1.045 veces más lento que
+bicúbica, según la condición. Los tiempos \(\times 2\) fueron mayores porque la imagen de entrada
+contiene más píxeles que en \(\times 4\) antes de reconstruir el mismo tamaño final.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/results/runtime-median.pdf}
+  \caption{Mediana del tiempo de reconstrucción por página en la ejecución Kaggle retenida. La
+  escala vertical es logarítmica y los valores no se extrapolan a otro hardware. Fuente:
+  elaboración propia.}
+  \label{fig:runtime}
+\end{figure}
+
+El coste adicional de SwinIR solo queda justificado por fidelidad en las condiciones donde su
+ventaja emparejada frente a EDSR fue clara. La ejecución no midió energía ni memoria máxima con una
+instrumentación validada, por lo que no se atribuyen diferencias ambientales cuantitativas más
+allá de hardware y duración.

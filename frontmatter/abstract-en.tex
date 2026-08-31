@@ -1,3 +1,24 @@
-\emph{Provisional abstract. Replace it after completing the work with a self-contained text of
-approximately 200--500 words covering the actual problem, methodology, tools, results, and
-conclusions.}
+Low resolution can damage staff lines, symbols, digits, and text in a digitized music score.
+Super-resolution can generate a larger image, but models trained on natural images may introduce
+visually plausible detail that was not present in the document. This Bachelor's Thesis studies
+when these techniques add value and which safeguards are required for professional use in
+libraries, archives, preservation, consultation, or editorial preparation.
+
+Sheet Music Benchmark (SMB) was audited and its only official split was reserved for evaluation.
+The final comparison used 64 pages from 64 independent works and six synthetic degradations: two
+and four times upscaling crossed with clean, moderate, and strong severity. Blur was normalized by
+staff-line spacing so that severity remained comparable across pages. Bicubic interpolation, the
+EDSR residual network, and the lightweight SwinIR transformer were compared using luminance PSNR
+and SSIM, work-paired intervals, inference time, and a preselected qualitative review of notation
+failures. The reproducible implementation was developed in Python with PyTorch, OpenCV, and
+\texttt{uv}; GPU execution used Tesla T4 accelerators on Kaggle.
+
+EDSR and SwinIR outperformed bicubic interpolation on both primary metrics in all six conditions.
+However, SwinIR clearly exceeded EDSR only for x2 clean, x2 moderate, and x4 clean inputs, while
+requiring 5.2 to 8.5 times more inference time. Visual review found altered symbols, corrupted text,
+and curved or textured strokes even when average fidelity improved. EDSR therefore provides the
+most defensible fidelity--cost trade-off for assisted access copies, whereas SwinIR should be
+reserved for conditions in which its additional gain justifies the cost. None of the evaluated
+methods is validated as semantic restoration, an archival replacement, or an autonomous input to
+optical music recognition. The original must be retained and every consequential derivative must
+be checked by a human reviewer.

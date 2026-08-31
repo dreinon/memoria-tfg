@@ -1,4 +1,25 @@
 \chapter{Trabajo futuro}
 
-\emph{Pendiente: separar extensiones plausibles —escaneos reales, evaluación especialista, OMR,
-PDF o aplicación— de las conclusiones ya validadas.}
+La primera ampliación debería evaluar escaneos reales con derechos de reproducción claros. El
+conjunto tendría que estratificarse por época, técnica de impresión, tamaño de pentagrama,
+desenfoque, iluminación, curvatura, manchas y compresión, y mantener obras completas separadas entre
+desarrollo y evaluación. Una revisión ciega por especialistas permitiría medir no solo defectos
+visibles, sino su impacto en consulta, interpretación, edición o conservación.
+
+La segunda línea es la adaptación al dominio. Requeriría un conjunto independiente de partituras
+de alta resolución con licencia compatible, particiones por obra y degradaciones ajustadas solo en
+entrenamiento y validación. El resultado debería compararse de forma emparejada con los mismos
+modelos preentrenados y reservar una prueba intacta. Sería especialmente interesante estudiar
+pérdidas o regularizadores que favorezcan líneas rectas, continuidad de pentagramas y geometría de
+símbolos sin incentivar texturas propias de imágenes naturales.
+
+Una tercera línea consistiría en medir tareas posteriores. Para OMR habría que predeclarar métricas
+de reconocimiento musical y comprobar si una mejora visual reduce errores de símbolos, relaciones
+y estructura; PSNR o SSIM no permiten anticiparlo. Para preparación editorial o lectura podrían
+medirse tiempo de corrección, errores humanos y preferencia experta.
+
+El tratamiento de PDF, una aplicación de consulta y un servicio de procesamiento por lotes son
+posibles productos profesionales, pero solo después de validar el núcleo sobre entradas reales.
+Deberían incorporar procedencia, conservación del original, selección explícita del método,
+comparación antes/después, registro de parámetros, advertencias de uso y una ruta reversible. No se
+consideran resultados de este TFG.

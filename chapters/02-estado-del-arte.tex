@@ -56,6 +56,33 @@ orden alto y el trabajo documental de Zyrek et al. emplea escaneos registrados
 pregunta distinta; sus resultados no pueden agruparse como una única validación.
 % Claim evidence: SOTA-DEGRADATION-BOUNDARY
 
+La Tabla~\ref{tab:sota-synthesis} resume el papel que cada línea desempeña en este trabajo. La
+columna final es deliberadamente crítica: indica qué decisión puede motivar una fuente sin
+transferir sus resultados al dominio musical.
+
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.18\textwidth}p{0.19\textwidth}p{0.25\textwidth}p{0.28\textwidth}}
+  \caption{Síntesis crítica de las principales líneas relacionadas con el TFG.}
+  \label{tab:sota-synthesis} \\
+  \toprule
+  Trabajo o línea & Dominio y enfoque & Aportación relevante & Límite para este TFG \\
+  \midrule
+  \endfirsthead
+  \toprule
+  Trabajo o línea & Dominio y enfoque & Aportación relevante & Límite para este TFG \\
+  \midrule
+  \endhead
+  Keys \cite{keys1981cubic} & Interpolación cúbica & Referencia determinista, explicable y sin pesos aprendidos & No recupera por sí misma detalle perdido ni demuestra fidelidad musical \\
+  EDSR \cite{lim2017edsr} & Imágenes naturales; red residual & Modelo convolucional orientado a reducir distorsión y referencia aprendida de coste moderado & Su entrenamiento y resultados publicados no son específicos de partituras \\
+  SRGAN y ESRGAN \cite{ledig2017srgan,wang2018esrgan} & Imágenes naturales; aprendizaje adversarial & Exponen el valor y el riesgo de optimizar realismo perceptual & El detalle plausible puede modificar símbolos; se excluyen del núcleo orientado a fidelidad \\
+  SwinIR y HAT \cite{liang2021swinir,chen2023hat} & Imágenes naturales; transformadores & Modelan contexto no local y representan la progresión arquitectónica reciente & Mayor complejidad no implica mejor fidelidad musical ni mejor relación coste--beneficio \\
+  ScoreSR \cite{tran2019scoresr} & Partituras DeepScores; red residual & Evidencia primaria de que la superresolución se ha aplicado directamente a notación & Un conjunto sintético y otra arquitectura no responden por los pesos evaluados sobre SMB \\
+  DocRes y escaneos registrados \cite{zhang2024docres,zyrek2025document} & Restauración documental y SR real & Separan calidad de imagen, geometría documental y rendimiento de reconocimiento & Documentos y OCR no equivalen a notación musical ni a OMR \\
+  SMB \cite{martinez2025smb} & Partituras impresas; benchmark de OMR & Proporciona fuentes musicales y categorías de error que ayudan a razonar sobre semántica & Su partición, acceso y finalidad oficial exigen gobernarlo como evaluación, no como entrenamiento \\
+  \bottomrule
+\end{longtable}
+\setlength{\tabcolsep}{6pt}
+
 \section{Evaluación y brecha identificada}
 El estado del arte muestra que PSNR, SSIM y medidas perceptuales describen propiedades
 complementarias, no una noción única de calidad. En partituras debe añadirse evidencia sobre
@@ -64,7 +91,7 @@ indebidas, texto y marcas musicalmente significativas. Las mejoras publicadas en
 documentos o reconocimiento no bastan para responder a esas preguntas.
 
 La brecha abordada por este TFG es una evaluación trazable que combine fidelidad emparejada,
-fallos específicos de notación, recursos y condiciones profesionales. La contribución no será un
+fallos específicos de notación, recursos y condiciones profesionales. La contribución no es un
 ranking universal de modelos, sino un marco condicionado por método, degradación y uso, con límites
-y casos de no recomendación. La selección exacta de modelos, repositorios, licencias y puntos de
-control se actualizará antes de la fase de comparación; no queda fijada por esta revisión inicial.
+y casos de no recomendación. La fase experimental concretó esta revisión en bicúbica, EDSR y
+SwinIR, con repositorios, licencias y puntos de control fijados antes de la comparación final.

@@ -1,15 +1,89 @@
 \chapter{Conclusiones}
 
 \section{Respuesta a los objetivos}
-\emph{Pendiente: responder uno a uno con evidencia y separar resultados de interpretación.}
+El objetivo general era determinar cuándo un conjunto pequeño de técnicas de superresolución puede
+mejorar partituras digitalizadas sin convertir una reconstrucción visualmente convincente en una
+afirmación falsa sobre su contenido. La comparación controlada responde que los modelos aprendidos
+sí aumentan la fidelidad promedio frente a bicúbica, pero su utilidad depende de escala, severidad,
+coste y revisión de los elementos musicales.
+
+El estado del arte permitió separar interpolación, redes convolucionales, transformadores y métodos
+perceptuales, y mostró que los resultados sobre imágenes naturales, documentos u OMR no demuestran
+fidelidad musical. La auditoría de SMB conservó 685 elementos, identificó 260 grupos de fuente,
+documentó 67 páginas no elegibles para comparación por sus anotaciones y reservó su única
+partición oficial para evaluación. La degradación final definió seis condiciones normalizadas por
+escala de pentagrama y la ejecución reconcilió 1.152 resultados sobre 64 obras independientes.
+
+EDSR y SwinIR superaron a bicúbica en PSNR-Y y SSIM-Y para todas las condiciones. SwinIR destacó en
+x2 limpia, x2 moderada y x4 limpia, pero EDSR igualó o superó su fidelidad en las condiciones más
+difíciles y fue entre 5,2 y 8,5 veces más rápido. La revisión cualitativa halló símbolos alterados,
+texto o dígitos corruptos y textura no natural en casos de ambas redes. La adaptación al dominio se
+cerró como \emph{NO-GO}: faltaba un conjunto independiente de entrenamiento y validación, y usar
+SMB habría contaminado la evaluación. El resultado profesional es un marco condicionado en el que
+EDSR constituye la opción general por equilibrio entre fidelidad y coste, SwinIR una opción
+selectiva y bicúbica una referencia rápida y transparente.
 
 \section{Limitaciones, problemas y aprendizaje}
-\emph{Pendiente: explicar errores, desviaciones, soluciones, prevención y conocimientos adquiridos.}
+La principal desviación fue metodológica. El primer protocolo aplicó un desenfoque absoluto
+calibrado sobre fragmentos sintéticos de pentagrama mayor. En páginas SMB completas, las condiciones
+moderada y fuerte cambiaron de significado y algunas se volvieron destructivas. En lugar de
+reinterpretar aquel resultado, se conservó como piloto de desarrollo, se normalizó el desenfoque
+por la separación entre líneas, se seleccionaron 64 obras nuevas sin solapamiento y se repitió la
+comparación completa. Esta corrección retrasó el trabajo, pero produjo una conclusión más sólida y
+dejó una lección general: una degradación debe expresarse en relación con la estructura que pretende
+modelar, no solo en píxeles de una muestra cómoda.
+
+Las conclusiones se limitan a páginas SMB impresas con escala de pentagrama mensurable, a
+degradaciones sintéticas y a los pesos exactos de EDSR y SwinIR. Se revisaron cualitativamente seis
+páginas, por lo que no se conocen tasas de fallo poblacionales. No hubo evaluación ciega por
+especialistas, escaneos reales, manuscritos, medición de energía, OMR ni una tarea editorial. PSNR y
+SSIM miden fidelidad de imagen, no corrección musical. La procedencia y los derechos por elemento
+de SMB no están disponibles, lo que impide reproducir sus imágenes en la memoria.
+
+El trabajo reforzó conocimientos de aprendizaje profundo, procesamiento de imagen, inferencia
+estadística emparejada, diseño experimental y ejecución reproducible en entornos locales y
+acelerados. También mostró el valor de conservar resultados negativos, separar exploración de
+confirmación y traducir una métrica técnica en una decisión profesional con límites explícitos.
 
 \section{Contribución y legado}
-\emph{Pendiente obligatorio: contribución, beneficiarios, valor profesional, acceso y licencias,
-reproducción por terceros y efectos esperados. No requiere una aplicación desplegada.}
+La contribución no es un nuevo modelo ni una aplicación desplegada. Es un protocolo reproducible
+para estudiar superresolución de partituras, una corrección de degradación basada en escala de
+pentagrama, una comparación emparejada con incertidumbre, una taxonomía de fallos musicales y un
+marco de decisión que incluye condiciones de no uso. Este conjunto permite a bibliotecas, archivos,
+profesionales de patrimonio, intérpretes, investigadores y editoriales valorar una copia ampliada
+sin confundirla con el original.
+
+El legado técnico reside en el código Python, configuraciones congeladas, hashes de puntos de
+control, manifiestos, semillas, pruebas, cuadernos y scripts de análisis. Un tercero con acceso
+autorizado a SMB puede reconstruir el entorno, verificar las identidades y repetir el flujo. Los
+artefactos generados conservan denominadores, resultados y limitaciones, pero no redistribuyen el
+conjunto ni sus imágenes. EDSR se apoya en código MIT, SwinIR en Apache-2.0 y SMB se declara CC
+BY-NC 4.0 a nivel de conjunto; cualquier reutilización debe revisar además los derechos de cada
+fuente.
+
+El efecto esperado es mejorar la toma de decisiones: favorecer copias de consulta reversibles,
+conservar siempre el original y exigir cotejo humano cuando el resultado tenga consecuencias. El
+protocolo también deja una base para estudiar adaptación, escaneos reales u OMR sin presentar esas
+líneas futuras como resultados ya validados.
 
 \section{Relación con los estudios y competencias}
-\emph{Pendiente: relacionar evidencias con GCD y las cinco competencias transversales vigentes,
-delimitando la contribución individual.}
+El TFG integra programación, visión por computador, aprendizaje profundo, tratamiento de datos,
+estadística, gestión de proyectos y comunicación técnica. La contribución
+individual comprende el análisis bibliográfico, el diseño experimental, la implementación y las
+pruebas. También abarca las ejecuciones local y remota, la revisión visual, el análisis estadístico,
+la interpretación profesional y la redacción. Elena Vázquez Barrachina, tutora del TFG, aporta la
+orientación académica y la revisión estructural. Jorge Calvo Zaragoza, director experimental,
+propuso el tema y SMB, facilitó el acceso al conjunto y realiza la primera revisión técnica y
+científica. Estas funciones de orientación y revisión no alteran la autoría ni la responsabilidad
+individual sobre las decisiones, la implementación y las conclusiones.
+
+Respecto a las cinco competencias transversales vigentes, el compromiso social y medioambiental se
+evidencia en el análisis de derechos, acceso al patrimonio, riesgo de información inventada y coste
+computacional. La innovación y creatividad aparecen en la normalización por pentagrama, la
+taxonomía de fallos y el marco condicionado de uso. El trabajo en equipo y liderazgo se concreta en
+la responsabilidad individual, la coordinación explícita con la tutora y el director experimental,
+y la trazabilidad de decisiones, sin atribuirles trabajo ejecutado por el estudiante. La
+comunicación efectiva se desarrolla en la memoria, las figuras
+y la futura defensa para un tribunal no especializado. La responsabilidad y toma de decisiones se
+refleja en el bloqueo del benchmark, los protocolos previos, la corrección del error de degradación,
+los \emph{NO-GO}, la conservación de resultados negativos y los límites explícitos.

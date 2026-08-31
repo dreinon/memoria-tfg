@@ -1,16 +1,97 @@
 \chapter{Métodos y protocolo de evaluación}
 
 \section{Métodos de referencia y modelos preentrenados}
-\emph{Pendiente: selección, versiones, pesos, licencias, entradas y salidas.}
+La comparación se limitó deliberadamente a tres métodos con funciones científicas diferentes. La
+interpolación bicúbica de OpenCV actuó como referencia transparente y de bajo coste. EDSR representó
+una red neuronal convolucional residual orientada a fidelidad \cite{lim2017edsr}; se utilizaron los
+modelos oficiales \emph{baseline} de 16 bloques y 64 características para \(\times 2\) y
+\(\times 4\). SwinIR representó un transformador de restauración \cite{liang2021swinir}; se
+utilizaron los modelos oficiales ligeros \texttt{s64w8} entrenados con DIV2K para ambas escalas.
+La implementación de EDSR procede del repositorio oficial bajo licencia MIT y los modelos ligeros
+de SwinIR se distribuyen bajo Apache-2.0.
+
+Los cuatro ficheros de pesos quedaron fijados antes de la evaluación mediante SHA-256. Sus
+prefijos son \texttt{1bc95232} y \texttt{6b446fab} para EDSR \(\times 2\) y \(\times 4\), y
+\texttt{193b2299} y \texttt{09fad24e} para SwinIR. Los tres métodos reciben la misma imagen RGB de
+8 bits. La inferencia neuronal se ejecuta en coma flotante de 32 bits mediante teselas de
+256 píxeles con solapamiento de 32 y ventana de 8, y el resultado se recorta y alinea exactamente
+con la referencia. La descarga se restringe a URL declaradas y se rechaza un peso cuyo hash no
+coincida.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \setlength{\tabcolsep}{3pt}
+  \caption{Métodos comparados y función dentro del diseño experimental.}
+  \label{tab:method-selection}
+  \begin{tabular}{p{0.17\textwidth}p{0.22\textwidth}p{0.22\textwidth}p{0.28\textwidth}}
+    \toprule
+    Método & Familia y escalas & Identidad & Función y riesgo principal \\
+    \midrule
+    Bicúbica & Interpolación; x2 y x4 & OpenCV, sin pesos & Referencia transparente y rápida; suaviza detalle fino \\
+    EDSR baseline & CNN residual de 16 bloques; x2 y x4 & Pesos oficiales MIT y hash por escala & Comparador aprendido orientado a fidelidad; puede simplificar símbolos y texturizar trazos \\
+    SwinIR ligero & Transformador \texttt{s64w8}; x2 y x4 & Pesos oficiales Apache-2.0 y hash por escala & Contexto no local; mayor coste y riesgo de textura o geometría no fiel \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Adaptación al dominio}
-\emph{Pendiente: documentar la decisión GO/NO-GO y, únicamente si procede, el ajuste fino.}
+Se tomó una decisión \emph{NO-GO} sobre el ajuste fino. SMB solo proporciona una partición oficial
+de evaluación y el protocolo prohíbe usarla para elegir o adaptar el modelo. Una adaptación válida
+habría requerido reunir y gobernar otro conjunto de entrenamiento y validación, diseñar una
+partición por obra, repetir la selección y reservar una nueva evaluación. Este coste no estaba
+justificado una vez asegurada la comparación preentrenada y habría reducido el margen para analizar
+los errores, redactar y revisar la memoria. La decisión no afirma que la adaptación carezca de
+valor: la traslada a trabajo futuro bajo un protocolo independiente y sin fugas.
 
 \section{Métricas y unidades de análisis}
-\emph{Pendiente: definir PSNR, SSIM, recursos, agregación, incertidumbre y comparaciones.}
+Las medidas primarias fueron PSNR y SSIM sobre el canal de luminancia Y de la transformación
+BT.601. Se conservaron PSNR y SSIM en RGB como diagnóstico, pero no sustituyeron las medidas
+predeclaradas. PSNR expresa logarítmicamente la relación entre el rango de señal y el error
+cuadrático medio; SSIM compara luminancia, contraste y estructura \cite{wang2004ssim}. En ambos
+casos un valor mayor indica mayor similitud con la página de alta resolución alineada, no mayor
+corrección musical demostrada.
+
+Cada página se comparó con los tres métodos bajo exactamente la misma degradación. La obra o fuente
+fue la unidad independiente y las comparaciones se realizaron dentro de cada condición. La muestra
+final contiene una sola página por cada una de las 64 obras, por lo que la media por fuente coincide
+con la observación de página sin introducir pseudorreplicación. Para cada par de métodos se calculó
+la diferencia media emparejada y un intervalo percentil del 95\,\% mediante 2.000 remuestreos de
+las 64 fuentes con semilla 20260831. Un intervalo que cruza cero se interpreta como comparación no
+resuelta, no como igualdad entre métodos.
+
+El tiempo por página se midió alrededor de cada reconstrucción después de cargar el modelo. Se
+presenta la mediana por condición porque el objetivo es describir el coste operativo observado, no
+extrapolarlo a otro hardware. No se comparó consumo energético directo al no disponer de una
+medición validada.
 
 \section{Evaluación específica de notación musical}
-\emph{Pendiente: taxonomía de fallos, muestreo cualitativo y conservación de casos negativos.}
+La revisión cualitativa se fijó sin observar los resultados mediante un ranking determinista: una
+página por cada una de las seis condiciones y los tres métodos, para 18 valoraciones. En cada caso
+se compararon la referencia de alta resolución, la entrada degradada y la reconstrucción
+correspondiente. La taxonomía comprendió rotura o eliminación de pentagramas; engrosamiento o
+invención de líneas; símbolos alterados o perdidos; uniones o separaciones indebidas; corrupción de
+texto o dígitos; cambios musicalmente plausibles; y textura o \emph{ringing} propio de imágenes
+naturales. También se admitió \emph{sin incidencia clara} cuando el método no añadía un defecto,
+aunque no consiguiera mejorar de forma apreciable la entrada.
+
+Este diseño conserva casos positivos y negativos, pero no estima prevalencias: seis páginas
+preseleccionadas no permiten inferir la frecuencia de defectos en las 64 obras ni en SMB. La
+revisión sirve para detectar contradicciones entre fidelidad promedio y comportamiento de la
+notación, y para formular límites profesionales.
 
 \section{Reproducibilidad}
-\emph{Pendiente: configuraciones, entornos local/Kaggle, manifiestos y trazabilidad de evidencias.}
+La configuración congelada identifica la revisión inmutable de SMB, la muestra, métodos, puntos de
+control, degradaciones, métricas, unidades, exclusiones, semillas, selección cualitativa
+y reglas de interpretación. La ejecución verificó antes de inferir los hashes de píxel y la
+identidad de las 64 páginas contra el manifiesto auditado. Reconciliaron 1.152 combinaciones únicas
+---64 páginas, seis condiciones y tres métodos---, 384 trazas de degradación y 30 paneles
+cualitativos predeclarados, sin resultados ausentes.
+
+El entorno acelerado registrado empleó Python 3.12.13, PyTorch 2.10.0 con CUDA 12.8, NumPy 2.0.2,
+OpenCV 4.13.0 y dos GPU Tesla T4. La semilla de ejecución fue 20260830 y la revisión del código
+\texttt{28d18966a103\ldots}. El paquete descargado tiene SHA-256
+\texttt{18d904eda110\ldots}; su manifiesto vincula entradas congeladas, resultados, trazas,
+entorno y hashes de salida. El análisis posterior genera CSV y JSON con un manifiesto de hashes,
+además de las figuras incluidas en esta memoria. Los datos originales y los pesos no se incluyen en
+Git.

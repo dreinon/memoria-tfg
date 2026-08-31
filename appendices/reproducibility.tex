@@ -1,4 +1,67 @@
 \chapter{Reproducibilidad y trazabilidad}
 
-\emph{Pendiente: describir adquisición autorizada, entorno, configuraciones, ejecución, evaluación,
-índice de evidencias y límites para que un tercero pueda obtener resultados similares.}
+\section{Repositorios y entorno}
+El código y los experimentos residen en el repositorio \texttt{proyecto}; la memoria utiliza un
+repositorio separado sincronizado con Overleaf. El entorno local se resuelve exclusivamente con
+\texttt{uv}, Python 3.12 y el fichero \texttt{uv.lock}. Desde la raíz del proyecto se ejecuta:
+
+\begin{verbatim}
+uv sync --extra cpu --group dev --group notebooks --group kaggle
+uv run pytest
+\end{verbatim}
+
+Los datos, pesos, cachés, secretos y resultados voluminosos no se versionan. El acceso a SMB se
+realiza mediante la autenticación estándar de Hugging Face; el token se configura como secreto del
+entorno y nunca se pasa como argumento ni se escribe en logs o artefactos.
+
+\section{Identidades de entrada}
+La fuente es \texttt{PRAIG/SMB} y la partición es \texttt{test}. La revisión inmutable y el hash de
+la muestra comienzan, respectivamente, por \texttt{96332e8c4ac8} y \texttt{d2a686c6867a}; sus
+identidades completas se declaran en el capítulo 4 y en la configuración.
+
+El puntero del manifiesto auditado permite recuperar y validar 685 filas sin distribuir las
+imágenes. La muestra final contiene 64 páginas de 64 obras, sin obras compartidas con el piloto v1.
+Antes de ejecutar, el cuaderno verifica índice, identidad de obra, dimensiones y hash de píxel de
+cada entrada.
+
+Las rutas de entrada que resuelven la muestra, las seis condiciones y el experimento son:
+
+\begin{verbatim}
+data/audits/smb-evaluation-sample-v2.csv
+configs/degradations/staff-scale-score-v2.yaml
+configs/smb-evaluation-v2/
+configs/experiments/smb-pretrained-evaluation-v2.yaml
+\end{verbatim}
+
+El directorio de controles fija métodos, puntos de control, métricas, unidades, exclusiones,
+semillas, selección cualitativa y reglas de interpretación.
+
+\section{Ejecución y análisis}
+El cuaderno \path{notebooks/03-smb-model-comparison-v2.ipynb} utiliza el mismo paquete que las
+pruebas locales. En Kaggle debe habilitarse GPU e instalarse el proyecto desde la revisión elegida;
+el token de Hugging Face se recupera desde los secretos del cuaderno. La ejecución final registró
+Python 3.12.13, PyTorch 2.10.0 con CUDA 12.8, dos Tesla T4 y revisión del código
+\texttt{28d18966a103\ldots}. El archivo resultante tiene SHA-256
+\texttt{18d904eda110\ldots} y reconcilia 1.152 resultados y 384 trazas.
+
+La revisión cualitativa fija se valida con
+\path{scripts/validate_smb_v2_qualitative_review.py}. El análisis final se regenera mediante:
+
+\begin{verbatim}
+uv run python scripts/analyze_smb_v2.py
+uv run python scripts/generate_smb_v2_figures.py
+uv run python scripts/build_smb_v2_report.py
+\end{verbatim}
+
+El directorio \path{artifacts/kaggle/phase3-smb-analysis-v2/final/} contiene las medias, las 36
+comparaciones emparejadas, tiempos, resumen cualitativo, informe, figuras y manifiesto de hashes.
+\path{docs/experimental-claim-evidence.csv} vincula las afirmaciones materiales de los capítulos
+5--7 con esos artefactos y sus limitaciones.
+
+\section{Límites de reproducción}
+La reproducción exige acceso autorizado a SMB y disponibilidad de los puntos de control oficiales.
+Los tiempos dependen del hardware y del entorno; deben compararse en una misma ejecución, no como
+constantes universales. El remuestreo estadístico es determinista con semilla 20260831, pero una
+repetición puede diferir en tiempos y en detalles numéricos de bajo nivel entre plataformas. La
+licencia del conjunto no establece los derechos de reproducción de cada partitura, por lo que los
+paneles cualitativos no se distribuyen ni se incluyen en esta memoria.

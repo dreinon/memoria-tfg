@@ -7,23 +7,23 @@
 \textbf{Objetivos de Desarrollo Sostenible} & \textbf{Alto} & \textbf{Medio} &
 \textbf{Bajo} & \textbf{No} \\
 & & & & \textbf{procede} \\ \hline
-ODS 1. \textbf{Fin de la pobreza.} & & & & \\ \hline
-ODS 2. \textbf{Hambre cero.} & & & & \\ \hline
-ODS 3. \textbf{Salud y bienestar.} & & & & \\ \hline
-ODS 4. \textbf{Educación de calidad.} & & & & \\ \hline
-ODS 5. \textbf{Igualdad de género.} & & & & \\ \hline
-ODS 6. \textbf{Agua limpia y saneamiento.} & & & & \\ \hline
-ODS 7. \textbf{Energía asequible y no contaminante.} & & & & \\ \hline
-ODS 8. \textbf{Trabajo decente y crecimiento económico.} & & & & \\ \hline
-ODS 9. \textbf{Industria, innovación e infraestructuras.} & & & & \\ \hline
-ODS 10. \textbf{Reducción de las desigualdades.} & & & & \\ \hline
-ODS 11. \textbf{Ciudades y comunidades sostenibles.} & & & & \\ \hline
-ODS 12. \textbf{Producción y consumo responsables.} & & & & \\ \hline
-ODS 13. \textbf{Acción por el clima.} & & & & \\ \hline
-ODS 14. \textbf{Vida submarina.} & & & & \\ \hline
-ODS 15. \textbf{Vida de ecosistemas terrestres.} & & & & \\ \hline
-ODS 16. \textbf{Paz, justicia e instituciones sólidas.} & & & & \\ \hline
-ODS 17. \textbf{Alianzas para lograr los objetivos.} & & & & \\ \hline
+ODS 1. \textbf{Fin de la pobreza.} & & & & \textbf{X} \\ \hline
+ODS 2. \textbf{Hambre cero.} & & & & \textbf{X} \\ \hline
+ODS 3. \textbf{Salud y bienestar.} & & & & \textbf{X} \\ \hline
+ODS 4. \textbf{Educación de calidad.} & & & \textbf{X} & \\ \hline
+ODS 5. \textbf{Igualdad de género.} & & & & \textbf{X} \\ \hline
+ODS 6. \textbf{Agua limpia y saneamiento.} & & & & \textbf{X} \\ \hline
+ODS 7. \textbf{Energía asequible y no contaminante.} & & & & \textbf{X} \\ \hline
+ODS 8. \textbf{Trabajo decente y crecimiento económico.} & & & & \textbf{X} \\ \hline
+ODS 9. \textbf{Industria, innovación e infraestructuras.} & \textbf{X} & & & \\ \hline
+ODS 10. \textbf{Reducción de las desigualdades.} & & & \textbf{X} & \\ \hline
+ODS 11. \textbf{Ciudades y comunidades sostenibles.} & & \textbf{X} & & \\ \hline
+ODS 12. \textbf{Producción y consumo responsables.} & & \textbf{X} & & \\ \hline
+ODS 13. \textbf{Acción por el clima.} & & & \textbf{X} & \\ \hline
+ODS 14. \textbf{Vida submarina.} & & & & \textbf{X} \\ \hline
+ODS 15. \textbf{Vida de ecosistemas terrestres.} & & & & \textbf{X} \\ \hline
+ODS 16. \textbf{Paz, justicia e instituciones sólidas.} & & & & \textbf{X} \\ \hline
+ODS 17. \textbf{Alianzas para lograr los objetivos.} & & & & \textbf{X} \\ \hline
 \end{tabular}%
 }
 \end{center}
@@ -32,7 +32,51 @@ ODS 17. \textbf{Alianzas para lograr los objetivos.} & & & & \\ \hline
 
 \section*{Reflexión}
 
-\emph{Pendiente: redactar una reflexión honesta de aproximadamente 500--1500 palabras sobre los
-ODS con mayor relación. Considerar, sin predeterminar la valoración, el acceso al patrimonio
-musical digitalizado, la innovación, los derechos y licencias, el coste energético y el riesgo de
-introducir información musical falsa.}
+La relación principal de este TFG se encuentra con el ODS 9, Industria, innovación e
+infraestructuras. El trabajo estudia una técnica de inteligencia artificial aplicada a
+infraestructuras digitales de patrimonio musical y propone un procedimiento reproducible para
+decidir cuándo utilizarla. La aportación no consiste únicamente en ejecutar modelos existentes:
+incluye una degradación normalizada por escala de pentagrama, controles contra fugas de datos,
+comparaciones emparejadas, revisión de fallos propios de la notación y una guía profesional por
+condición. Por ese componente metodológico y de innovación responsable se asigna una relación alta,
+aunque no se haya desplegado un producto ni una infraestructura de producción.
+
+La relación con el ODS 11, Ciudades y comunidades sostenibles, es media. Su meta 11.4 contempla la
+protección del patrimonio cultural, y las partituras digitalizadas forman parte de ese patrimonio.
+Una copia de consulta de mayor tamaño puede facilitar el acceso y reducir la manipulación del
+original. Sin embargo, la superresolución no conserva por sí misma un documento: puede alterar
+símbolos, texto o trazos y generar una apariencia engañosa. Por ello, el uso recomendado mantiene
+siempre la imagen original, identifica el derivado y exige cotejo humano cuando haya consecuencias
+editoriales, interpretativas o de conservación. El trabajo aporta criterios para evitar que una
+mejora visual se presente como una restauración histórica auténtica.
+
+El ODS 12, Producción y consumo responsables, recibe una relación media. Se han comparado no solo
+las métricas de fidelidad, sino también el coste temporal de los métodos. SwinIR fue entre 5,2 y 8,5
+veces más lento que EDSR en la ejecución retenida y no obtuvo una ventaja general. Recomendar el
+modelo más complejo en cualquier circunstancia habría consumido más recursos sin un beneficio
+consistente. El marco profesional propone EDSR como opción general y reserva SwinIR para las
+condiciones donde su ganancia emparejada justifica el coste. También evita redistribuir datos,
+pesos o imágenes sin derecho: SMB se utiliza con acceso autorizado, sus fuentes no se incorporan a
+la memoria y cada licencia se trata de forma separada.
+
+La relación con el ODS 13, Acción por el clima, es baja porque no se midió energía ni huella de
+carbono con instrumentación validada. Sí se registraron hardware y duración y se limitó el número
+de modelos y ejecuciones. El uso de una única comparación controlada, la reutilización del mismo
+código en local y Kaggle y la decisión de no ajustar modelos sin datos independientes redujeron
+cálculo innecesario. Estas medidas son coherentes con un uso prudente de recursos, pero no permiten
+cuantificar un beneficio climático y por ello no justifican una valoración mayor.
+
+Los ODS 4 y 10 tienen una relación baja e indirecta. Las copias de consulta podrían facilitar el
+estudio de fuentes musicales a estudiantes, intérpretes o investigadores y mejorar el acceso a
+material digitalizado cuya resolución es insuficiente. No obstante, este TFG no ha medido
+aprendizaje, accesibilidad, cobertura geográfica ni reducción de desigualdades, y tampoco ha creado
+un servicio público. La posible contribución se formula como escenario profesional futuro, no como
+impacto demostrado.
+
+Los demás ODS se marcan como no aplicables porque forzar una vinculación diluiría la evaluación. El
+trabajo no aborda pobreza, alimentación, salud, género, agua, energía asequible, empleo, ecosistemas,
+instituciones o alianzas mediante resultados directos. La reflexión más importante es que la
+innovación debe evaluarse junto con sus riesgos. En patrimonio musical, un detalle falso puede ser
+más perjudicial que una imagen borrosa porque parece fiable. La transparencia de las degradaciones,
+los hashes, las licencias, los resultados negativos y los casos de no uso constituye por tanto una
+parte esencial de la responsabilidad social de la solución.

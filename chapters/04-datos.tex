@@ -53,10 +53,36 @@ toda la población.
 
 La comparación criptográfica no produjo ningún par exacto. Se conservaron 14 pares candidatos por
 hash perceptual y la revisión humana los clasificó como distintos, sin eliminarlos del inventario.
-El benchmark permanece en estado \texttt{AUDITED\_LOCKED}, reservado para evaluación, sin
-imágenes de baja o superresolución, métricas, clasificaciones ni resultados de modelos. La
-sincronización, la inspección de los dos renderizados y la aceptación de estas afirmaciones en el
-Overleaf autoritativo continúan pendientes bajo D-16 y ACAD-03.
+La generación auditada permaneció en estado \texttt{AUDITED\_LOCKED}. La autorización final no
+modificó ese inventario: un registro separado vinculó previamente métodos, puntos de control,
+degradaciones, métricas, muestra y reglas de interpretación, y únicamente entonces permitió la
+evaluación v2. La sincronización, la inspección de los dos renderizados y la aceptación de estas
+afirmaciones en el Overleaf autoritativo continúan pendientes bajo D-16 y ACAD-03.
+
+La Tabla~\ref{tab:smb-audit-summary} distingue el inventario auditado de la muestra confirmatoria.
+Esta separación evita presentar las 64 obras evaluadas como si representaran automáticamente las
+685 páginas o las 260 fuentes del conjunto.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \setlength{\tabcolsep}{3pt}
+  \caption{Cobertura de la auditoría y de la evaluación final de SMB.}
+  \label{tab:smb-audit-summary}
+  \begin{tabular}{p{0.25\textwidth}p{0.14\textwidth}p{0.52\textwidth}}
+    \toprule
+    Evidencia & Cantidad & Interpretación \\
+    \midrule
+    Páginas inventariadas y procesadas & 685 & Denominador completo del conjunto auditado \\
+    Páginas elegibles para pares & 618 & Anotaciones regionales compatibles con el contrato \\
+    Páginas no elegibles & 67 & Se conservan; 66 por texto regional ausente y una por caja inválida \\
+    Grupos de fuente & 260 & Unidad de agrupación que evita independencia falsa entre páginas relacionadas \\
+    Muestra visual de auditoría & 64 & Calidad e idoneidad revisadas; no estima prevalencia en las 685 páginas \\
+    Pares candidatos perceptuales & 14 & Revisados como distintos; no eliminados \\
+    Muestra confirmatoria v2 & 64 páginas / 64 obras & Obras nuevas, escala de pentagrama mensurable y sin solapamiento con v1 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Particiones y prevención de fugas}
 La única partición oficial de SMB se reserva íntegramente para evaluación final. No se utilizará
@@ -70,10 +96,42 @@ inmutable deberá reconciliar todos los índices esperados y evitar que material
 particiones adaptativas.
 
 \section{Degradación controlada}
-La evaluación se basará en versiones de baja resolución generadas mediante operadores controlados
-y versionados. Para cada condición se fijarán escala, interpolación, desenfoque, ruido, compresión,
-modo de color, orden de operaciones, bordes, distribuciones de parámetros y semillas. Se comprobarán
-dimensiones, rango, determinismo y alineación con la referencia antes de ejecutar comparadores.
+La evaluación final utilizó el protocolo \texttt{staff-scale-score-v2}. Se mantuvieron seis
+condiciones, correspondientes a los factores de ampliación \(\times 2\) y \(\times 4\) y a los
+perfiles \emph{clean}, \emph{moderate} y \emph{strong}. En todas ellas la reducción se efectuó con
+\texttt{INTER\_AREA}. El perfil limpio no añadió ninguna operación posterior. En el perfil
+moderado, el desenfoque gaussiano se definió como
+\(\max(0{,}3,0{,}05s)\) píxeles de la imagen de alta resolución, donde \(s\) es la separación
+entre líneas de pentagrama; tras la reducción se añadió ruido gaussiano acromático con
+\(\sigma=1{,}5\) y compresión JPEG de calidad 80 sin submuestreo de crominancia. En el perfil
+fuerte se emplearon \(\max(0{,}3,0{,}15s)\), \(\sigma=2{,}5\) y calidad JPEG 45,
+respectivamente. La semilla maestra fue 20260830 y cada aplicación conservó sus parámetros y su
+semilla efectiva.
 
-\emph{Pendiente: los valores y distribuciones exactos se congelarán con evidencia independiente en
-la fase metodológica; este capítulo no los deduce de SMB ni anticipa resultados experimentales.}
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Operadores del protocolo de degradación final. \(s\) es la separación entre líneas de
+  pentagrama medida en la imagen HR.}
+  \label{tab:degradation-v2}
+  \begin{tabular}{lccc}
+    \toprule
+    Perfil & Desenfoque gaussiano HR & Ruido tras reducción & JPEG 4:4:4 \\
+    \midrule
+    Limpio & ninguno & ninguno & ninguno \\
+    Moderado & \(\max(0{,}3;0{,}05s)\) & gaussiano acromático, \(\sigma=1{,}5\) & calidad 80 \\
+    Fuerte & \(\max(0{,}3;0{,}15s)\) & gaussiano acromático, \(\sigma=2{,}5\) & calidad 45 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+La normalización por escala de pentagrama fue una corrección metodológica necesaria. Una primera
+ejecución completa, conservada solo como piloto de desarrollo y prueba de estrés, había utilizado
+desenfoques expresados en píxeles absolutos que se calibraron sobre fragmentos sintéticos con
+pentagramas mayores. Al transferirlos a páginas SMB de escalas variables, algunas condiciones
+moderadas y fuertes dejaron de representar la severidad prevista. Antes de inspeccionar resultados
+del nuevo protocolo se congeló una muestra nueva de 64 páginas pertenecientes a 64 obras, sin
+páginas ni obras del piloto. La separación de pentagrama de estas páginas abarca de 6,526 a 18,275
+píxeles, con mediana 9,996. Por tanto, los resultados finales se refieren solo a páginas SMB para
+las que el estimador determinista pudo medir esta escala, no a todo SMB ni a escaneos reales no
+controlados.
