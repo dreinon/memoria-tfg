@@ -10,22 +10,32 @@ coste y revisión de los elementos musicales.
 El estado del arte permitió separar interpolación, redes convolucionales, transformadores y métodos
 perceptuales, y mostró que los resultados sobre imágenes naturales, documentos u OMR no demuestran
 fidelidad musical. La auditoría de SMB conservó 685 elementos, identificó 260 grupos de fuente,
-documentó 67 páginas no elegibles para comparación por sus anotaciones y reservó su única
-partición oficial para evaluación. La degradación final definió seis condiciones normalizadas por
+documentó 67 páginas no elegibles para comparación por sus anotaciones y preservó una muestra
+principal intacta dentro de su única partición oficial. La degradación final definió seis condiciones normalizadas por
 escala de pentagrama y la ejecución reconcilió 1.152 resultados sobre 64 obras independientes.
 
 EDSR y SwinIR superaron a bicúbica en PSNR-Y y SSIM-Y para todas las condiciones. SwinIR destacó en
 x2 limpia, x2 moderada y x4 limpia, pero EDSR igualó o superó su fidelidad en las condiciones más
 difíciles y fue entre 5,2 y 8,5 veces más rápido. La revisión cualitativa halló símbolos alterados,
 texto o dígitos corruptos y textura no natural en casos de ambas redes. La adaptación al dominio se
-cerró como \emph{NO-GO}: faltaba un conjunto independiente de entrenamiento y validación, y usar
-SMB habría contaminado la evaluación. El resultado profesional es un marco condicionado en el que
-EDSR constituye la opción general por equilibrio entre fidelidad y coste, SwinIR una opción
-selectiva y bicúbica una referencia rápida y transparente.
+ejecutó después como estudio secundario sin reutilizar las 64 obras principales: el EDSR adaptado
+mejoró al oficial en PSNR-Y y SSIM-Y en las seis condiciones sobre 20 obras nuevas, con intervalos
+emparejados que no cruzaron cero. El resultado profesional es un marco condicionado en el que EDSR
+preentrenado constituye la opción general por equilibrio entre fidelidad y coste, SwinIR una opción
+selectiva y bicúbica una referencia rápida y transparente. La adaptación es prometedora cuando se
+dispone de datos gobernados del dominio, pero no queda validada fuera de SMB ni como restauración
+semántica.
+
+En la revisión fija del modelo adaptado, cuatro de seis casos mostraron mejora sin defecto nuevo
+claro y los dos casos fuertes conservaron daños ya presentes en LR. El ajuste redujo halos y
+texturas y mejoró pentagramas y símbolos principales, pero no recuperó de forma fiable texto,
+dígitos, alteraciones y otros elementos pequeños cuando la degradación había eliminado su
+información. Por ello, su ventaja cuantitativa y visual no autoriza completar ni interpretar una
+partitura sin cotejo humano.
 
 La Tabla~\ref{tab:objective-evidence} cierra la trazabilidad entre lo prometido y lo entregado. El
-ajuste fino no se oculta como objetivo incumplido: se estudió su viabilidad y se rechazó con una
-regla compatible con la integridad del benchmark.
+ajuste fino se añadió únicamente después de asegurar el núcleo y se evaluó con un contrato separado
+compatible con la integridad de la comparación principal.
 
 \begin{table}[htbp]
   \centering
@@ -41,7 +51,7 @@ regla compatible con la integridad del benchmark.
     Auditar y gobernar SMB & 685 registros, 260 obras, elegibilidad, licencias y hashes & Cumplido \\
     Predeclarar el experimento & Protocolo v2, muestra, pesos, métricas, semillas y reglas & Cumplido \\
     Comparar métodos emparejados & 1.152 resultados, intervalos, revisión fija y tiempos & Cumplido \\
-    Decidir sobre adaptación & Falta de datos independientes; \emph{NO-GO} documentado & Cumplido como decisión \\
+    Evaluar adaptación acotada & 45/13/20 obras separadas; dos puntos de control y 360 resultados & Cumplido con límites \\
     Producir una guía profesional & Marco por condición, salvaguardas y casos de no uso & Cumplido con límites \\
     \bottomrule
   \end{tabular}
@@ -58,8 +68,10 @@ dejó una lección general: una degradación debe expresarse en relación con la
 modelar, no solo en píxeles de una muestra cómoda.
 
 Las conclusiones se limitan a páginas SMB impresas con escala de pentagrama mensurable, a
-degradaciones sintéticas y a los pesos exactos de EDSR y SwinIR. Se revisaron cualitativamente seis
-páginas, por lo que no se conocen tasas de fallo poblacionales. No hubo evaluación ciega por
+degradaciones sintéticas y a los pesos exactos de EDSR y SwinIR. La adaptación comparte corpus y
+generador de degradación entre sus roles, aunque mantenga obras disjuntas, y x4 alcanzó su mejor
+validación en el límite de 2.500 pasos. Se revisaron cualitativamente seis páginas por estudio, por
+lo que no se conocen tasas de fallo poblacionales. No hubo evaluación ciega por
 especialistas, escaneos reales, manuscritos, medición de energía, OMR ni una tarea editorial. PSNR y
 SSIM miden fidelidad de imagen, no corrección musical. La procedencia y los derechos por elemento
 de SMB no están disponibles, lo que impide reproducir sus imágenes en la memoria.
@@ -72,8 +84,8 @@ confirmación y traducir una métrica técnica en una decisión profesional con 
 \section{Contribución y legado}
 La contribución no es un nuevo modelo ni una aplicación desplegada. Es un protocolo reproducible
 para estudiar superresolución de partituras, una corrección de degradación basada en escala de
-pentagrama, una comparación emparejada con incertidumbre, una taxonomía de fallos musicales y un
-marco de decisión que incluye condiciones de no uso. Este conjunto permite a bibliotecas, archivos,
+pentagrama, una comparación emparejada con incertidumbre, una adaptación reproducible de EDSR, una
+taxonomía de fallos musicales y un marco de decisión que incluye condiciones de no uso. Este conjunto permite a bibliotecas, archivos,
 profesionales de patrimonio, intérpretes, investigadores y editoriales valorar una copia ampliada
 sin confundirla con el original.
 
@@ -87,8 +99,8 @@ fuente.
 
 El efecto esperado es mejorar la toma de decisiones: favorecer copias de consulta reversibles,
 conservar siempre el original y exigir cotejo humano cuando el resultado tenga consecuencias. El
-protocolo también deja una base para estudiar adaptación, escaneos reales u OMR sin presentar esas
-líneas futuras como resultados ya validados.
+protocolo también deja una base para extender la adaptación, estudiar escaneos reales u OMR sin
+presentar esas líneas futuras como resultados ya validados.
 
 \section{Relación con los estudios y competencias}
 El TFG integra programación, visión por computador, aprendizaje profundo, tratamiento de datos,
@@ -109,4 +121,5 @@ y la trazabilidad de decisiones, sin atribuirles trabajo ejecutado por el estudi
 comunicación efectiva se desarrolla en la memoria, las figuras
 y la futura defensa para un tribunal no especializado. La responsabilidad y toma de decisiones se
 refleja en el bloqueo del benchmark, los protocolos previos, la corrección del error de degradación,
-los \emph{NO-GO}, la conservación de resultados negativos y los límites explícitos.
+la apertura controlada de una adaptación secundaria, los \emph{NO-GO} restantes, la conservación
+de resultados negativos y los límites explícitos.

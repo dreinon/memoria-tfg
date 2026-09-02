@@ -4,8 +4,8 @@ naturals poden produir detalls visualment plausibles que no estaven presents en 
 Treball de Fi de Grau estudia quan aquestes tècniques aporten valor i quines precaucions exigeix el
 seu ús professional en biblioteques, arxius, conservació, consulta o preparació editorial.
 
-Es va auditar Sheet Music Benchmark (SMB) i es va reservar la seua única partició oficial per a
-l'avaluació. La comparació final va utilitzar 64 pàgines de 64 obres independents i sis degradacions
+Es va auditar Sheet Music Benchmark (SMB) i es va reservar una mostra intacta per a la comparació
+principal. Aquesta va utilitzar 64 pàgines de 64 obres independents i sis degradacions
 sintètiques: factors d'ampliació dos i quatre, combinats amb severitat neta, moderada i forta. Perquè
 la severitat fora comparable entre pàgines, el desenfocament es va normalitzar per la separació
 entre línies de pentagrama. Es van comparar la interpolació bicúbica, la xarxa residual EDSR i el
@@ -14,10 +14,12 @@ temps d'inferència i una revisió qualitativa preseleccionada d'errors de notac
 reproduïble es va desenvolupar en Python amb PyTorch, OpenCV i \texttt{uv}, i l'execució accelerada
 es va realitzar en Kaggle sobre GPU Tesla T4.
 
-L'ajust fi previst en l'oferta es va avaluar com a decisió metodològica, però no es va executar:
-SMB no proporciona particions independents d'entrenament i validació i utilitzar-lo per a adaptar
-els models hauria contaminat la prova. Aquesta decisió \emph{NO-GO} conserva el valor de
-l'avaluació i delimita les dades que requeriria una adaptació futura.
+Després de preservar la comparació principal, es va executar un estudi secundari d'ajust fi
+d'EDSR. Es van definir rols interns per obra amb 45 grups d'entrenament, 13 de validació i 20 de
+prova, sense solapament ni reutilització de les 64 obres principals. El model adaptat va superar
+l'EDSR oficial en PSNR-Y i SSIM-Y per a les sis condicions, amb intervals aparellats que no van
+creuar zero. Aquest resultat demostra adaptació dins d'SMB i degradacions coincidents, no
+transferència a altres col·leccions ni correcció musical.
 
 EDSR i SwinIR van superar la interpolació bicúbica en les dues mètriques primàries per a les sis
 condicions. No obstant això, SwinIR només va millorar clarament EDSR en les condicions x2 neta, x2

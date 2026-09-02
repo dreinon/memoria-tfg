@@ -33,14 +33,14 @@ para una condición determinada.
 Los objetivos específicos son:
 \begin{itemize}
   \item construir un estado del arte trazable basado en fuentes primarias y oficiales;
-  \item auditar e inventariar de forma inmutable el conjunto SMB, manteniéndolo reservado para la
-        evaluación final;
+  \item auditar e inventariar de forma inmutable el conjunto SMB y preservar una muestra
+        confirmatoria intacta para la comparación principal;
   \item predeclarar degradaciones, comparadores, unidades independientes, resultados y límites de
         interpretación antes de observar resultados finales;
   \item comparar los métodos sobre entradas emparejadas mediante evidencia de fidelidad, recursos
         y fallos específicos de notación;
-  \item decidir de forma explícita si una adaptación acotada está justificada, utilizando para
-        ello datos de entrenamiento y validación independientes de SMB; y
+  \item evaluar una adaptación acotada con obras separadas de la muestra confirmatoria y sin
+        consultar la prueba durante el entrenamiento; y
   \item producir recomendaciones profesionales reproducibles y limitadas a la evidencia obtenida.
 \end{itemize}
 
@@ -53,8 +53,8 @@ Estos objetivos se concretan en cinco preguntas de evaluación:
         fijados y cuál es su origen observable: entrada degradada, reconstrucción o falta de
         recuperación?;
   \item ¿qué compromiso existe entre fidelidad, tiempo de inferencia, licencias y riesgo de uso?; y
-  \item ¿existen datos independientes y una carencia suficientemente definida para justificar un
-        ajuste fino sin contaminar SMB?
+  \item ¿mejora un ajuste fino acotado de EDSR la fidelidad sobre obras SMB no vistas, manteniendo
+        separadas las funciones de entrenamiento, validación y prueba?
 \end{enumerate}
 No se formuló una hipótesis nula única ni se aplicó un contraste confirmatorio global. Los
 intervalos emparejados cuantifican incertidumbre descriptiva sobre comparaciones predeclaradas;
@@ -62,20 +62,22 @@ la relevancia profesional requiere además magnitud, evidencia cualitativa y cos
 
 \section{Impacto esperado y alcance}
 La contribución obtenida es una guía de decisión que identifica condiciones de uso, límites y
-casos en los que no debe recomendarse la superresolución. Las conclusiones quedarán restringidas a
-la población auditada de SMB, a los métodos finalmente congelados y a las degradaciones controladas
-realmente evaluadas. No se asumirá que los resultados sean válidos para escaneos reales no
-controlados, reconstrucción de PDF, reconocimiento óptico de música, aplicaciones de usuario o
-despliegue. Estas posibilidades permanecen como extensiones futuras salvo que un protocolo
-posterior aporte evidencia directa.
+casos en los que no debe recomendarse la superresolución. Incluye una comparación principal de
+modelos preentrenados y un estudio secundario de adaptación dentro de SMB, con denominadores y
+particiones distintos. Las conclusiones quedan restringidas a la población auditada, a los métodos
+congelados y a las degradaciones controladas realmente evaluadas. No se asume que los resultados
+sean válidos para escaneos reales no controlados, reconstrucción de PDF, reconocimiento óptico de
+música, aplicaciones de usuario o despliegue.
 
 \section{Metodología}
 El estudio siguió un enfoque de contrato primero. Antes de la evaluación final se fijaron la identidad
 del conjunto de datos, las unidades independientes, el manifiesto, los operadores de degradación,
-los comparadores, las métricas, el muestreo cualitativo y las reglas de interpretación. SMB no se
-emplea para elegir modelos, puntos de control, hiperparámetros ni umbrales. Las páginas reciben
-entradas idénticas para todos los comparadores y se agrupan por obra o fuente auditada, mientras que
-las regiones se tratan como observaciones anidadas.
+los comparadores, las métricas, el muestreo cualitativo y las reglas de interpretación. La muestra
+principal SMB no se empleó para elegir modelos, puntos de control, hiperparámetros ni umbrales. El
+estudio secundario congeló antes de entrenar roles por obra sin solapamiento y excluyó las 64 obras
+de la comparación principal. Las páginas reciben entradas idénticas para todos los comparadores y
+se agrupan por obra o fuente auditada, mientras que las regiones se tratan como observaciones
+anidadas.
 
 La evaluación combinó medidas de fidelidad con una revisión sistemática de discontinuidades de
 pentagrama, pérdida o deformación de símbolos, uniones indebidas, alteraciones de texto y marcas

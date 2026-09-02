@@ -29,9 +29,9 @@ no está disponible. Por ello, la redistribución no queda establecida y la repr
 permanece prohibida mientras no exista evidencia separada que autorice el elemento concreto. No se
 incorporan imágenes de SMB a esta memoria con la evidencia actual.
 
-Cualquier fuente futura de entrenamiento o validación deberá disponer de identidad, licencia,
-procedencia y agrupación propias. SMB no se reutilizará para ese fin aunque una adaptación llegue a
-aprobarse.
+El acceso controlado y la licencia no impiden un uso experimental local, pero sí obligan a separar
+la reproducibilidad del permiso de redistribución. Por ello, las imágenes, recortes y pesos
+adaptados derivados de SMB se conservan fuera de Git y no se publican con la memoria.
 
 \section{Auditoría, cobertura y calidad}
 % Evidence: proyecto/data/manifests/smb-evaluation-v1.yaml and the recovery bundle selected by it;
@@ -128,15 +128,42 @@ cualquier conclusión.
 \end{figure}
 
 \section{Particiones y prevención de fugas}
-La única partición oficial de SMB se reservó íntegramente para evaluación final. No se utilizó
-para entrenamiento, validación, ajuste de hiperparámetros, elección de métodos o puntos de control,
-definición de umbrales ni selección de ejemplos por resultado. Las fases de desarrollo emplearán
-fixtures o datos independientes.
+SMB solo publica una partición oficial denominada \texttt{test}; las etiquetas de entrenamiento,
+validación y prueba utilizadas en este TFG son, por tanto, roles internos y no nuevas particiones
+oficiales. En la comparación principal, las 64 obras de la muestra v2 se reservaron íntegramente
+para inferencia: no se utilizaron para entrenamiento, validación, ajuste de hiperparámetros,
+elección de métodos o puntos de control.
 
 La unidad independiente fue la obra o fuente musical confirmada por la auditoría. Las páginas se
 evaluaron de forma emparejada y las regiones o recortes se trataron como observaciones anidadas. El manifiesto
-inmutable reconcilió todos los índices esperados y evitó que material relacionado cruzara
-particiones adaptativas; en la muestra final se retuvo una sola página por obra.
+inmutable reconcilió todos los índices esperados y evitó que material relacionado cruzara roles;
+en la muestra principal se retuvo una sola página por obra.
+
+El estudio secundario de adaptación se definió después de cerrar aquella comparación, pero antes
+de entrenar o consultar sus resultados. Excluyó las 64 obras v2; asignó al entrenamiento 45 obras
+del piloto v1, con 212 páginas elegibles; y seleccionó entre obras nuevas 13 para validación y 20
+para prueba, con 35 y 55 páginas elegibles. La selección de punto de control empleó 13 casos fijos
+de validación, mientras que la prueba utilizó una página representativa por cada una de sus 20
+obras. Ninguna obra cruzó roles y las muestras de validación y prueba no habían aparecido en v1 ni
+v2. Esta separación permite estudiar adaptación dentro del corpus sin contaminar la comparación
+principal, pero no demuestra transferencia a otra colección.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Roles internos del estudio secundario de adaptación EDSR. No son particiones oficiales
+  de SMB. Fuente: elaboración propia a partir del manifiesto congelado.}
+  \label{tab:adaptation-split}
+  \begin{tabular}{lrrp{0.39\textwidth}}
+    \toprule
+    Rol & Obras & Páginas elegibles & Uso \\
+    \midrule
+    Entrenamiento & 45 & 212 & Muestreo equilibrado de recortes; obras del piloto v1 \\
+    Validación & 13 & 35 & Selección de punto de control sin consultar prueba \\
+    Prueba & 20 & 55 & Una página fija por obra y seis condiciones \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Degradación controlada}
 La evaluación final utilizó el protocolo \texttt{staff-scale-score-v2}. Se mantuvieron seis

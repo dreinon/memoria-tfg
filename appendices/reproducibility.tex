@@ -36,6 +36,16 @@ configs/experiments/smb-pretrained-evaluation-v2.yaml
 El directorio de controles fija métodos, puntos de control, métricas, unidades, exclusiones,
 semillas, selección cualitativa y reglas de interpretación.
 
+El estudio secundario emplea estos dos controles:
+
+\begin{verbatim}
+data/adaptation/smb-edsr-finetuning-v1-split.csv
+configs/experiments/smb-edsr-finetuning-v1.yaml
+\end{verbatim}
+
+El manifiesto tiene SHA-256 \texttt{ee3e2834679a\ldots}. Los roles internos contienen 45, 13 y 20
+obras de entrenamiento, validación y prueba, sin solapamiento y con las 64 obras v2 excluidas.
+
 \section{Ejecución y análisis}
 El cuaderno \path{notebooks/03-smb-model-comparison-v2.ipynb} utiliza el mismo paquete que las
 pruebas locales. En Kaggle debe habilitarse GPU e instalarse el proyecto desde la revisión elegida;
@@ -60,6 +70,20 @@ comparaciones emparejadas, tiempos, resumen cualitativo, informe, figuras y mani
 \path{docs/experimental-claim-evidence.csv} vincula las afirmaciones materiales de los capítulos
 5--7 con esos artefactos y sus limitaciones.
 
+La adaptación se ejecuta mediante
+\path{notebooks/04-smb-edsr-finetuning.ipynb}. El paquete recuperado se valida y sus figuras se
+regeneran con:
+
+\begin{verbatim}
+uv run python scripts/validate_smb_edsr_finetuning.py
+uv run python scripts/generate_smb_adaptation_figures.py
+\end{verbatim}
+
+La ejecución registró la revisión \texttt{4e7806733d9d\ldots}, semilla 20260902 y el mismo entorno
+Kaggle con CUDA 12.8. El ZIP tiene SHA-256 \texttt{414613156e71\ldots}; su manifiesto reconcilia
+50 ficheros, 360 resultados, 24 filas de remuestreo, 30 imágenes cualitativas y dos puntos de
+control. La semilla de los intervalos fue 20260903.
+
 \section{Límites de reproducción}
 La reproducción exige acceso autorizado a SMB y disponibilidad de los puntos de control oficiales.
 Los tiempos dependen del hardware y del entorno; deben compararse en una misma ejecución, no como
@@ -67,6 +91,9 @@ constantes universales. El remuestreo estadístico es determinista con semilla 2
 repetición puede diferir en tiempos y en detalles numéricos de bajo nivel entre plataformas. La
 licencia del conjunto no establece los derechos de reproducción de cada partitura, por lo que los
 paneles cualitativos no se distribuyen ni se incluyen en esta memoria.
+Los puntos de control adaptados tampoco se distribuyen: además del tamaño, derivan de datos de
+acceso controlado y requieren una revisión separada de derechos antes de cualquier reutilización o
+uso comercial.
 
 \section{Lista de comprobación de reproducción}
 Una repetición se considera reconciliada cuando: (1) resuelve la revisión exacta de SMB; (2)
@@ -75,6 +102,11 @@ verifica 64 identidades de píxel y de obra; (3) produce las 384 trazas esperada
 las 18 valoraciones cualitativas; y (7) vuelve a calcular agregados, intervalos y figuras sin
 alterar denominadores. Un fallo en cualquiera de estos puntos debe quedar explícito y no puede
 rellenarse con la salida de otra ejecución.
+
+Para la adaptación se exige además: (1) verificar los 45/13/20 grupos sin cruces y la exclusión de
+v2; (2) reproducir las identidades de píxel de desarrollo y prueba; (3) validar los dos puntos de
+control seleccionados solo con validación; (4) obtener 360 tuplas y 24 filas emparejadas; y (5)
+verificar los 30 PNG fijados sin publicarlos.
 
 La reproducibilidad computacional tampoco equivale a generalización. Repetir exactamente los
 resultados confirma el pipeline y sus entradas, no demuestra que las conclusiones se transfieran a

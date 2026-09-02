@@ -4,8 +4,8 @@ visually plausible detail that was not present in the document. This Bachelor's 
 when these techniques add value and which safeguards are required for professional use in
 libraries, archives, preservation, consultation, or editorial preparation.
 
-Sheet Music Benchmark (SMB) was audited and its only official split was reserved for evaluation.
-The final comparison used 64 pages from 64 independent works and six synthetic degradations: two
+Sheet Music Benchmark (SMB) was audited and an untouched sample was reserved for the primary
+comparison. It used 64 pages from 64 independent works and six synthetic degradations: two
 and four times upscaling crossed with clean, moderate, and strong severity. Blur was normalized by
 staff-line spacing so that severity remained comparable across pages. Bicubic interpolation, the
 EDSR residual network, and the lightweight SwinIR transformer were compared using luminance PSNR
@@ -13,10 +13,12 @@ and SSIM, work-paired intervals, inference time, and a preselected qualitative r
 failures. The reproducible implementation was developed in Python with PyTorch, OpenCV, and
 \texttt{uv}; GPU execution used one Tesla T4 device on Kaggle.
 
-The fine-tuning proposed in the approved offer was assessed as a methodological decision but was
-not performed. SMB provides no independent training and validation splits, and adapting the models
-with it would have contaminated the test. This \emph{NO-GO} decision preserves the evaluation and
-defines the data requirements for future adaptation.
+After preserving the primary comparison, a secondary EDSR fine-tuning study was performed.
+Project-defined work-level roles comprised 45 training, 13 validation, and 20 test groups, with no
+overlap or reuse of the 64 primary works. Adapted EDSR exceeded the official model in luminance
+PSNR and SSIM under all six conditions, with work-paired intervals that did not cross zero. This
+supports adaptation within SMB and matched degradations, not transfer to other collections or
+musical correctness.
 
 EDSR and SwinIR outperformed bicubic interpolation on both primary metrics in all six conditions.
 However, SwinIR clearly exceeded EDSR only for x2 clean, x2 moderate, and x4 clean inputs, while

@@ -59,6 +59,77 @@ condiciones favorables.
   \label{fig:paired-deltas}
 \end{figure}
 
+\section{Adaptación secundaria de EDSR}
+La selección por validación produjo el punto de control del paso 1.500 para x2, con L1 RGB media
+0,01409, y el del paso 2.500 para x4, con 0,03158. La Figura~\ref{fig:adaptation-checkpoints}
+muestra que x2 dejó de mejorar de forma sostenida, mientras que x4 alcanzó su mínimo en el último
+punto permitido. Por tanto, el resultado x4 describe el presupuesto congelado y podría subestimar
+una mejora posterior; no se prolongó el entrenamiento después de observar la prueba.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/results/adaptation-checkpoint-selection.pdf}
+  \caption{Pérdida L1 RGB de validación y puntos de control elegidos para EDSR x2 y x4. La
+  selección utiliza 13 obras independientes y no consulta las 20 obras de prueba. Fuente:
+  elaboración propia a partir del estudio de adaptación.}
+  \label{fig:adaptation-checkpoints}
+\end{figure}
+
+El EDSR adaptado superó al EDSR oficial en PSNR-Y y SSIM-Y para las seis condiciones. Los doce
+intervalos emparejados del 95\,\% quedaron por encima de cero. La ganancia PSNR-Y abarcó de
+3,242 dB en x4 moderada a 7,844 dB en x2 fuerte; la ganancia SSIM-Y, de 0,0169 en x2 limpia a
+0,1949 en x2 fuerte. En x2 mejoraron las 20 obras en ambas métricas. En x4, SSIM-Y mejoró en las
+20; PSNR-Y lo hizo en 20 obras limpias, 19 moderadas y 18 fuertes.
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption{Diferencia media emparejada EDSR adaptado menos EDSR oficial, con intervalo percentil
+  del 95\,\% sobre 20 obras de prueba. Fuente: elaboración propia.}
+  \label{tab:adaptation-deltas}
+  \begin{tabular}{lrr}
+    \toprule
+    Condición & \(\Delta\) PSNR-Y (dB) & \(\Delta\) SSIM-Y \\
+    \midrule
+    x2 limpia   & 3,955 [3,492; 4,373] & 0,0169 [0,0143; 0,0200] \\
+    x2 moderada & 4,719 [4,106; 5,336] & 0,0387 [0,0361; 0,0415] \\
+    x2 fuerte   & 7,844 [7,328; 8,292] & 0,1949 [0,1786; 0,2104] \\
+    x4 limpia   & 3,599 [2,978; 4,186] & 0,0602 [0,0487; 0,0722] \\
+    x4 moderada & 3,242 [2,647; 3,771] & 0,0796 [0,0660; 0,0933] \\
+    x4 fuerte   & 3,703 [2,723; 4,690] & 0,1558 [0,1365; 0,1746] \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+La Figura~\ref{fig:adaptation-deltas} permite comparar magnitudes y denominadores sin mezclar este
+estudio con las 64 obras del experimento principal. El modelo adaptado también superó a bicúbica
+en ambas métricas y condiciones al nivel agregado. Sin embargo, las dos obras que empeoraron en
+PSNR-Y frente al EDSR oficial bajo x4 fuerte fueron también las de menor separación de pentagrama
+de la prueba. Es una observación \emph{post hoc} de solo dos casos, útil como hipótesis y no como
+conclusión de subgrupo.
+
+\begin{center}
+  \centering
+  \includegraphics[width=0.92\textwidth]{figures/results/adaptation-deltas-vs-pretrained.pdf}
+  \captionof{figure}{Ganancia del EDSR adaptado respecto del EDSR oficial en 20 obras de prueba, con
+  intervalos emparejados del 95\,\%. Fuente: elaboración propia a partir del estudio secundario.}
+  \label{fig:adaptation-deltas}
+\end{center}
+
+La revisión del estudiante clasificó los casos x2/x4 limpios y moderados como mejora sin defecto
+nuevo claro, y los dos casos fuertes como daño ya presente en LR y no recuperado. Ninguno de los
+seis se clasificó como daño introducido o amplificado por el EDSR adaptado. En los cuatro primeros,
+el ajuste redujo halos y textura y definió mejor pentagramas y notación; persistieron limitaciones
+menores en texto y en cabezas de nota muy próximas. En x2 fuerte, el mayor contraste no recuperó
+alteraciones, ornamentos, líneas adicionales, texto ni dígitos pequeños. En x4 fuerte, el resultado
+fue más legible que el EDSR oficial y reconstruyó mejor cabezas rellenas, plicas y ligaduras, pero
+no recuperó digitaciones, símbolos pequeños, blancas ni texto. Podría servir para una consulta
+aproximada, no para una interpretación musical final.
+
+Estos seis casos detectan límites, pero no permiten estimar su frecuencia ni demuestran corrección
+semántica. En consecuencia, la adaptación respalda una mejora de fidelidad dentro de SMB y
+degradaciones coincidentes, no una restauración musical autónoma.
+
 \section{Resultados cualitativos y fallos musicales}
 En las 18 valoraciones fijas se registró \emph{sin incidencia clara} en cuatro de los seis casos
 bicúbicos y en dos de los seis casos de cada red. Se observaron incidencias en dos casos bicúbicos,

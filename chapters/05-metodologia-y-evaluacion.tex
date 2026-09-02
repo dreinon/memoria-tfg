@@ -22,7 +22,8 @@ coincida.
 La Tabla~\ref{tab:method-selection} hace explícita la función de cada método. Los pesos aprendidos
 proceden de imágenes naturales y degradación bicúbica, no de SMB ni del protocolo con ruido y JPEG;
 esta discrepancia de dominio es deliberada porque la pregunta es cuánto transfieren modelos
-preentrenados. No se reentrenaron ni se seleccionaron puntos de control por su resultado final.
+preentrenados. En la comparación principal no se reentrenaron ni se seleccionaron puntos de
+control por su resultado final.
 
 \begin{table}[htbp]
   \centering
@@ -43,13 +44,31 @@ preentrenados. No se reentrenaron ni se seleccionaron puntos de control por su r
 \end{table}
 
 \section{Adaptación al dominio}
-Se tomó una decisión \emph{NO-GO} sobre el ajuste fino. SMB solo proporciona una partición oficial
-de evaluación y el protocolo prohíbe usarla para elegir o adaptar el modelo. Una adaptación válida
-habría requerido reunir y gobernar otro conjunto de entrenamiento y validación, diseñar una
-partición por obra, repetir la selección y reservar una nueva evaluación. Este coste no estaba
-justificado una vez asegurada la comparación preentrenada y habría reducido el margen para analizar
-los errores, redactar y revisar la memoria. La decisión no afirma que la adaptación carezca de
-valor: la traslada a trabajo futuro bajo un protocolo independiente y sin fugas.
+La decisión inicial fue no adaptar ningún modelo antes de asegurar la comparación principal. Una
+vez reconciliada, se aprobó un estudio secundario limitado a EDSR, porque era posible definir roles
+independientes por obra dentro de la revisión fijada de SMB sin reutilizar ninguna de las 64 obras
+v2. Este cambio no altera retrospectivamente el experimento principal ni convierte los roles
+internos en particiones oficiales del conjunto.
+
+Se iniciaron dos modelos desde los pesos oficiales EDSR x2 y x4. El entrenamiento utilizó pérdida
+L1 RGB, Adam, tasa inicial \(5\cdot10^{-5}\) con descenso coseno hasta \(10^{-6}\), lotes de ocho
+recortes LR de 48 por 48 píxeles y un máximo de 2.500 pasos por escala. Cada lote equilibró los tres
+perfiles de degradación y muestreó primero una obra y después una página, para evitar que las obras
+largas dominaran el ajuste. Los recortes se centraron en regiones anotadas; no se aplicaron giros
+ni volteos que pudieran alterar la geometría musical. La semilla fue 20260902, se empleó precisión
+mixta en CUDA y recorte de norma de gradiente a 1,0.
+
+Cada 250 pasos se midió L1 RGB en casos fijos de las 13 obras de validación. La selección minimizó
+esa pérdida con paciencia cuatro y mejora mínima \(10^{-5}\), sin acceder a las 20 obras de prueba.
+El punto seleccionado fue el paso 1.500 para x2 y el 2.500 para x4. Que x4 alcanzara su mejor valor
+en el límite del presupuesto se conserva como limitación; no se amplió el entrenamiento tras
+observar la prueba.
+
+La evaluación secundaria cruzó 20 obras, seis condiciones y tres métodos: bicúbica, EDSR oficial y
+EDSR adaptado. Conservó 360 tuplas y calculó diferencias emparejadas por obra con 2.000 remuestreos
+y semilla 20260903. Su comparación primaria fue EDSR adaptado menos EDSR oficial; la comparación
+con bicúbica fue secundaria. Los resultados no se combinaron con las 64 obras del experimento
+principal.
 
 \section{Métricas y unidades de análisis}
 Las medidas primarias fueron PSNR y SSIM sobre el canal de luminancia Y de la transformación
@@ -80,6 +99,11 @@ resuelta, no como igualdad entre métodos. Los intervalos no corrigen una famili
 comparaciones ni constituyen pruebas de superioridad universal; se usan para describir magnitud y
 estabilidad de comparaciones predeclaradas, junto con la evidencia cualitativa.
 
+En el estudio de adaptación se aplicó el mismo principio con 20 obras independientes. Sus 24 filas
+de remuestreo corresponden a dos comparadores, dos métricas y seis condiciones. Los intervalos
+describen únicamente esas obras y el protocolo sintético coincidente; no convierten la adaptación
+dentro de SMB en evidencia sobre otro corpus o sobre escaneos reales.
+
 El tiempo por página se midió alrededor de cada reconstrucción después de cargar el modelo. Se
 presenta la mediana por condición porque el objetivo es describir el coste operativo observado, no
 extrapolarlo a otro hardware. No se comparó consumo energético directo al no disponer de una
@@ -106,9 +130,10 @@ revisión sirve para detectar contradicciones entre fidelidad promedio y comport
 notación, y para formular límites profesionales.
 
 \section{Reproducibilidad}
-La Figura~\ref{fig:experimental-workflow} resume el flujo. Las decisiones adaptativas se cerraron
-antes de desbloquear SMB; después de la inferencia, el análisis cuantitativo y el cualitativo se
-integraron antes de formular recomendaciones.
+La Figura~\ref{fig:experimental-workflow} resume el flujo principal. Sus decisiones se cerraron
+antes de desbloquear la muestra v2; después de la inferencia, el análisis cuantitativo y el
+cualitativo se integraron antes de formular recomendaciones. La adaptación siguió un segundo
+contrato congelado, con obras y artefactos separados.
 
 \begin{figure}[htbp]
   \centering
@@ -152,3 +177,11 @@ OpenCV 4.13.0 y expuso dos GPU Tesla T4. La inferencia se ejecutó en el disposi
 entorno y hashes de salida. El análisis posterior genera CSV y JSON con un manifiesto de hashes,
 además de las figuras incluidas en esta memoria. Los datos originales y los pesos no se incluyen en
 Git.
+
+La ejecución de adaptación registró Python 3.12.13, PyTorch 2.10.0 con CUDA 12.8, dos Tesla T4
+visibles y uso de \texttt{cuda:0}. La revisión ejecutada fue
+\texttt{4e7806733d9d\ldots}; el archivo descargado tiene SHA-256
+\texttt{414613156e71\ldots}. La reconciliación independiente verificó 50 ficheros, las 360 tuplas,
+24 intervalos, 30 PNG cualitativos, dos puntos de control, los tres roles sin solapamiento y las
+identidades de píxel. Los pesos adaptados y las imágenes SMB se retienen fuera de Git por tamaño,
+acceso y derechos.

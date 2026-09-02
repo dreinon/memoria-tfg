@@ -20,6 +20,17 @@ sintéticas controladas y los pesos exactos evaluados. No se estimó prevalencia
 realizó una evaluación ciega por especialistas. Tampoco se midieron exactitud de OMR, rendimiento de
 lectura, decisión editorial o conservación documental.
 
+El estudio secundario añade evidencia distinta: sobre 20 obras SMB nuevas, el EDSR adaptado mejoró
+al EDSR oficial en las dos métricas y las seis condiciones. La separación por obra y la selección
+exclusiva sobre validación sostienen la comparación dentro del estudio, pero no aportan una
+validación externa: entrenamiento, validación y prueba proceden de la misma revisión del corpus y
+comparten el generador de degradación. Por ello, la adaptación demuestra utilidad para ajustar un
+modelo a este dominio controlado, no para certificar escaneos reales o colecciones diferentes.
+En sus seis casos fijos, el estudiante observó mejora sin defecto nuevo claro en las cuatro
+condiciones limpias o moderadas y daño de LR no recuperado en las dos fuertes. Esta evidencia
+refuerza el valor de consulta asistida, pero no mide una tasa de seguridad ni autoriza inferir
+información musical ausente.
+
 \section{Escenarios profesionales y marco de decisión}
 La Tabla~\ref{tab:professional-framework} convierte la evidencia en una guía operativa. En todos los
 escenarios la superresolución produce un derivado: se conserva la imagen original, se identifica el
@@ -30,7 +41,8 @@ pueda influir en lectura, edición o descripción patrimonial.
   \centering
   \footnotesize
   \setlength{\tabcolsep}{3pt}
-  \caption{Marco de decisión limitado a las condiciones SMB v2 evaluadas. Fuente: elaboración
+  \caption{Marco de decisión para modelos preentrenados, limitado a las condiciones SMB v2
+  evaluadas. Fuente: elaboración
   propia a partir de la triangulación cuantitativa, cualitativa y operativa.}
   \label{tab:professional-framework}
   \begin{tabular}{p{0.16\textwidth}p{0.20\textwidth}p{0.25\textwidth}p{0.29\textwidth}}
@@ -53,6 +65,14 @@ fuente. En preparación editorial puede actuar como ayuda previa a una correcci�
 entrada que se publique sin cotejo. En preservación, autenticación, transcripción crítica o
 reconocimiento automático, esta evaluación no autoriza sustituir el documento ni asumir que un
 detalle generado existía en la fuente.
+
+El modelo adaptado no sustituye este marco por una recomendación universal. Podría ser una opción
+preferente cuando una institución disponga de material HR autorizado, pueda separar obras para
+entrenamiento, validación y prueba, y procese entradas comparables al dominio de ajuste. Antes de
+usarlo debería repetirse la evaluación sobre una prueba local intacta y revisarse la notación. En
+este TFG los pesos adaptados no se distribuyen: derivan de SMB, cuya licencia se declara no
+comercial y cuya procedencia por elemento no pudo resolverse. El resultado es una prueba de
+viabilidad técnica, no un artefacto listo para explotación.
 
 \section{Requisitos de una integración profesional}
 El resultado no exige construir una aplicación, pero sí permite describir el proceso mínimo para
