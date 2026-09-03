@@ -21,6 +21,13 @@ l'EDSR oficial en PSNR-Y i SSIM-Y per a les sis condicions, amb intervals aparel
 creuar zero. Aquest resultat demostra adaptació dins d'SMB i degradacions coincidents, no
 transferència a altres col·leccions ni correcció musical.
 
+Com a extensió professional, el model adaptat es va aplicar sense reajustar-lo a dotze obres d'un
+arxiu musical extern sota les mateixes degradacions. Els intervals van afavorir el model adaptat en
+les sis comparacions PSNR-Y i en cinc de sis SSIM-Y. Huit derivats es van acceptar per a consulta,
+tres amb reserves i un es va rebutjar; també es va implementar un demostrador local reversible.
+Aquesta prova dona suport a la transferència entre col·leccions sota LR sintètica, no a la
+restauració d'entrades LR naturals ni a una taxa universal de seguretat.
+
 EDSR i SwinIR van superar la interpolació bicúbica en les dues mètriques primàries per a les sis
 condicions. No obstant això, SwinIR només va millorar clarament EDSR en les condicions x2 neta, x2
 moderada i x4 neta, i va ser entre 5,2 i 8,5 vegades més lent. La revisió visual va detectar símbols

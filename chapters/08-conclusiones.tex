@@ -20,10 +20,12 @@ difíciles y fue entre 5,2 y 8,5 veces más rápido. La revisión cualitativa ha
 texto o dígitos corruptos y textura no natural en casos de ambas redes. La adaptación al dominio se
 ejecutó después como estudio secundario sin reutilizar las 64 obras principales: el EDSR adaptado
 mejoró al oficial en PSNR-Y y SSIM-Y en las seis condiciones sobre 20 obras nuevas, con intervalos
-emparejados que no cruzaron cero. El resultado profesional es un marco condicionado en el que EDSR
-preentrenado constituye la opción general por equilibrio entre fidelidad y coste, SwinIR una opción
-selectiva y bicúbica una referencia rápida y transparente. La adaptación es prometedora cuando se
-dispone de datos gobernados del dominio, pero no queda validada fuera de SMB ni como restauración
+emparejados que no cruzaron cero. Aplicado después sin reajuste a doce obras de otra colección,
+mantuvo intervalos favorables en las seis comparaciones PSNR-Y y en cinco de seis SSIM-Y. El
+resultado profesional es un marco condicionado en el que EDSR preentrenado constituye la opción
+general por equilibrio entre fidelidad y coste, SwinIR una opción selectiva, bicúbica una referencia
+rápida y transparente, y el EDSR adaptado una opción prometedora cuando existe gobierno de datos y
+revisión humana. La evidencia externa se limita a LR sintética y no demuestra restauración
 semántica.
 
 En la revisión fija del modelo adaptado, cuatro de seis casos mostraron mejora sin defecto nuevo
@@ -32,6 +34,13 @@ texturas y mejoró pentagramas y símbolos principales, pero no recuperó de for
 dígitos, alteraciones y otros elementos pequeños cuando la degradación había eliminado su
 información. Por ello, su ventaja cuantitativa y visual no autoriza completar ni interpretar una
 partitura sin cotejo humano.
+
+En los doce casos externos, ocho derivados fueron aceptados para consulta, tres aceptados con
+reservas y uno rechazado. Los seis x2 fueron aceptables, mientras que x4 fuerte produjo un caso con
+reservas y otro no consultable. No se atribuyó ningún defecto nuevo claro al modelo adaptado; los
+problemas observados procedían de información perdida en LR, sobre todo texto, dígitos, cabezas y
+símbolos finos. Este recuento refuerza el valor de un flujo reversible con rechazo explícito, pero
+no estima una tasa de seguridad fuera de la muestra.
 
 La Tabla~\ref{tab:objective-evidence} cierra la trazabilidad entre lo prometido y lo entregado. El
 ajuste fino se añadió únicamente después de asegurar el núcleo y se evaluó con un contrato separado
@@ -52,6 +61,7 @@ compatible con la integridad de la comparación principal.
     Predeclarar el experimento & Protocolo v2, muestra, pesos, métricas, semillas y reglas & Cumplido \\
     Comparar métodos emparejados & 1.152 resultados, intervalos, revisión fija y tiempos & Cumplido \\
     Evaluar adaptación acotada & 45/13/20 obras separadas; dos puntos de control y 360 resultados & Cumplido con límites \\
+    Comprobar transferencia externa & 12 obras, 216 resultados, 12 decisiones y demostrador local & Cumplido con límites \\
     Producir una guía profesional & Marco por condición, salvaguardas y casos de no uso & Cumplido con límites \\
     \bottomrule
   \end{tabular}
@@ -67,14 +77,16 @@ comparación completa. Esta corrección retrasó el trabajo, pero produjo una co
 dejó una lección general: una degradación debe expresarse en relación con la estructura que pretende
 modelar, no solo en píxeles de una muestra cómoda.
 
-Las conclusiones se limitan a páginas SMB impresas con escala de pentagrama mensurable, a
-degradaciones sintéticas y a los pesos exactos de EDSR y SwinIR. La adaptación comparte corpus y
+Las conclusiones principales se limitan a páginas SMB impresas con escala de pentagrama mensurable,
+a degradaciones sintéticas y a los pesos exactos de EDSR y SwinIR. La adaptación comparte corpus y
 generador de degradación entre sus roles, aunque mantenga obras disjuntas, y x4 alcanzó su mejor
-validación en el límite de 2.500 pasos. Se revisaron cualitativamente seis páginas por estudio, por
-lo que no se conocen tasas de fallo poblacionales. No hubo evaluación ciega por
-especialistas, escaneos reales, manuscritos, medición de energía, OMR ni una tarea editorial. PSNR y
-SSIM miden fidelidad de imagen, no corrección musical. La procedencia y los derechos por elemento
-de SMB no están disponibles, lo que impide reproducir sus imágenes en la memoria.
+validación en el límite de 2.500 pasos. El piloto externo añade doce partes de banda, pero mantiene
+LR sintética, un único revisor no ciego y solo dos casos por condición; por ello no se conocen tasas
+de fallo poblacionales. No hubo entradas LR naturalmente adquiridas, manuscritos, medición de
+energía, OMR, tarea editorial ni evaluación formal de usabilidad. PSNR y SSIM miden fidelidad de
+imagen, no corrección musical. La procedencia y los derechos por elemento de SMB no están
+disponibles, y la autorización de procesamiento del corpus externo no equivale a derechos de
+publicación; ninguna de sus páginas se reproduce en la memoria.
 
 El trabajo reforzó conocimientos de aprendizaje profundo, procesamiento de imagen, inferencia
 estadística emparejada, diseño experimental y ejecución reproducible en entornos locales y
@@ -82,25 +94,26 @@ acelerados. También mostró el valor de conservar resultados negativos, separar
 confirmación y traducir una métrica técnica en una decisión profesional con límites explícitos.
 
 \section{Contribución y legado}
-La contribución no es un nuevo modelo ni una aplicación desplegada. Es un protocolo reproducible
-para estudiar superresolución de partituras, una corrección de degradación basada en escala de
-pentagrama, una comparación emparejada con incertidumbre, una adaptación reproducible de EDSR, una
-taxonomía de fallos musicales y un marco de decisión que incluye condiciones de no uso. Este conjunto permite a bibliotecas, archivos,
+La contribución no es un nuevo modelo ni un servicio desplegado. Es un protocolo reproducible para
+estudiar superresolución de partituras, una corrección de degradación basada en escala de
+pentagrama, comparaciones emparejadas con incertidumbre, una adaptación reproducible de EDSR, una
+prueba externa sin reajuste, un demostrador local, una taxonomía de fallos musicales y un marco de
+decisión que incluye condiciones de no uso. Este conjunto permite a bibliotecas, archivos,
 profesionales de patrimonio, intérpretes, investigadores y editoriales valorar una copia ampliada
 sin confundirla con el original.
 
-El legado técnico reside en el código Python, configuraciones congeladas, hashes de puntos de
-control, manifiestos, semillas, pruebas, cuadernos y scripts de análisis. Un tercero con acceso
-autorizado a SMB puede reconstruir el entorno, verificar las identidades y repetir el flujo. Los
-artefactos generados conservan denominadores, resultados y limitaciones, pero no redistribuyen el
-conjunto ni sus imágenes. EDSR se apoya en código MIT, SwinIR en Apache-2.0 y SMB se declara CC
-BY-NC 4.0 a nivel de conjunto; cualquier reutilización debe revisar además los derechos de cada
-fuente.
+El legado técnico reside en el código Python, la aplicación local, configuraciones congeladas,
+hashes de puntos de control, manifiestos, semillas, pruebas, cuadernos y scripts de análisis. Un
+tercero con acceso autorizado a SMB y a sus propias páginas puede reconstruir el entorno, verificar
+las identidades y repetir el flujo. Los artefactos públicos conservan contratos, denominadores,
+resultados y limitaciones, pero no redistribuyen los conjuntos ni sus imágenes. EDSR se apoya en
+código MIT, SwinIR en Apache-2.0 y SMB se declara CC BY-NC 4.0 a nivel de conjunto; cualquier
+reutilización debe revisar además los derechos de cada fuente y de los pesos adaptados.
 
 El efecto esperado es mejorar la toma de decisiones: favorecer copias de consulta reversibles,
 conservar siempre el original y exigir cotejo humano cuando el resultado tenga consecuencias. El
-protocolo también deja una base para extender la adaptación, estudiar escaneos reales u OMR sin
-presentar esas líneas futuras como resultados ya validados.
+protocolo también deja una base para estudiar entradas LR naturales, extender la adaptación,
+incorporar especialistas u OMR sin presentar esas líneas futuras como resultados ya validados.
 
 \section{Relación con los estudios y competencias}
 El TFG integra programación, visión por computador, aprendizaje profundo, tratamiento de datos,

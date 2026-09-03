@@ -70,6 +70,28 @@ y semilla 20260903. Su comparación primaria fue EDSR adaptado menos EDSR oficia
 con bicúbica fue secundaria. Los resultados no se combinaron con las 64 obras del experimento
 principal.
 
+\section{Piloto externo y demostrador profesional}
+Tras cerrar el núcleo y la adaptación, se congeló una prueba separada sobre doce obras externas.
+El EDSR adaptado no se reajustó con esas páginas. Cada HR recibió las seis condiciones
+\texttt{staff-scale-score-v2} y, para cada LR resultante, se ejecutaron bicúbica, EDSR oficial y
+EDSR adaptado. El diseño produjo 216 tuplas ---doce obras, seis condiciones y tres métodos---. La
+comparación primaria fue EDSR adaptado menos EDSR oficial; se conservaron PSNR-Y, SSIM-Y, sus
+diagnósticos RGB, tiempos, hashes e intervalos por obra con 2.000 remuestreos y semilla 20260903.
+
+Antes de abrir las salidas se asignaron dos obras a cada condición para una revisión cualitativa
+de doce casos. Cada caso mostró conjuntamente HR, LR, bicúbica, EDSR oficial y EDSR adaptado. El
+estudiante clasificó el derivado como aceptable para consulta, aceptable con reservas o rechazado,
+y atribuyó cualquier problema a daño de LR no recuperado, defecto introducido o amplificado, origen
+incierto o ausencia de defecto nuevo claro. Esta revisión no fue ciega ni contó con varios
+especialistas; aporta casos profesionales trazables, no una tasa poblacional de seguridad.
+
+El demostrador local reutiliza exactamente el cargador validado del EDSR adaptado. Acepta una imagen
+PNG o JPEG, exige escala x2 o x4, conserva el original, genera un PNG derivado y muestra método,
+dispositivo, tiempo e identidades del punto de control y de la salida. No procesa PDF, no mantiene
+cuentas ni historial y no sobrescribe la entrada. Sus límites de tamaño, formato y modelo se
+verificaron mediante pruebas automatizadas; no se desplegó como servicio público ni se realizó una
+evaluación formal de usabilidad.
+
 \section{Métricas y unidades de análisis}
 Las medidas primarias fueron PSNR y SSIM sobre el canal de luminancia Y de la transformación
 BT.601 \cite{ituBt601}. Se conservaron PSNR y SSIM en RGB como diagnóstico, pero no sustituyeron las medidas
@@ -104,6 +126,11 @@ de remuestreo corresponden a dos comparadores, dos métricas y seis condiciones.
 describen únicamente esas obras y el protocolo sintético coincidente; no convierten la adaptación
 dentro de SMB en evidencia sobre otro corpus o sobre escaneos reales.
 
+En el piloto externo se aplicó de nuevo el análisis a doce obras independientes y 24 filas de
+remuestreo. Aquí sí cambia la colección, pero no el generador: las LR siguen siendo sintéticas y
+emparejadas con HR. Por tanto, el diseño estudia transferencia entre corpus bajo degradaciones
+coincidentes, no rendimiento sobre entradas LR adquiridas de forma natural.
+
 El tiempo por página se midió alrededor de cada reconstrucción después de cargar el modelo. Se
 presenta la mediana por condición porque el objetivo es describir el coste operativo observado, no
 extrapolarlo a otro hardware. No se comparó consumo energético directo al no disponer de una
@@ -128,6 +155,12 @@ Este diseño conserva casos positivos y negativos, pero no estima prevalencias: 
 preseleccionadas no permiten inferir la frecuencia de defectos en las 64 obras ni en SMB. La
 revisión sirve para detectar contradicciones entre fidelidad promedio y comportamiento de la
 notación, y para formular límites profesionales.
+
+La prueba externa amplió la revisión a doce páginas, con dos casos por condición y una decisión
+explícita de aceptación como copia de consulta. Mantuvo la misma taxonomía y añadió la comparación
+directa entre EDSR oficial y adaptado. Aunque la selección fue independiente de los resultados, su
+pequeño tamaño, el único revisor y la falta de cegamiento impiden interpretar los recuentos como
+probabilidades de éxito.
 
 \section{Reproducibilidad}
 La Figura~\ref{fig:experimental-workflow} resume el flujo principal. Sus decisiones se cerraron
@@ -185,3 +218,11 @@ visibles y uso de \texttt{cuda:0}. La revisión ejecutada fue
 24 intervalos, 30 PNG cualitativos, dos puntos de control, los tres roles sin solapamiento y las
 identidades de píxel. Los pesos adaptados y las imágenes SMB se retienen fuera de Git por tamaño,
 acceso y derechos.
+
+La ejecución externa se realizó localmente con CPU. La revisión limpia del código fue
+\texttt{62db40ff8f9\ldots}. El entorno registró Python 3.12.12, PyTorch 2.13.0, NumPy 2.5.2 y
+OpenCV 5.0.0.93;
+empleó 3.396,28 segundos y reconcilió las 216 tuplas. Tras incorporar las doce valoraciones, el
+manifiesto verificó 70 ficheros: entradas declarativas, identidad, entorno, métricas, intervalos,
+60 imágenes de revisión y la decisión humana. Las páginas, reconstrucciones y pesos permanecen
+fuera de los repositorios.

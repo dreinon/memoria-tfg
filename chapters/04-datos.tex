@@ -165,6 +165,44 @@ principal, pero no demuestra transferencia a otra colección.
   \end{tabular}
 \end{table}
 
+\section{Corpus externo para la prueba profesional}
+La prueba de transferencia empleó páginas aportadas por el archivo musical de la Societat Joventut
+Musical d'Albal (SJMA), ajenas a SMB. La entidad autorizó el acceso y el procesamiento para este
+trabajo; el estudiante compiló el corpus, pero no se atribuye la titularidad de las obras, arreglos
+o ediciones subyacentes. Por ello, las páginas HR, LR y reconstruidas permanecen fuera de Git y no
+se reproducen en la memoria. La autorización para procesarlas tampoco se presenta como permiso
+general de publicación.
+
+Se recibieron dieciséis partes de banda de una página. Antes de generar resultados, tres se
+asignaron exclusivamente a ingeniería del estimador de pentagrama y una quedó como reserva por
+redundancia de sus características de entrada. Las doce restantes, una por obra independiente, se
+congelaron como prueba externa. La selección utilizó únicamente tipo de fuente, orientación,
+instrumento, densidad, estado documental, presencia de texto y escala estimada; no consultó ninguna
+salida de superresolución.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Composición del corpus externo congelado. Fuente: elaboración propia a partir del
+  manifiesto privado de la SJMA.}
+  \label{tab:external-corpus}
+  \begin{tabular}{lp{0.27\textwidth}p{0.43\textwidth}}
+    \toprule
+    Rol & Cantidad & Cobertura de entrada \\
+    \midrule
+    Ingeniería & 3 obras & Casos usados para corregir el estimador; excluidos de resultados \\
+    Prueba & 12 obras & 10 fuentes digitales y 2 escaneos; 8 verticales y 4 horizontales \\
+    Reserva & 1 obra & Excluida por redundancia antes de observar salidas \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Entre las doce obras de prueba había siete páginas de notación densa, tres media y dos dispersa;
+todas contenían texto. La separación estimada entre líneas de pentagrama abarcó de 10 a 15 píxeles
+HR, con mediana 12,75. Las dimensiones variaron entre 1.818 y 2.572 píxeles de anchura y entre 1.818
+y 2.629 de altura. Estas propiedades amplían la variedad documental respecto de SMB, pero doce
+partes de banda no representan todas las colecciones profesionales.
+
 \section{Degradación controlada}
 La evaluación final utilizó el protocolo \texttt{staff-scale-score-v2}. Se mantuvieron seis
 condiciones, correspondientes a los factores de ampliación \(\times 2\) y \(\times 4\) y a los

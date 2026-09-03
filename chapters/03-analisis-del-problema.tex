@@ -10,9 +10,10 @@ música en requisito del núcleo experimental.
 La solución aplicada fue una comparación controlada y reproducible sobre entradas emparejadas,
 seguida de una adaptación secundaria de EDSR. La comparación principal permaneció intacta; para la
 adaptación se asignaron otras obras SMB a roles de entrenamiento, validación y prueba sin
-solapamiento. Cada comparación compartió condiciones y reglas de agregación dentro de su propio
-denominador, y la interpretación integró fidelidad, errores de notación, recursos, licencias y
-restricciones operativas.
+solapamiento. Una vez asegurados ambos estudios se admitió una extensión acotada: un demostrador
+local y una prueba sin reajuste sobre obras externas. Cada comparación compartió condiciones y
+reglas de agregación dentro de su propio denominador, y la interpretación integró fidelidad,
+errores de notación, recursos, licencias y restricciones operativas.
 
 \begin{table}[htbp]
   \centering
@@ -28,7 +29,8 @@ restricciones operativas.
     EDSR y SwinIR preentrenados & Dos familias y pesos oficiales para x2/x4 & Transferencia desde imágenes naturales & Incluir y auditar fallos musicales \\
     Modelos perceptuales o difusión & Mayor realismo aparente & Alucinación, más coste y menor trazabilidad & Excluir del núcleo orientado a fidelidad \\
     Ajuste fino & Posible adaptación al dominio & Riesgo de fuga y coste adicional & Ejecutar un estudio secundario acotado tras asegurar el núcleo \\
-    Aplicación web u OMR & Demostración o tarea posterior & Pregunta nueva sin validación externa & Trabajo futuro tras asegurar el núcleo \\
+    Demostrador y piloto externo & Evidencia tangible de aplicabilidad & Nueva pregunta, derechos y revisión adicional & Ejecutar una extensión acotada después de asegurar el núcleo \\
+    PDF, OMR o despliegue & Flujo de producto o tarea posterior & Validación y riesgos distintos & Mantener como trabajo futuro \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -68,7 +70,7 @@ de entrega.
     Métricas favorables con error musical & Media & Crítico & Revisión cualitativa fija y regla de contradicción & Ocurrió en casos; limita la recomendación \\
     Peso, licencia o entorno incompatible & Media & Alto & Fuentes oficiales, hashes y prueba Kaggle & Resuelto antes de la ejecución final \\
     Coste o plazo excesivo & Alta & Crítico & Núcleo primero y extensión acotada a EDSR & Controlado; se preservó la evaluación \\
-    Derechos por imagen insuficientes & Media & Alto & Separar licencia de dataset y procedencia por elemento & No se reproducen imágenes SMB \\
+    Derechos por imagen insuficientes & Media & Alto & Separar acceso, procesamiento y reproducción por elemento & No se reproducen páginas SMB ni del corpus externo \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -79,7 +81,10 @@ La documentación oficial de SMB informa de acceso controlado y licencia CC BY-N
 reproducir en la memoria cualquier escaneo o transformación. Deben separarse la licencia del
 conjunto, la procedencia y derechos de cada partitura, las licencias del código y los pesos, y el
 permiso específico para publicar figuras. Como la auditoría no pudo establecer esa autorización por
-elemento, no se incorporan imágenes de SMB a la memoria.
+elemento, no se incorporan imágenes de SMB a la memoria. En el piloto externo, la Societat
+Joventut Musical d'Albal (SJMA) autorizó el acceso institucional y el procesamiento de las páginas
+aportadas. Esa autorización no se interpretó como una cesión de los derechos de autor de cada obra,
+arreglo o edición; por ello, la memoria comunica agregados y decisiones sin reproducir páginas.
 
 La evaluación consideró como amenazas las representaciones insuficientes de fuentes, estilos de grabado,
 densidades de notación, tamaños de pentagrama, tipografías y calidades de digitalización. También se
@@ -92,17 +97,19 @@ es profesionalmente preferible.
 No se trataron datos personales ni se entrenó un sistema de decisión sobre personas, por lo que no
 se identificó un tratamiento de categorías personales ni un riesgo de discriminación individual.
 Sí existe un sesgo documental: solo se estudió notación impresa compatible con SMB y la selección
-final exigió una escala de pentagrama mensurable. Quedan fuera manuscritos, tradiciones de notación
-no representadas, escaneos reales heterogéneos y páginas que el estimador no pudo caracterizar. La
-consecuencia ética no es asignar un resultado a una persona, sino ofrecer peor cobertura o una falsa
+final exigió una escala de pentagrama mensurable. El piloto añadió partes de banda de otra
+colección, pero no manuscritos, tradiciones de notación no representadas, entradas LR naturales
+heterogéneas ni páginas que el estimador no pudo caracterizar. La consecuencia ética no es asignar
+un resultado a una persona, sino ofrecer peor cobertura o una falsa
 sensación de fidelidad para determinados documentos.
 
 \section{Plan de trabajo y recursos}
 El trabajo se organiza en incrementos de evidencia: contrato y gobierno de SMB; degradaciones e
 interpolaciones; selección y validación de modelos; evaluación controlada; y síntesis, reproducción
-y depósito. El núcleo científico tuvo prioridad; solo después de reconciliarlo se añadió la
-adaptación acotada de EDSR. Aplicaciones, nuevas familias y mejoras no esenciales permanecen fuera
-del alcance. La contingencia final se reserva para comentarios de los
+y depósito. El núcleo científico tuvo prioridad; solo después de reconciliarlo se añadieron la
+adaptación acotada de EDSR y, como última extensión separable, el piloto externo con demostrador
+local. El tratamiento de PDF, OMR, despliegue, nuevas familias y mejoras no esenciales permanecen
+fuera del alcance. La contingencia final se reserva para comentarios de los
 revisores, correcciones invalidantes, reproducción limpia y operaciones de depósito.
 
 La planificación inicial asignó 330 horas al TFG. Al no existir un parte horario contemporáneo,
@@ -113,15 +120,19 @@ para el contrato, el estado del arte y el gobierno de SMB; 73 para el diseño ex
 líneas base; 71 para integrar los modelos y ejecutar la adaptación acotada; 82 para las dos ejecuciones SMB,
 la corrección del protocolo y el análisis; y 56 para la memoria y su control de calidad. Se estiman
 22 horas adicionales para incorporar las dos revisiones, cerrar el depósito y preparar la defensa,
-lo que sitúa la previsión final en 368 horas. Estas cifras expresan dedicación académica estimada,
-no una medición cronográfica, y por ello se comunica también su incertidumbre.
+lo que situó la previsión previa en 368 horas. El piloto profesional recibió después una envolvente
+adicional de 10--16 horas, de modo que la previsión final pasa a 378--384 horas sin atribuir como
+dedicación del estudiante el tiempo de cómputo no supervisado. Estas cifras
+expresan dedicación académica estimada, no una medición cronográfica, y por ello se comunica también
+su incertidumbre.
 
 Frente al plan, la evaluación consumió más por detectar que la primera degradación no se transfería
 a páginas completas, normalizarla por la escala del pentagrama y repetir el experimento. La
-adaptación secundaria añadió unas 20 horas una vez protegido el núcleo. La previsión final aumenta
-38 horas (un 11,5\,\%) respecto de las 330 iniciales y rebasa en 8 horas el límite superior del
-intervalo orientativo de 300--360 horas asociado a los 12 ECTS. Se comunica la desviación en lugar
-de ajustar retrospectivamente el esfuerzo al intervalo. Los recursos materiales fueron el equipo local ya
+adaptación secundaria añadió unas 20 horas una vez protegido el núcleo. Antes del piloto, la
+previsión aumentaba 38 horas (un 11,5\,\%) respecto de las 330 iniciales y rebasaba en 8 horas el
+límite superior del intervalo orientativo de 300--360 horas asociado a los 12 ECTS; la extensión
+eleva la diferencia prevista a 48--54 horas. Se comunica la desviación en lugar de ajustar
+retrospectivamente el esfuerzo al intervalo. Los recursos materiales fueron el equipo local ya
 disponible, Overleaf y una GPU gratuita de Kaggle; no se imputa un coste salarial ficticio ni un
 gasto no documentado.
 

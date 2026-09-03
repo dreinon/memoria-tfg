@@ -130,6 +130,67 @@ Estos seis casos detectan límites, pero no permiten estimar su frecuencia ni de
 semántica. En consecuencia, la adaptación respalda una mejora de fidelidad dentro de SMB y
 degradaciones coincidentes, no una restauración musical autónoma.
 
+\section{Transferencia externa y demostrador}
+Al aplicar el EDSR adaptado sin reajuste a las doce obras externas, la diferencia media respecto al
+EDSR oficial fue positiva en PSNR-Y y SSIM-Y en las seis condiciones
+(Tabla~\ref{tab:external-deltas}). Los seis intervalos de PSNR-Y excluyeron cero; en SSIM-Y lo
+hicieron cinco. La única comparación no resuelta fue x2 limpia, cuya media fue 0,0050 y cuyo
+intervalo abarcó de -0,0014 a 0,0110. El resultado sostiene transferencia de fidelidad a otra
+colección bajo el mismo generador sintético, sin demostrar recuperación de entradas LR naturales.
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption{Diferencia media emparejada EDSR adaptado menos EDSR oficial en el corpus externo, con
+  intervalo percentil del 95\,\% sobre doce obras. Fuente: elaboración propia.}
+  \label{tab:external-deltas}
+  \begin{tabular}{lrr}
+    \toprule
+    Condición & \(\Delta\) PSNR-Y (dB) & \(\Delta\) SSIM-Y \\
+    \midrule
+    x2 limpia   & 3,187 [1,193; 5,462] & 0,0050 [-0,0014; 0,0110] \\
+    x2 moderada & 6,446 [5,299; 7,472] & 0,0287 [0,0248; 0,0340] \\
+    x2 fuerte   & 8,204 [7,697; 8,724] & 0,1581 [0,1482; 0,1683] \\
+    x4 limpia   & 2,440 [1,509; 3,418] & 0,0329 [0,0202; 0,0450] \\
+    x4 moderada & 1,838 [0,990; 2,638] & 0,0433 [0,0319; 0,0553] \\
+    x4 fuerte   & 2,376 [1,539; 3,242] & 0,0981 [0,0767; 0,1177] \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+La revisión fija clasificó ocho casos como aceptables para consulta, tres como aceptables con
+reservas y uno como rechazado. Los seis casos x2 fueron aceptados; en x4 limpia y moderada hubo un
+aceptable y uno con reservas por condición; en x4 fuerte hubo uno con reservas y un rechazo. Este
+último correspondió a una parte de percusión dispersa con cabezas y tipografía finas que no se
+recuperaron de forma suficientemente consultable. En cinco casos no se observó defecto nuevo claro
+y en siete el problema se atribuyó a información perdida en LR y no recuperada. Ninguno se marcó
+como defecto introducido o amplificado, pero doce observaciones de un único revisor no demuestran
+ausencia poblacional de ese riesgo.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/external-pilot-transfer.pdf}
+  \caption[Transferencia y aceptación en el piloto externo]{Arriba, diferencia del EDSR adaptado
+  respecto al oficial con intervalos emparejados del 95\,\% sobre doce obras externas. Abajo,
+  decisiones del estudiante en los doce casos fijados, dos por condición. Los recuentos describen
+  la muestra revisada y no son tasas de éxito. Fuente: elaboración propia.}
+  \label{fig:external-pilot-transfer}
+\end{figure}
+
+Las observaciones convergieron en una limitación: el modelo adaptado redujo halos y textura y
+definió mejor pentagramas y símbolos principales, pero el texto, los dígitos y la geometría fina
+fueron los primeros elementos en no recuperarse al aumentar la degradación. En los dos escaneos HR
+el revisor percibió incluso trazos más limpios, lo cual puede ser útil para consulta, pero no cambia
+la condición del original como referencia documental ni prueba restauración histórica.
+
+El demostrador local completó la carga validada de los dos puntos de control, el procesamiento por
+teselas, la comparación original--derivado y la descarga PNG en sus pruebas automatizadas. En la
+ejecución externa sobre CPU, la mediana por página fue de 25,8--26,4 segundos en x2 y de
+10,3--10,6 en x4 para los dos EDSR. Esta inversión aparente se debe a que la entrada LR x2 contiene
+más píxeles antes de reconstruir el mismo tamaño HR. El resultado es una prueba funcional local,
+no una medición de usabilidad ni un servicio desplegado.
+
+\clearpage
 \section{Resultados cualitativos y fallos musicales}
 En las 18 valoraciones fijas se registró \emph{sin incidencia clara} en cuatro de los seis casos
 bicúbicos y en dos de los seis casos de cada red. Se observaron incidencias en dos casos bicúbicos,
@@ -165,10 +226,10 @@ fenómenos como si fueran equivalentes.
     \midrule
     x2 limpia & No claro & No claro & No claro \\
     x2 moderada & No claro & No claro & No claro \\
-    x2 fuerte & No claro; sin mejora apreciable & Introducido/amplificado & Introducido/amplificado \\
-    x4 limpia & No claro; sin mejora apreciable & Introducido/amplificado & Introducido/amplificado \\
-    x4 moderada & Introducido/amplificado & Introducido/amplificado & Introducido/amplificado \\
-    x4 fuerte & Presente en LR y no recuperado & Introducido/amplificado sobre LR dañada & Introducido/amplificado sobre LR dañada \\
+    x2 fuerte & No claro; sin mejora apreciable & Introducido o amplificado & Introducido o amplificado \\
+    x4 limpia & No claro; sin mejora apreciable & Introducido o amplificado & Introducido o amplificado \\
+    x4 moderada & Introducido o amplificado & Introducido o amplificado & Introducido o amplificado \\
+    x4 fuerte & Presente en LR y no recuperado & Introducido o amplificado sobre LR dañada & Introducido o amplificado sobre LR dañada \\
     \bottomrule
   \end{tabular}
 \end{table}

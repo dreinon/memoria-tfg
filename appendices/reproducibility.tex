@@ -84,6 +84,32 @@ Kaggle con CUDA 12.8. El ZIP tiene SHA-256 \texttt{414613156e71\ldots}; su manif
 50 ficheros, 360 resultados, 24 filas de remuestreo, 30 imágenes cualitativas y dos puntos de
 control. La semilla de los intervalos fue 20260903.
 
+El piloto profesional se ejecuta mediante el cuaderno y el módulo siguientes:
+\begin{itemize}
+  \item \small\path{notebooks/05-professional-demonstrator-validation.ipynb};
+  \item \small\path{src/score_super_resolution/external_pilot.py}.
+\end{itemize}
+Sus páginas y metadatos privados se ubican, fuera de Git, bajo el directorio
+\path{data/raw/}. La selección congelada tiene SHA-256
+\texttt{5e5a1a1be2ea\ldots}; la ejecución limpia corresponde a
+\texttt{62db40ff8f94\ldots}. Tras revisar los doce casos, el validador se invoca con:
+
+\begin{verbatim}
+cd artifacts/professional-pilot-v1
+uv run python ../../scripts/validate_professional_pilot_review.py \
+  professional-pilot-v1-qualitative-review.json
+\end{verbatim}
+
+El manifiesto final tiene SHA-256 \texttt{3eb2669129da\ldots} y verifica 70 ficheros, 216
+resultados, 24 filas emparejadas, 60 imágenes de revisión y doce decisiones. La figura agregada se
+regenera sin acceder visualmente a las páginas mediante:
+\begin{quote}
+  \small\path{scripts/generate_professional_pilot_figure.py}
+\end{quote}
+El demostrador se inicia localmente con
+\texttt{uv run python app.py}; los puntos de control se resuelven desde el directorio privado de
+artefactos y nunca se incorporan a la imagen pública de un servicio.
+
 \section{Límites de reproducción}
 La reproducción exige acceso autorizado a SMB y disponibilidad de los puntos de control oficiales.
 Los tiempos dependen del hardware y del entorno; deben compararse en una misma ejecución, no como
@@ -108,7 +134,12 @@ v2; (2) reproducir las identidades de píxel de desarrollo y prueba; (3) validar
 control seleccionados solo con validación; (4) obtener 360 tuplas y 24 filas emparejadas; y (5)
 verificar los 30 PNG fijados sin publicarlos.
 
+Para el piloto externo se exige: (1) conservar doce obras de prueba independientes y tres casos de
+ingeniería separados; (2) verificar la identidad del manifiesto y de cada página; (3) obtener 216
+tuplas únicas y 24 filas emparejadas; (4) mantener dos casos cualitativos por condición; y (5)
+validar las doce decisiones sin publicar originales ni derivados.
+
 La reproducibilidad computacional tampoco equivale a generalización. Repetir exactamente los
-resultados confirma el pipeline y sus entradas, no demuestra que las conclusiones se transfieran a
-otra colección, una degradación real o una tarea de OMR. Esa distinción es parte del contrato de
-evidencia del trabajo.
+resultados confirma el pipeline y sus entradas. El piloto aporta transferencia a otra colección
+bajo degradación sintética coincidente, pero no demuestra rendimiento sobre una degradación natural
+ni sobre una tarea de OMR. Esa distinción es parte del contrato de evidencia del trabajo.

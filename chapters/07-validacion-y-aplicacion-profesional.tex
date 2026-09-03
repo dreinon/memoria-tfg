@@ -22,14 +22,18 @@ lectura, decisión editorial o conservación documental.
 
 El estudio secundario añade evidencia distinta: sobre 20 obras SMB nuevas, el EDSR adaptado mejoró
 al EDSR oficial en las dos métricas y las seis condiciones. La separación por obra y la selección
-exclusiva sobre validación sostienen la comparación dentro del estudio, pero no aportan una
-validación externa: entrenamiento, validación y prueba proceden de la misma revisión del corpus y
-comparten el generador de degradación. Por ello, la adaptación demuestra utilidad para ajustar un
-modelo a este dominio controlado, no para certificar escaneos reales o colecciones diferentes.
-En sus seis casos fijos, el estudiante observó mejora sin defecto nuevo claro en las cuatro
-condiciones limpias o moderadas y daño de LR no recuperado en las dos fuertes. Esta evidencia
-refuerza el valor de consulta asistida, pero no mide una tasa de seguridad ni autoriza inferir
-información musical ausente.
+exclusiva sobre validación sostienen la comparación dentro del estudio, pero por sí solas no aportan
+validación externa: entrenamiento, validación y prueba proceden de la misma revisión de SMB y
+comparten el generador de degradación. En sus seis casos fijos, el estudiante observó mejora sin
+defecto nuevo claro en las cuatro condiciones limpias o moderadas y daño de LR no recuperado en las
+dos fuertes.
+
+El piloto posterior sí cambió de colección sin reajustar el modelo. Sobre doce partes de banda, los
+intervalos favorecieron al EDSR adaptado frente al oficial en las seis comparaciones PSNR-Y y en
+cinco de seis SSIM-Y. Once derivados se consideraron utilizables para consulta, tres de ellos con
+reservas, y uno se rechazó. Esta evidencia respalda una transferencia acotada bajo degradaciones
+sintéticas coincidentes; no mide una tasa de seguridad, no representa LR natural y no autoriza
+inferir información musical ausente.
 
 \section{Escenarios profesionales y marco de decisión}
 La Tabla~\ref{tab:professional-framework} convierte la evidencia en una guía operativa. En todos los
@@ -66,22 +70,19 @@ entrada que se publique sin cotejo. En preservación, autenticación, transcripc
 reconocimiento automático, esta evaluación no autoriza sustituir el documento ni asumir que un
 detalle generado existía en la fuente.
 
-El modelo adaptado no sustituye este marco por una recomendación universal. Podría ser una opción
-preferente cuando una institución disponga de material HR autorizado, pueda separar obras para
-entrenamiento, validación y prueba, y procese entradas comparables al dominio de ajuste. Antes de
-usarlo debería repetirse la evaluación sobre una prueba local intacta y revisarse la notación. En
-este TFG los pesos adaptados no se distribuyen: derivan de SMB, cuya licencia se declara no
-comercial y cuya procedencia por elemento no pudo resolverse. El resultado es una prueba de
-viabilidad técnica, no un artefacto listo para explotación.
+El modelo adaptado no sustituye este marco por una recomendación universal. El piloto muestra que
+puede ser una opción preferente para derivados de consulta cuando una institución dispone de
+material autorizado y procesa entradas comparables, pero exige revisión local y una vía de rechazo,
+especialmente en x4 fuerte. En este TFG los pesos adaptados no se distribuyen: derivan de SMB, cuya
+licencia se declara no comercial y cuya procedencia por elemento no pudo resolverse. El resultado
+es una prueba de viabilidad técnica y transferencia acotada, no un artefacto listo para explotación.
 
 \section{Requisitos de una integración profesional}
-El resultado no exige construir una aplicación, pero sí permite describir el proceso mínimo para
-usar la técnica de forma responsable. La entrada debe conservarse sin modificación y recibir un
-identificador estable. El operador seleccionaría la escala y el método, generaría un derivado y
-guardaría versión del modelo, hash de pesos, parámetros, fecha y relación con el original. La
-interfaz de revisión debería mostrar HR no disponible en producción como referencia del estudio,
-pero en uso real mostraría al menos original y derivado sincronizados, ampliables y sin ocultar la
-procedencia.
+Se implementó un demostrador local para concretar el proceso mínimo de uso responsable. La entrada
+se conserva sin modificación; el operador selecciona x2 o x4, genera un derivado descargable y
+puede comparar original y salida ampliables. La interfaz informa de método, dispositivo, tiempo e
+identidades del punto de control y del resultado. La HR solo aparece como referencia en el protocolo
+experimental; en uso real se muestran el original disponible y el derivado sin ocultar su relación.
 
 La aceptación no puede reducirse a un umbral de PSNR, pues en producción no existe normalmente una
 referencia HR alineada. Debe definirse por tarea: legibilidad para consulta, ausencia de cambio
@@ -93,7 +94,7 @@ con el original; nunca debería sobrescribir el máster.
 \begin{table}[htbp]
   \centering
   \small
-  \caption{Controles mínimos para una futura integración profesional. Fuente: elaboración propia.}
+  \caption{Controles mínimos para una integración profesional. Fuente: elaboración propia.}
   \label{tab:professional-controls}
   \begin{tabular}{p{0.22\textwidth}p{0.35\textwidth}p{0.31\textwidth}}
     \toprule
@@ -110,24 +111,27 @@ con el original; nunca debería sobrescribir el máster.
 
 El seguimiento debería estratificar incidencias por colección, escala de pentagrama, tipo de
 degradación y método. Una caída en la tasa de aceptación o un aumento de alteraciones musicales es
-una señal de deriva, aunque el tiempo de inferencia permanezca estable. Estos controles son una
-propuesta derivada de los hallazgos; no fueron desplegados ni validados como producto en este TFG.
+una señal de deriva, aunque el tiempo de inferencia permanezca estable. El demostrador implementa
+ingesta acotada, procesamiento reversible, comparación y descarga, pero no publicación,
+monitorización multiusuario, seguridad de despliegue ni validación como producto.
 
-\section{Aplicabilidad fuera del benchmark}
-Se decidió no añadir antes del depósito una prueba sobre escaneos reales ni un piloto ciego con
-especialistas. La corrección del protocolo v1, la nueva ejecución y la revisión completa absorbieron
-el margen disponible, y una ampliación apresurada habría mezclado preguntas distintas sin tiempo
-para validarlas. Este \emph{NO-GO} protege el núcleo en lugar de demostrar aplicabilidad externa.
+\section{Aplicabilidad fuera de SMB}
+Una vez protegido el núcleo, se aprobó una única excepción acotada al cierre de alcance: el piloto
+externo y el demostrador local. Las doce obras se fijaron antes de generar LR o SR, no se utilizaron
+para reajustar el modelo y conservaron un denominador separado. La SJMA autorizó el acceso y el
+procesamiento institucional, pero las páginas no se reproducen y no se presupone una cesión de
+derechos de las obras, arreglos o ediciones. Este diseño aporta una primera evidencia de
+transferencia entre colecciones sin comprometer la evaluación SMB.
 
-La principal amenaza de transferencia es que las degradaciones reales combinan desenfoque,
-iluminación, curvatura, manchas, tramado, compresión y desalineación de formas no reproducidas por
-los tres perfiles sintéticos. También pueden variar época, técnica de impresión, manuscrito,
-tipografía, densidad y tamaño de pentagrama. La muestra final excluye páginas cuya escala no pudo
-estimarse con el procedimiento fijado. Por tanto, el marco anterior es una guía condicionada, no
-una certificación de uso universal.
+La extensión solo cierra parcialmente el antiguo \emph{NO-GO}. Aunque dos HR proceden de escaneos,
+las LR evaluadas se sintetizaron desde ellas. Las degradaciones naturales pueden combinar
+desenfoque, iluminación, curvatura, manchas, tramado, compresión y desalineación de formas no
+reproducidas por los tres perfiles. Además, doce partes de banda, un único revisor no ciego y dos
+casos por condición no cubren otras épocas, manuscritos, tipografías, densidades ni tareas. El marco
+es una guía condicionada, no una certificación universal.
 
-Una validación externa debería congelar un conjunto de escaneos con derechos de reproducción,
-estratificarlo por degradación y fuente, incorporar revisión ciega por especialistas y medir la
-tarea profesional concreta. Si se estudia OMR, la exactitud musical debe ser una variable nueva y
-no deducirse de PSNR o SSIM. Si se estudia publicación o conservación, deben definirse asimismo
-criterios de aceptación, reversibilidad y procedencia del derivado.
+La siguiente validación debería utilizar entradas naturalmente degradadas con procedencia y
+derechos claros, incorporar varios especialistas con revisión ciega y medir la tarea profesional
+concreta. Si se estudia OMR, la exactitud musical debe ser una variable nueva y no deducirse de PSNR
+o SSIM. Si se estudia publicación o conservación, deben definirse asimismo criterios de aceptación,
+reversibilidad y procedencia del derivado.

@@ -40,11 +40,13 @@ Los objetivos específicos son:
   \item comparar los métodos sobre entradas emparejadas mediante evidencia de fidelidad, recursos
         y fallos específicos de notación;
   \item evaluar una adaptación acotada con obras separadas de la muestra confirmatoria y sin
-        consultar la prueba durante el entrenamiento; y
+        consultar la prueba durante el entrenamiento;
+  \item comprobar, sin reajuste posterior, la transferencia del modelo adaptado a una colección
+        externa mediante un piloto profesional y un demostrador local reversible; y
   \item producir recomendaciones profesionales reproducibles y limitadas a la evidencia obtenida.
 \end{itemize}
 
-Estos objetivos se concretan en cinco preguntas de evaluación:
+Estos objetivos se concretan en seis preguntas de evaluación:
 \begin{enumerate}
   \item ¿qué diferencia de PSNR-Y y SSIM-Y presenta cada red respecto de bicúbica dentro de cada
         combinación predeclarada de escala y severidad?;
@@ -54,7 +56,10 @@ Estos objetivos se concretan en cinco preguntas de evaluación:
         recuperación?;
   \item ¿qué compromiso existe entre fidelidad, tiempo de inferencia, licencias y riesgo de uso?; y
   \item ¿mejora un ajuste fino acotado de EDSR la fidelidad sobre obras SMB no vistas, manteniendo
-        separadas las funciones de entrenamiento, validación y prueba?
+        separadas las funciones de entrenamiento, validación y prueba?; y
+  \item ¿mantiene ese modelo su ventaja al aplicarse, sin reajuste, a obras de otra colección bajo
+        las mismas degradaciones sintéticas, y resultan sus salidas utilizables como copias de
+        consulta?
 \end{enumerate}
 No se formuló una hipótesis nula única ni se aplicó un contraste confirmatorio global. Los
 intervalos emparejados cuantifican incertidumbre descriptiva sobre comparaciones predeclaradas;
@@ -63,11 +68,12 @@ la relevancia profesional requiere además magnitud, evidencia cualitativa y cos
 \section{Impacto esperado y alcance}
 La contribución obtenida es una guía de decisión que identifica condiciones de uso, límites y
 casos en los que no debe recomendarse la superresolución. Incluye una comparación principal de
-modelos preentrenados y un estudio secundario de adaptación dentro de SMB, con denominadores y
-particiones distintos. Las conclusiones quedan restringidas a la población auditada, a los métodos
-congelados y a las degradaciones controladas realmente evaluadas. No se asume que los resultados
-sean válidos para escaneos reales no controlados, reconstrucción de PDF, reconocimiento óptico de
-música, aplicaciones de usuario o despliegue.
+modelos preentrenados, un estudio secundario de adaptación dentro de SMB y, tras asegurar ambos, un
+piloto sobre doce obras de una colección externa acompañado de un demostrador local de imágenes.
+Las conclusiones quedan restringidas a las poblaciones, métodos y degradaciones controladas
+realmente evaluadas. El piloto permite estudiar transferencia entre colecciones bajo LR sintética,
+pero no demuestra restauración de entradas de baja resolución adquiridas naturalmente. Quedan
+fuera la reconstrucción de PDF, el reconocimiento óptico de música y el despliegue público.
 
 \section{Metodología}
 El estudio siguió un enfoque de contrato primero. Antes de la evaluación final se fijaron la identidad
@@ -75,9 +81,10 @@ del conjunto de datos, las unidades independientes, el manifiesto, los operadore
 los comparadores, las métricas, el muestreo cualitativo y las reglas de interpretación. La muestra
 principal SMB no se empleó para elegir modelos, puntos de control, hiperparámetros ni umbrales. El
 estudio secundario congeló antes de entrenar roles por obra sin solapamiento y excluyó las 64 obras
-de la comparación principal. Las páginas reciben entradas idénticas para todos los comparadores y
-se agrupan por obra o fuente auditada, mientras que las regiones se tratan como observaciones
-anidadas.
+de la comparación principal. El piloto externo fijó después sus doce obras, seis condiciones,
+comparadores y casos de revisión antes de generar ninguna salida. Las páginas reciben entradas
+idénticas para todos los comparadores y se agrupan por obra o fuente auditada, mientras que las
+regiones se tratan como observaciones anidadas.
 
 La evaluación combinó medidas de fidelidad con una revisión sistemática de discontinuidades de
 pentagrama, pérdida o deformación de símbolos, uniones indebidas, alteraciones de texto y marcas
