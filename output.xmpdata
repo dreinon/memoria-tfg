@@ -1,0 +1,3 @@
+% Overleaf compiles the root document with job name `output`.
+% Keep main.xmpdata as the single metadata source for both environments.
+\input{main.xmpdata}
