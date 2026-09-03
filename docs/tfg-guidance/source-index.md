@@ -99,7 +99,7 @@ Overleaf project itself uses these files.
 
 ## Current official web sources
 
-These sources were checked on 2026-08-16. They complement the read-only local corpus and must be
+These sources were checked on 2026-09-03. They complement the read-only local corpus and must be
 rechecked when the relevant operation is performed:
 
 - [UPV TFG/TFM normative landing page](https://www.upv.es/entidades/SESTU/ciclos/1154514normalc.html):
@@ -111,6 +111,9 @@ rechecked when the relevant operation is performed:
   ODS material, template, rubric, tutor report, calls, and Ebrón routing. The official normative,
   amendment, GCD-guide, ODS, rubric, and LaTeX-template files checked during the review matched the
   corresponding local files; the historical CT-indicator PDF did not.
+- [Current ETSINF 2025/2026 defence calendar](https://www.upv.es/entidades/etsinf/wp-content/uploads/2026/02/Fechas-Importantes-TFG-2025-2026-CAT-DEF.pdf):
+  for the September call, the defence request and document upload close at 14:00 on 7 September
+  2026, and defences are scheduled for 23--25 September 2026.
 - [Official GCD TFG page](https://www.upv.es/titulaciones/GCD/info/1244682normalc.html): current
   degree-level TFG information and mandatory online seminar.
 - [Current five transversal competencies](https://www.upv.es/entidades/vpec/proyecto-de-actualizacion-de-competencias-transversales/)

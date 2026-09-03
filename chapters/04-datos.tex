@@ -147,6 +147,7 @@ de validación, mientras que la prueba utilizó una página representativa por c
 obras. Ninguna obra cruzó roles y las muestras de validación y prueba no habían aparecido en v1 ni
 v2. Esta separación permite estudiar adaptación dentro del corpus sin contaminar la comparación
 principal, pero no demuestra transferencia a otra colección.
+La Tabla~\ref{tab:adaptation-split} hace explícitos los tres roles internos y sus denominadores.
 
 \begin{table}[htbp]
   \centering
@@ -202,6 +203,8 @@ todas contenían texto. La separación estimada entre líneas de pentagrama abar
 HR, con mediana 12,75. Las dimensiones variaron entre 1.818 y 2.572 píxeles de anchura y entre 1.818
 y 2.629 de altura. Estas propiedades amplían la variedad documental respecto de SMB, pero doce
 partes de banda no representan todas las colecciones profesionales.
+La composición y las exclusiones previas del corpus se sintetizan en la
+Tabla~\ref{tab:external-corpus}.
 
 \section{Degradación controlada}
 La evaluación final utilizó el protocolo \texttt{staff-scale-score-v2}. Se mantuvieron seis
@@ -215,6 +218,8 @@ entre líneas de pentagrama; tras la reducción se añadió ruido gaussiano acro
 fuerte se emplearon \(\max(0{,}3,0{,}15s)\), \(\sigma=2{,}5\) y calidad JPEG 45,
 respectivamente. La semilla maestra fue 20260830 y cada aplicación conservó sus parámetros y su
 semilla efectiva.
+La Tabla~\ref{tab:degradation-v2} permite reproducir los operadores y distingue el perfil limpio de
+los dos niveles que añaden desenfoque, ruido y compresión.
 
 \begin{table}[htbp]
   \centering

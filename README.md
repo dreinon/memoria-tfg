@@ -15,8 +15,9 @@ suministrada. Antes del depósito hay que contrastar su renderizado con la plant
 y verificar que el anexo de la memoria y el PDF independiente muestran exactamente las mismas
 valoraciones y reflexión.
 
-Los capítulos contienen marcadores provisionales. Deben completarse progresivamente y mantenerse
-trazables a las configuraciones, ejecuciones y evidencias de `../proyecto/`.
+La memoria final mantiene objetivos, metodología, resultados, validación y conclusiones trazables a
+las configuraciones, ejecuciones y evidencias de `../proyecto/`. Antes de depositar debe compilarse
+la revisión exacta sincronizada con Overleaf y verificarse visualmente el PDF resultante.
 
 ## Compilación local
 

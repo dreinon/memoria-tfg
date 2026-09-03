@@ -107,14 +107,15 @@ en ambas métricas y condiciones al nivel agregado. Sin embargo, las dos obras q
 PSNR-Y frente al EDSR oficial bajo x4 fuerte fueron también las de menor separación de pentagrama
 de la prueba. Es una observación \emph{post hoc} de solo dos casos, útil como hipótesis y no como
 conclusión de subgrupo.
+Los valores completos y sus intervalos se recogen en la Tabla~\ref{tab:adaptation-deltas}.
 
-\begin{center}
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{figures/results/adaptation-deltas-vs-pretrained.pdf}
-  \captionof{figure}{Ganancia del EDSR adaptado respecto del EDSR oficial en 20 obras de prueba, con
+  \caption{Ganancia del EDSR adaptado respecto del EDSR oficial en 20 obras de prueba, con
   intervalos emparejados del 95\,\%. Fuente: elaboración propia a partir del estudio secundario.}
   \label{fig:adaptation-deltas}
-\end{center}
+\end{figure}
 
 La revisión del estudiante clasificó los casos x2/x4 limpios y moderados como mejora sin defecto
 nuevo claro, y los dos casos fuertes como daño ya presente en LR y no recuperado. Ninguno de los
@@ -177,7 +178,9 @@ ausencia poblacional de ese riesgo.
   \label{fig:external-pilot-transfer}
 \end{figure}
 
-Las observaciones convergieron en una limitación: el modelo adaptado redujo halos y textura y
+La Figura~\ref{fig:external-pilot-transfer} muestra conjuntamente la transferencia cuantitativa y
+las decisiones de consulta sin convertir estas últimas en una tasa poblacional. Las observaciones
+convergieron en una limitación: el modelo adaptado redujo halos y textura y
 definió mejor pentagramas y símbolos principales, pero el texto, los dígitos y la geometría fina
 fueron los primeros elementos en no recuperarse al aumentar la degradación. En los dos escaneos HR
 el revisor percibió incluso trazos más limpios, lo cual puede ser útil para consulta, pero no cambia

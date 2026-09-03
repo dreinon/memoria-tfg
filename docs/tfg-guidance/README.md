@@ -29,11 +29,12 @@ It is intentionally layered:
 5. These summaries are derived guidance. For exact wording or a high-stakes administrative
    decision, open and cite the original source.
 
-The local collection was reviewed and this knowledge base was created on 2026-08-14, with the
-academic-compliance matrix and official web sources revalidated on 2026-08-16. That revalidation
+The local collection was reviewed and this knowledge base was created on 2026-08-14. The full
+academic-compliance matrix and official web sources were revalidated on 2026-09-03. That review
 confirmed the 2026 UPV amendment, current Ebrón cover/deposit behaviour, the five-competency UPV
-model, the current tutor report, and the formal matrícula-de-honor conditions. When any source is
-replaced or a new regulation is added, review the affected Markdown document before relying on it.
+model, the current tutor report, the September 2026 calendar, and the formal
+matrícula-de-honor conditions. When any source is replaced or a new regulation is added, review the
+affected Markdown document before relying on it.
 
 ## Relationship with `AGENTS.md` and GSD
 

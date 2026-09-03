@@ -31,6 +31,10 @@ GCD additionally requires completion of its online TFG seminar. Verify the curre
 assignment status, CAT conditions, and the live Ebrón eligibility result before relying on this
 summary for an actual call.
 
+For the September 2026 ETSINF call, the official calendar checked on 2026-09-03 closes the defence
+request and document upload at 14:00 on 7 September 2026 and schedules defences for 23--25
+September. Recheck the live call before deposit in case ETSINF issues a correction.
+
 ## Language and public record
 
 - The work may be written and defended in Spanish, Valencian, or English, subject to the
