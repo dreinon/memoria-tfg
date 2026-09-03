@@ -255,7 +255,7 @@
 %  Navegable
 %%%%%%%%%%%%%
 
-\RequirePackage[colorlinks]{hyperref}
+\RequirePackage[a-2b]{pdfx}
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
