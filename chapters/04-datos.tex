@@ -20,9 +20,9 @@ tienen SHA-256
 la ejecución vincula de forma determinista la revisión limpia del código de auditoría, su árbol de
 fuentes y \texttt{uv.lock}. La recuperación sin conexión verifica los hashes, los contratos, la
 concordancia de la procedencia embebida y la identidad de la generación antes de materializarla;
-no reconstruye por sí sola el repositorio ni \texttt{uv.lock}. Como comprobación separada, la revisión
-independiente reconstruyó desde el commit limpio registrado los mismos digests del árbol de fuentes,
-del parche vacío y del fichero de bloqueo.
+no reconstruye por sí sola el repositorio ni \texttt{uv.lock}. Como comprobación separada, una
+verificación automatizada independiente del pipeline principal reconstruyó desde el commit limpio
+registrado los mismos digests del árbol de fuentes, del parche vacío y del fichero de bloqueo.
 
 La licencia y el acceso están confirmados en el nivel del conjunto, pero la procedencia por elemento
 no está disponible. Por ello, la redistribución no queda establecida y la reproducción de figuras
@@ -37,14 +37,17 @@ adaptados derivados de SMB se conservan fuera de Git y no se publican con la mem
 % Evidence: proyecto/data/manifests/smb-evaluation-v1.yaml and the recovery bundle selected by it;
 % human decisions: proyecto/data/audits/smb-visual-sample-v1.csv and smb-review-v1.csv
 La auditoría automatizada conserva las 685 filas del inventario y todas se procesaron. De ellas,
-618 son elegibles para comparación emparejada; las 67 restantes permanecen en el denominador,
-pero son inelegibles: 66 contienen al menos una región sin alguno de los textos obligatorios
+618 tienen completos los textos regionales y son elegibles para análisis emparejados que dependan
+de las anotaciones; las 67 restantes permanecen en el denominador, pero son inelegibles para ese
+contrato: 66 contienen al menos una región sin alguno de los textos obligatorios
 \texttt{raw}, \texttt{kern} o \texttt{ekern}
 (\texttt{missing\_required\_region\_text}) y una presenta una caja regional fuera del dominio
 porcentual permitido (\texttt{invalid\_region\_}\allowbreak\texttt{annotation}). La validación admite únicamente una
-tolerancia numérica de \(10^{-9}\) puntos porcentuales para ruido de representación. La política de agrupación humana revisada asigna el
-inventario a 260 grupos de fuente sin convertir las páginas de una misma fuente en observaciones
-independientes.
+tolerancia numérica de \(10^{-9}\) puntos porcentuales para ruido de representación. La
+superresolución de página completa no consume esos textos, por lo que esta bandera no fue un
+criterio de exclusión del experimento de imagen. La política de agrupación humana revisada asigna
+el inventario a 260 grupos de fuente sin convertir las páginas de una misma fuente en
+observaciones independientes.
 
 La revisión visual humana se limitó a 64 páginas seleccionadas mediante una regla fijada antes de
 cualquier resultado. Las otras 621 páginas no se revisaron visualmente de forma individual. Dentro
@@ -75,12 +78,14 @@ Esta separación evita presentar las 64 obras evaluadas como si representaran au
     Evidencia & Cantidad & Interpretación \\
     \midrule
     Páginas inventariadas y procesadas & 685 & Denominador completo del conjunto auditado \\
-    Páginas elegibles para pares & 618 & Anotaciones regionales compatibles con el contrato \\
-    Páginas no elegibles & 67 & Se conservan; 66 por texto regional ausente y una por caja inválida \\
+    Textos regionales completos & 618 & Elegibles para análisis que dependan de la anotación textual \\
+    Textos regionales incompletos & 67 & Se conservan; 66 por texto ausente y una por caja inválida \\
     Grupos de fuente & 260 & Unidad de agrupación que evita independencia falsa entre páginas relacionadas \\
     Muestra visual de auditoría & 64 & Calidad e idoneidad revisadas; no estima prevalencia en las 685 páginas \\
     Pares candidatos perceptuales & 14 & Revisados como distintos; no eliminados \\
-    Muestra confirmatoria v2 & 64 páginas / 64 obras & Obras nuevas, escala de pentagrama mensurable y sin solapamiento con v1 \\
+    Candidatas al recorrido v2 & 427 páginas / 207 obras & Tras excluir las 53 obras de v1 y las relaciones duplicadas o pendientes \\
+    Rechazos de escala antes del cierre v2 & 76 de 140 examinadas & 75 procedían del grupo de 618 y una del grupo de 67 \\
+    Muestra confirmatoria v2 & 64 páginas / 64 obras & 56 del grupo de 618 y ocho del de 67; todas con escala mensurable \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -101,11 +106,16 @@ no identifica por sí sola equipos, épocas o calidad.
 \end{figure}
 
 El recorrido desde el conjunto hasta la muestra final se resume en la
-Figura~\ref{fig:sample-flow}. La elegibilidad de 618 páginas no implica que todas puedan entrar en
-la evaluación v2: se exigió además una estimación estable de escala, una obra no usada en el piloto
-v1 y una selección determinista de una sola página por obra. La reducción hasta 64 mejora la
-independencia y la comparabilidad, pero introduce un sesgo de mensurabilidad que debe acompañar a
-cualquier conclusión.
+Figura~\ref{fig:sample-flow}. No partió exclusivamente de las 618 páginas con textos regionales
+completos, ya que la reconstrucción de página completa no utiliza esos campos. Tras excluir las 53
+obras del piloto v1 y las páginas con relaciones duplicadas o pendientes, quedaron 427 candidatas
+de 207 obras. El recorrido determinista examinó 140 páginas hasta reunir 64 obras: el estimador
+descartó 76 por no poder establecer una escala válida, 75 de ellas pertenecientes al grupo de 618
+y una al grupo de 67. Las 64 aceptadas comprenden 56 páginas del primer grupo y ocho del segundo;
+estas ocho conservaban píxeles y geometría aptos para la evaluación, aunque les faltara algún texto
+regional no usado por los modelos ni por las métricas. La selección de una página por obra mejora
+la independencia y la comparabilidad, pero introduce un sesgo de mensurabilidad que debe acompañar
+a cualquier conclusión.
 
 \begin{figure}[htbp]
   \centering
@@ -114,12 +124,16 @@ cualquier conclusión.
       box/.style={draw, rounded corners=2pt, align=center, minimum width=0.82\textwidth,
         minimum height=8mm, fill=blue!5},
       arrow/.style={-{Latex[length=2mm]}, thick}]
-    \node[box] (all) {685 páginas auditadas en 260 obras};
-    \node[box, below=of all] (eligible) {618 páginas elegibles por anotación\\67 conservadas como no elegibles};
-    \node[box, below=of eligible] (scale) {Escala de pentagrama mensurable y exclusión de obras del piloto v1};
-    \node[box, below=of scale, fill=green!8] (sample) {64 páginas de 64 obras independientes\\muestra confirmatoria SMB v2};
-    \draw[arrow] (all) -- (eligible);
-    \draw[arrow] (eligible) -- (scale);
+    \node[box] (all) {685 páginas procesadas en 260 obras\\
+      618 con textos regionales completos y 67 sin completitud};
+    \node[box, below=of all] (candidates) {427 páginas de 207 obras candidatas\\
+      tras excluir obras v1 y relaciones duplicadas o pendientes};
+    \node[box, below=of candidates] (scale) {140 páginas examinadas hasta el cierre\\
+      76 rechazadas por escala: 75 del grupo de 618 y una del de 67};
+    \node[box, below=of scale, fill=green!8] (sample) {64 páginas de 64 obras independientes\\
+      56 del grupo de 618 y ocho del de 67};
+    \draw[arrow] (all) -- (candidates);
+    \draw[arrow] (candidates) -- (scale);
     \draw[arrow] (scale) -- (sample);
   \end{tikzpicture}
   \caption{Flujo de selección del inventario a la muestra confirmatoria. Fuente: elaboración
