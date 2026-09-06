@@ -23,6 +23,25 @@ seguridad de uso. El trabajo cuenta con la orientación conjunta de Elena Vázqu
 Jorge Calvo Zaragoza; el diseño, la implementación, la revisión de resultados y las conclusiones
 son responsabilidad del autor.
 
+La Figura~\ref{fig:score-anatomy} concreta el dominio sobre un fragmento real. Una partitura no es
+solo una imagen de trazos negros: la distancia y continuidad de las cinco líneas, la forma de una
+cabeza o una alteración y la separación entre símbolos codifican información. La
+superresolución recibe una versión de baja resolución (LR) y estima una imagen de mayor resolución;
+la referencia de alta resolución (HR) permite evaluar esa estimación. Por ello, enderezar un trazo
+o aumentar el contraste puede mejorar la apariencia y, al mismo tiempo, unir elementos que debían
+permanecer separados.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/context/score-anatomy.png}
+  \caption[Elementos visuales de una partitura digitalizada]{Elementos visuales cuya geometría
+  debe conservar la superresolución: clave, compás, dinámica, pentagramas, cabezas, plicas,
+  ligaduras, alteraciones y acordes. Fragmento de \emph{Scott Joplin's New Rag}, de Scott Joplin,
+  identificado en SMB como \texttt{joplin\_newrag}. Fuente: elaboración propia a partir de un
+  recorte mínimo de SMB \cite{smbDatasetCard}.}
+  \label{fig:score-anatomy}
+\end{figure}
+
 \section{Objetivo general y objetivos específicos}
 El objetivo general es evaluar un conjunto pequeño y científicamente contrastado de técnicas de
 superresolución sobre degradaciones controladas de partituras digitalizadas, medir su fidelidad,

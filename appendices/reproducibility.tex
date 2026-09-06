@@ -64,6 +64,7 @@ La revisión cualitativa fija se valida con
 uv run python scripts/analyze_smb_v2.py
 uv run python scripts/generate_smb_v2_figures.py
 uv run python scripts/generate_thesis_context_figures.py
+uv run python scripts/generate_thesis_qualitative_figures.py
 uv run python scripts/build_smb_v2_report.py
 \end{verbatim}
 
@@ -117,8 +118,18 @@ La reproducción exige acceso autorizado a SMB y disponibilidad de los puntos de
 Los tiempos dependen del hardware y del entorno; deben compararse en una misma ejecución, no como
 constantes universales. El remuestreo estadístico es determinista con semilla 20260831, pero una
 repetición puede diferir en tiempos y en detalles numéricos de bajo nivel entre plataformas. La
-licencia del conjunto no establece los derechos de reproducción de cada partitura, por lo que los
-paneles cualitativos no se distribuyen ni se incluyen en esta memoria.
+licencia del conjunto no establece por sí sola todos los derechos de reproducción de cada
+partitura. Por ello, no se distribuyen los corpus ni todos los paneles cualitativos. Esta memoria
+incorpora veintiuna composiciones atribuidas: ocho láminas de recortes analíticos y trece comparaciones de
+página completa ---una SMB y los doce casos externos--- procedentes de casos fijados antes de la
+revisión. Las tres galerías de ampliaciones comparan regiones de esas mismas entradas y salidas
+para mostrar reconstrucciones favorables, artefactos y pérdida no recuperada; sus encuadres se
+eligieron para la explicación editorial posterior y no constituyen una nueva evaluación.
+El generador conserva en un manifiesto local los hashes de
+entrada y salida, el alcance completo o las coordenadas de cada recorte y las trazas de la lámina
+de degradación. Además, exige que la entrada moderada regenerada coincida píxel a píxel con la
+evidencia retenida de Kaggle. La autorización externa permite estas figuras dentro del TFG, no la
+publicación del corpus bruto ni de las salidas restantes.
 Los puntos de control adaptados tampoco se distribuyen: además del tamaño, derivan de datos de
 acceso controlado y requieren una revisión separada de derechos antes de cualquier reutilización o
 uso comercial.
@@ -134,12 +145,16 @@ rellenarse con la salida de otra ejecución.
 Para la adaptación se exige además: (1) verificar los 45/13/20 grupos sin cruces y la exclusión de
 v2; (2) reproducir las identidades de píxel de desarrollo y prueba; (3) validar los dos puntos de
 control seleccionados solo con validación; (4) obtener 360 tuplas y 24 filas emparejadas; y (5)
-verificar los 30 PNG fijados sin publicarlos.
+verificar los 30 PNG fijados. De ellos solo se publican los recortes mínimos descritos, no los
+paneles completos salvo la comparación completa predeclarada de
+\texttt{smb-test-000451} incorporada a la memoria.
 
 Para el piloto externo se exige: (1) conservar doce obras de prueba independientes y tres casos de
 ingeniería separados; (2) verificar la identidad del manifiesto y de cada página; (3) obtener 216
 tuplas únicas y 24 filas emparejadas; (4) mantener dos casos cualitativos por condición; y (5)
-validar las doce decisiones sin publicar originales ni derivados.
+validar las doce decisiones. Los doce casos predeclarados se reproducen como figuras completas; las
+cuatro páginas recibidas que no pertenecen a la prueba, el corpus como colección y las demás salidas
+no se publican.
 
 La reproducibilidad computacional tampoco equivale a generalización. Repetir exactamente los
 resultados confirma el pipeline y sus entradas. El piloto aporta transferencia a otra colección

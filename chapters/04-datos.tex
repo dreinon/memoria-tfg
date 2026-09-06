@@ -25,13 +25,17 @@ verificación automatizada independiente del pipeline principal reconstruyó des
 registrado los mismos digests del árbol de fuentes, del parche vacío y del fichero de bloqueo.
 
 La licencia y el acceso están confirmados en el nivel del conjunto, pero la procedencia por elemento
-no está disponible. Por ello, la redistribución no queda establecida y la reproducción de figuras
-permanece prohibida mientras no exista evidencia separada que autorice el elemento concreto. No se
-incorporan imágenes de SMB a esta memoria con la evidencia actual.
+no está disponible. En el manifiesto congelado, la redistribución no queda establecida y la
+reproducción de figuras permanece prohibida como estado operativo preventivo por defecto. Ese
+registro histórico no se reescribió después de observar los resultados. Una decisión de
+publicación posterior y separada limitó la excepción a una selección atribuida de recortes y una
+comparación de página completa, necesaria para explicar el problema y analizar críticamente
+entradas y salidas. Se indica la transformación, se mantiene la finalidad académica no comercial y
+no se presenta SMB como un corpus libre de restricciones.
 
-El acceso controlado y la licencia no impiden un uso experimental local, pero sí obligan a separar
-la reproducibilidad del permiso de redistribución. Por ello, las imágenes, recortes y pesos
-adaptados derivados de SMB se conservan fuera de Git y no se publican con la memoria.
+El acceso controlado y la licencia obligan a separar reproducibilidad y redistribución. Las imágenes
+fuente, los paneles no seleccionados y los pesos adaptados derivados de SMB se conservan fuera de
+Git; solo se publican dentro de la memoria las composiciones analíticas identificadas.
 
 \section{Auditoría, cobertura y calidad}
 % Evidence: proyecto/data/manifests/smb-evaluation-v1.yaml and the recovery bundle selected by it;
@@ -182,11 +186,13 @@ La Tabla~\ref{tab:adaptation-split} hace explícitos los tres roles internos y s
 
 \section{Corpus externo para la prueba profesional}
 La prueba de transferencia empleó páginas aportadas por el archivo musical de la Societat Joventut
-Musical d'Albal (SJMA), ajenas a SMB. La entidad autorizó el acceso y el procesamiento para este
-trabajo; el estudiante compiló el corpus, pero no se atribuye la titularidad de las obras, arreglos
-o ediciones subyacentes. Por ello, las páginas HR, LR y reconstruidas permanecen fuera de Git y no
-se reproducen en la memoria. La autorización para procesarlas tampoco se presenta como permiso
-general de publicación.
+Musical d'Albal (SJMA), ajenas a SMB. La entidad autorizó el acceso, el procesamiento y la
+reproducción de una selección en este trabajo; el estudiante compiló el corpus, pero no se atribuye
+la titularidad de las obras, arreglos o ediciones subyacentes. Las páginas HR, LR y reconstruidas
+permanecen fuera de Git y no se distribuyen como colección. La memoria reproduce las doce
+comparaciones cualitativas predeclaradas, atribuidas y comentadas, para hacer auditables todos los
+veredictos y no solo los resultados favorables. Esta autorización acotada no se presenta como permiso
+general de publicación o explotación de las partituras.
 
 Se recibieron dieciséis partes de banda de una página. Antes de generar resultados, tres se
 asignaron exclusivamente a ingeniería del estimador de pentagrama y una quedó como reserva por
@@ -251,6 +257,25 @@ los dos niveles que añaden desenfoque, ruido y compresión.
     \bottomrule
   \end{tabular}
 \end{table}
+
+La Figura~\ref{fig:degradation-profiles} traduce estos parámetros a su efecto visual. Se aplica la
+misma escala \(\times 4\) y el mismo recorte HR en los tres perfiles: así, las diferencias no se
+deben a la obra ni al contenido elegido. La entrada limpia pierde resolución por el submuestreo;
+la moderada añade una pérdida visible pero conserva las estructuras principales; y la fuerte hace
+más inciertas las alteraciones, separaciones internas y líneas finas. Las LR se amplían por vecino
+más próximo solo para compararlas al mismo tamaño, no como método de reconstrucción.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/context/degradation-profiles-x4.png}
+  \caption[Ejemplo visual de los tres perfiles de degradación]{Efecto de los perfiles limpio,
+  moderado y fuerte a escala \(\times 4\) sobre el mismo fragmento. La versión moderada regenerada
+  coincide píxel a píxel con la entrada conservada del experimento. Fragmento de
+  \emph{Scott Joplin's New Rag}, de Scott Joplin, identificado como
+  \texttt{joplin\_newrag}. Fuente: elaboración propia con el protocolo v2 a partir de SMB
+  \cite{smbDatasetCard}.}
+  \label{fig:degradation-profiles}
+\end{figure}
 
 La normalización por escala de pentagrama fue una corrección metodológica necesaria. Una primera
 ejecución completa, conservada solo como piloto de desarrollo y prueba de estrés, había utilizado

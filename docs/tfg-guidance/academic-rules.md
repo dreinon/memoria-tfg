@@ -118,6 +118,12 @@ the defence-request procedure and again before finalizing the deposit:
    procedure and review the detailed report rather than relying on a percentage alone.
 6. Validate the exact approved title and the final Ebrón abstracts, keywords, competencies, ODS,
    publicity/confidentiality, and other requested fields.
+   ETSINF Secretariat confirmed to the student on 6 September 2026 that changes requiring CAT
+   approval could no longer be processed before the September defence and identified closed access
+   as the available confidentiality route. The student has chosen the ordinary open-deposit route;
+   therefore every reproduced item must retain a documented publication basis, attribution, and
+   proportional analytical purpose. Preserve the Secretariat reply and the SJMA authorization
+   privately, and do not describe archive custody as ownership of third-party works.
 7. Upload the thesis PDF without a cover. Ebrón generates and inserts the official cover as its
    first page; include that automatic page in the declared page count and inspect the Ebrón-generated
    final document. The supplied `tfgetsinf.cls` creates its cover automatically from
