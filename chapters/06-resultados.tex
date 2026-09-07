@@ -64,6 +64,10 @@ La lectura visual sigue la secuencia referencia HR, entrada LR y salidas de los 
 La página completa permite comprobar disposición y legibilidad globales; las ampliaciones
 muestran separaciones, contornos y signos que se pierden al reducir la página para imprimirla.
 En cada comparación se utiliza exactamente la misma región y el mismo tamaño de visualización.
+Cada caso de detalle ocupa una página propia, con dos columnas, para que los símbolos se puedan
+examinar a mayor tamaño. Las imágenes se incrustan en PDF a su resolución nativa, sin reducción
+previa de píxeles ni compresión con pérdidas. Las vistas de página completa aportan contexto;
+el juicio sobre trazos finos se apoya en las ampliaciones y en el zoom del documento digital.
 La LR se amplía por vecino más próximo, sin suavizado añadido. Los casos pertenecen a la revisión
 cualitativa fijada; los recortes se eligieron después para explicar sus observaciones, no para
 recalcular valoraciones ni para estimar la frecuencia de un defecto.
@@ -94,7 +98,7 @@ reconstrucción necesariamente correcta.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/results/pretrained-comparison-x4-moderate.png}
+  \includegraphics[width=\textwidth]{figures/results/pretrained-comparison-x4-moderate.pdf}
   \caption[Comparación cualitativa de los métodos preentrenados]{Referencia, entrada LR y salidas
   de los tres comparadores para el caso fijo \texttt{smb-test-000210} bajo
   \texttt{x4-moderate}. La LR se amplía por vecino más próximo. El ejemplo conserva tanto la
@@ -111,23 +115,40 @@ clara en la revisión. En B, la notación de la referencia sigue siendo reconoci
 salidas aprendidas modifican los contornos y la textura: conviene observar el fondo alrededor de
 las notas y las pequeñas separaciones, además del contraste. En C, x4 fuerte ya ha difuminado
 trazos finos y texto; la salida puede parecer más perfilada sin recuperar su forma original.
-Las filas corresponden a obras diferentes y sirven para ilustrar comportamientos heterogéneos;
+Los tres casos corresponden a obras diferentes y sirven para ilustrar comportamientos heterogéneos;
 la comparación controlada de severidad sobre un mismo fragmento está en la
 Figura~\ref{fig:degradation-profiles}.
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth]{figures/results/pretrained-detail-gallery.png}
+  \includegraphics[page=1,width=\textwidth]{figures/results/pretrained-detail-gallery.pdf}
   \caption[Detalle de reconstrucciones favorables y artefactos preentrenados]{Ampliaciones
-  emparejadas de tres casos SMB de la revisión fija. A: \texttt{smb-test-000252}, x2 limpia,
+  emparejadas de tres casos SMB de la revisión fija, en tres láminas consecutivas. En esta primera
+  lámina, A: \texttt{smb-test-000252}, x2 limpia,
   \texttt{haydn\_sonata53\_3}, de Joseph Haydn. B: \texttt{smb-test-000264}, x2 fuerte,
   \texttt{hummel\_prelude67\_04}, de Johann Nepomuk Hummel. C: \texttt{smb-test-000526}, x4 fuerte,
   \texttt{mozart\_sonata03\_2}, de Wolfgang Amadeus Mozart. La cercanía a HR debe juzgarse en los
   contornos, espacios y marcas pequeñas; una salida más nítida puede conservar o añadir defectos.
   Fuente: elaboración propia a partir de SMB \cite{smbDatasetCard}; coordenadas idénticas para
-  todos los paneles de cada fila, sin realce adicional.}
+  todos los paneles de cada caso, sin realce adicional.}
   \label{fig:pretrained-details}
 \end{figure}
+\clearpage
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[page=2,width=\textwidth]{figures/results/pretrained-detail-gallery.pdf}
+  \caption[B: x2 fuerte, Hummel]{Textura y contornos de HR, LR, EDSR y SwinIR en el caso fijo Hummel, ya identificado en la Figura~\ref{fig:pretrained-details}. Se conserva el mismo encuadre sin remuestrear los píxeles de las salidas. Fuente: SMB \cite{smbDatasetCard}.}
+\end{figure}
+\clearpage
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[page=3,width=\textwidth]{figures/results/pretrained-detail-gallery.pdf}
+  \caption[C: x4 fuerte, Mozart]{Pérdida de trazos y texto en el caso fijo Mozart, identificado en la Figura~\ref{fig:pretrained-details}. La reconstrucción puede perfilar el trazo sin recuperar su geometría original. Fuente: SMB \cite{smbDatasetCard}.}
+\end{figure}
+\clearpage
+
 
 La Tabla~\ref{tab:qualitative-origin} separa el origen observable del problema. \emph{No claro} no
 significa que la salida sea perfecta, sino que no se identificó un defecto atribuible al método en
@@ -251,7 +272,7 @@ alteraciones. No equivale a afirmar que el modelo mejore todos los símbolos de 
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{figures/results/adapted-full-page-x4-moderate.png}
+  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{figures/results/adapted-full-page-x4-moderate.pdf}
   \caption[Comparación de página completa tras adaptar EDSR]{Comparación de página completa del
   caso fijo \texttt{smb-test-000451} bajo \texttt{x4-moderate}. La vista completa permite valorar
   estructura y legibilidad globales; los detalles se inspeccionan en la
@@ -264,7 +285,7 @@ alteraciones. No equivale a afirmar que el modelo mejore todos los símbolos de 
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/results/adapted-comparison-x4-moderate.png}
+  \includegraphics[width=\textwidth]{figures/results/adapted-comparison-x4-moderate.pdf}
   \caption[Mejora cualitativa del EDSR adaptado en x4 moderada]{Entrada y reconstrucciones del caso
   fijo \texttt{smb-test-000451} bajo degradación \texttt{x4-moderate}. La LR se amplía por vecino
   más próximo para visualizarla al tamaño HR. El EDSR adaptado reduce la textura y los halos del
@@ -283,7 +304,7 @@ limpio, pero no es equivalente a la referencia ni apto para una edición musical
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/results/adapted-limit-x4-strong.png}
+  \includegraphics[width=\textwidth]{figures/results/adapted-limit-x4-strong.pdf}
   \caption[Límite del EDSR adaptado en x4 fuerte]{Caso fijo \texttt{smb-test-000655} bajo
   degradación \texttt{x4-strong}. La adaptación reduce los artefactos del EDSR oficial, pero no
   recupera toda la información ausente en LR; destacan la digitación y los signos pequeños. La LR
@@ -300,18 +321,27 @@ En B, las digitaciones y las marcas pequeñas permiten comprobar el límite: def
 implica reconstruir el signo que ocupaba esa posición. Esta comparación ayuda a distinguir la
 reducción de artefactos del EDSR oficial de la recuperación efectiva de información musical.
 
-\begin{figure}[htbp]
+\begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth]{figures/results/adapted-detail-gallery.png}
+  \includegraphics[page=1,width=\textwidth]{figures/results/adapted-detail-gallery.pdf}
   \caption[Detalle de la mejora y del límite del ajuste fino]{Las mismas regiones antes y después
-  de adaptar EDSR: A, \emph{Scott Joplin's New Rag}, de Scott Joplin, caso
+  de adaptar EDSR, en dos láminas consecutivas. En esta primera, A, \emph{Scott Joplin's New Rag}, de Scott Joplin, caso
   \texttt{smb-test-000451} en x4 moderada; B, Sonata para piano n.º 31, op.~110, de Ludwig van
-  Beethoven, caso \texttt{smb-test-000655} en x4 fuerte. La primera fila muestra la aproximación
-  de los trazos a HR; la segunda conserva pérdidas visibles en elementos pequeños. Fuente:
-  elaboración propia a partir de SMB \cite{smbDatasetCard}. Cada fila muestra el mismo recorte
+  Beethoven, caso \texttt{smb-test-000655} en x4 fuerte, en la siguiente lámina. El primer caso muestra la aproximación
+  de los trazos a HR; el segundo conserva pérdidas visibles en elementos pequeños. Fuente:
+  elaboración propia a partir de SMB \cite{smbDatasetCard}. Cada caso muestra el mismo recorte
   en HR, LR y ambas reconstrucciones, sin retoques de contraste ni limpieza posterior.}
   \label{fig:adapted-details}
 \end{figure}
+\clearpage
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[page=2,width=\textwidth]{figures/results/adapted-detail-gallery.pdf}
+  \caption[B: límite de la adaptación, Beethoven]{Ampliación del caso Beethoven x4 fuerte, identificado en la Figura~\ref{fig:adapted-details}. El adaptado reduce artefactos, pero las digitaciones y marcas pequeñas de HR siguen sin reconstruirse con fidelidad. Fuente: SMB \cite{smbDatasetCard}.}
+\end{figure}
+\clearpage
+
 
 Estos seis casos detectan límites, pero no permiten estimar su frecuencia ni demuestran corrección
 semántica. En consecuencia, la adaptación respalda una mejora de fidelidad dentro de SMB y
@@ -386,7 +416,7 @@ una garantía de identidad con HR.
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{figures/results/external-accepted-full-page-x2-strong.png}
+  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{figures/results/external-accepted-full-page-x2-strong.pdf}
   \caption[Caso externo completo aceptado para consulta]{Caso externo fijo
   \texttt{three-revelations}, degradación \texttt{x2-strong}, aceptado para consulta. La salida
   adaptada mejora de forma visible la definición global frente al EDSR oficial, aunque texto y
@@ -406,7 +436,7 @@ en una afirmación universal y fundamenta la vía profesional de rechazo del der
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth]{figures/results/external-rejected-full-page-x4-strong.png}
+  \includegraphics[width=\textwidth]{figures/results/external-rejected-full-page-x4-strong.pdf}
   \caption[Caso externo completo rechazado]{Caso externo fijo \texttt{mari-carmen}, degradación
   \texttt{x4-strong}, rechazado para consulta. El aumento de contraste del EDSR adaptado no recupera
   con suficiente fidelidad la notación fina de percusión perdida en LR. Extracto de la parte de
@@ -427,16 +457,32 @@ completas e impiden confundir el aspecto de un detalle con una garantía de uso 
 
 \begin{figure}[p]
   \centering
-  \includegraphics[width=\textwidth]{figures/results/external-detail-gallery.png}
+  \includegraphics[page=1,width=\textwidth]{figures/results/external-detail-gallery.pdf}
   \caption[Ampliaciones de tres resultados del piloto externo]{Detalle de tres decisiones ya
-  registradas. A: \emph{Three Revelations from the Lotus Sutra}, Alfred Reed, saxofón alto primero,
+  registradas, en tres láminas consecutivas. En esta primera, A: \emph{Three Revelations from the Lotus Sutra}, Alfred Reed, saxofón alto primero,
   x2 fuerte, aceptable para consulta. B: \emph{La rosa i el drac}, Francisco Valor, fliscorno
   segundo, x4 limpia, aceptable con reservas. C: \emph{Mari Carmen}, arreglo de Xavi Martí, bombo
   y platos, x4 fuerte, rechazado. Fuente: archivo musical de la SJMA; fragmentos reproducidos con
   autorización expresa para este TFG. LR y reconstrucciones son transformaciones propias;
-  el encuadre se conserva dentro de cada fila y no se aplica realce adicional.}
+  el encuadre se conserva dentro de cada caso y no se aplica realce adicional.}
   \label{fig:external-details}
 \end{figure}
+\clearpage
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[page=2,width=\textwidth]{figures/results/external-detail-gallery.pdf}
+  \caption[B: caso externo con reservas]{Ampliación de La rosa i el drac, de Francisco Valor, fliscorno segundo, x4 limpia. La decisión de consulta con reservas corresponde a la página completa revisada. Fuente: archivo musical de la SJMA; reproducción autorizada para este TFG, con LR y reconstrucciones propias.}
+\end{figure}
+\clearpage
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[page=3,width=\textwidth]{figures/results/external-detail-gallery.pdf}
+  \caption[C: caso externo rechazado]{Ampliación de Mari Carmen, arreglo de Xavi Martí, bombo y platos, x4 fuerte. Las cabezas en aspa de HR no recuperan su geometría. Fuente: archivo musical de la SJMA; reproducción autorizada para este TFG, con LR y reconstrucciones propias.}
+\end{figure}
+\clearpage
+
 
 El demostrador local completó la carga validada de los dos puntos de control, el procesamiento por
 teselas, la comparación original--derivado y la descarga PNG en sus pruebas automatizadas. En la
