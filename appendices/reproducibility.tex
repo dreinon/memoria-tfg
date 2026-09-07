@@ -22,9 +22,11 @@ la muestra comienzan, respectivamente, por \texttt{96332e8c4ac8} y \texttt{d2a68
 identidades completas se declaran en el capítulo 4 y en la configuración.
 
 El puntero del manifiesto auditado permite recuperar y validar 685 filas sin distribuir las
-imágenes. La muestra final contiene 64 páginas de 64 obras, sin obras compartidas con el piloto v1.
-Antes de ejecutar, el cuaderno verifica índice, identidad de obra, dimensiones y hash de píxel de
-cada entrada.
+imágenes. La muestra final contiene 64 páginas de 64 grupos documentales, sin identificadores
+compartidos con el piloto v1. Antes de ejecutar, el cuaderno verifica índice, identificador de
+grupo, dimensiones y hash de píxel de cada entrada. Como se explica en la
+Sección~\ref{sec:smb-grouping}, esa separación no garantiza independencia entre composiciones
+completas: distintos movimientos pueden conservar identificadores diferentes.
 
 Las rutas de entrada que resuelven la muestra, las seis condiciones y el experimento son:
 
@@ -46,7 +48,12 @@ configs/experiments/smb-edsr-finetuning-v1.yaml
 \end{verbatim}
 
 El manifiesto tiene SHA-256 \texttt{ee3e2834679a\ldots}. Los roles internos contienen 45, 13 y 20
-obras de entrenamiento, validación y prueba, sin solapamiento y con las 64 obras v2 excluidas.
+grupos documentales de entrenamiento, validación y prueba, sin identificadores compartidos y con
+los 64 grupos v2 excluidos. Los manifiestos originales se conservan. La precisión posterior sobre
+su unidad de análisis se documenta en:
+\begin{quote}
+  \small\path{docs/unit-of-analysis-audit.md}
+\end{quote}
 
 \section{Ejecución y análisis}
 El cuaderno \path{notebooks/03-smb-model-comparison-v2.ipynb} utiliza el mismo paquete que las
@@ -120,7 +127,7 @@ constantes universales. El remuestreo estadístico es determinista con semilla 2
 repetición puede diferir en tiempos y en detalles numéricos de bajo nivel entre plataformas. La
 licencia del conjunto no establece por sí sola todos los derechos de reproducción de cada
 partitura. Por ello, no se distribuyen los corpus ni todos los paneles cualitativos. Esta memoria
-incorpora veintiuna composiciones atribuidas: ocho láminas de recortes analíticos y trece comparaciones de
+incorpora veintiuna láminas analíticas atribuidas: ocho láminas de recortes y trece comparaciones de
 página completa ---una SMB y los doce casos externos--- procedentes de casos fijados antes de la
 revisión. Las tres galerías de ampliaciones comparan regiones de esas mismas entradas y salidas
 para mostrar reconstrucciones favorables, artefactos y pérdida no recuperada; sus encuadres se
@@ -131,21 +138,22 @@ resolución nativa, sin remuestreo ni compresión con pérdidas; las galerías d
 de detalle en una página de dos columnas. También registra los hashes de
 entrada y salida, el alcance completo o las coordenadas de cada recorte y las trazas de la lámina
 de degradación. Además, exige que la entrada moderada regenerada coincida píxel a píxel con la
-evidencia retenida de Kaggle. La autorización externa permite estas figuras dentro del TFG, no la
-publicación del corpus bruto ni de las salidas restantes.
+evidencia retenida de Kaggle. La autorización institucional declarada comprende estas figuras
+dentro del TFG; no equivale por sí sola a acreditar los derechos de terceros sobre cada edición.
+No se publica el corpus bruto ni las salidas restantes.
 Los puntos de control adaptados tampoco se distribuyen: además del tamaño, derivan de datos de
 acceso controlado y requieren una revisión separada de derechos antes de cualquier reutilización o
 uso comercial.
 
 \section{Lista de comprobación de reproducción}
 Una repetición se considera reconciliada cuando: (1) resuelve la revisión exacta de SMB; (2)
-verifica 64 identidades de píxel y de obra; (3) produce las 384 trazas esperadas; (4) genera las
+verifica 64 identidades de píxel y de grupo documental; (3) produce las 384 trazas esperadas; (4) genera las
 1.152 tuplas únicas página--condición--método; (5) conserva los cuatro hashes de pesos; (6) valida
 las 18 valoraciones cualitativas; y (7) vuelve a calcular agregados, intervalos y figuras sin
 alterar denominadores. Un fallo en cualquiera de estos puntos debe quedar explícito y no puede
 rellenarse con la salida de otra ejecución.
 
-Para la adaptación se exige además: (1) verificar los 45/13/20 grupos sin cruces y la exclusión de
+Para la adaptación se exige además: (1) verificar los 45/13/20 grupos sin cruces de identificadores y la exclusión de
 v2; (2) reproducir las identidades de píxel de desarrollo y prueba; (3) validar los dos puntos de
 control seleccionados solo con validación; (4) obtener 360 tuplas y 24 filas emparejadas; y (5)
 verificar los 30 PNG fijados. De ellos solo se publican los recortes mínimos descritos, no los
@@ -160,6 +168,7 @@ cuatro páginas recibidas que no pertenecen a la prueba, el corpus como colecci�
 no se publican.
 
 La reproducibilidad computacional tampoco equivale a generalización. Repetir exactamente los
-resultados confirma el pipeline y sus entradas. El piloto aporta transferencia a otra colección
+resultados confirma el pipeline y sus entradas, no la independencia entre composiciones ni la
+cobertura de los intervalos bajo otra agrupación. El piloto aporta transferencia a otra colección
 bajo degradación sintética coincidente, pero no demuestra rendimiento sobre una degradación natural
 ni sobre una tarea de OMR. Esa distinción es parte del contrato de evidencia del trabajo.

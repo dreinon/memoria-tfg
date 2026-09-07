@@ -5,20 +5,22 @@ when these techniques add value and which safeguards are required for profession
 libraries, archives, preservation, consultation, or editorial preparation.
 
 Sheet Music Benchmark (SMB) was audited and an untouched sample was reserved for the primary
-comparison. It used 64 pages from 64 independent works and six synthetic degradations: two
+comparison. It used 64 pages from 64 documentary groups and six synthetic degradations: two
 and four times upscaling crossed with clean, moderate, and strong severity. Blur was normalized by
 staff-line spacing so that severity remained comparable across pages. Bicubic interpolation, the
-EDSR residual network, and the lightweight SwinIR transformer were compared using luminance PSNR
-and SSIM, work-paired intervals, inference time, and a preselected qualitative review of notation
+EDSR residual network, and lightweight SwinIR were compared using luminance PSNR and SSIM,
+paired intervals by group, inference time, and a preselected qualitative review of notation
 failures. The reproducible implementation was developed in Python with PyTorch, OpenCV, and
 \texttt{uv}; GPU execution used one Tesla T4 device on Kaggle.
 
 After preserving the primary comparison, a secondary EDSR fine-tuning study was performed.
-Project-defined work-level roles comprised 45 training, 13 validation, and 20 test groups, with no
-overlap or reuse of the 64 primary works. Adapted EDSR exceeded the official model in luminance
-PSNR and SSIM under all six conditions, with work-paired intervals that did not cross zero. This
-supports adaptation within SMB and matched degradations, not transfer to other collections or
-musical correctness.
+Project-defined roles comprised 45 training, 13 validation, and 20 test groups, with no identifier
+overlap or reuse of the 64 primary groups. Groups can be movements of the same composition:
+musical independence is not guaranteed, and intervals are descriptive and conditional on this
+grouping. Adapted EDSR exceeded the official model in luminance PSNR and SSIM under all six
+conditions, with group-paired intervals that did not cross zero. This supports adaptation on
+held-out SMB documents under matched degradations, without certifying generalization to unseen
+complete compositions or musical correctness.
 
 As a professional extension, the adapted model was applied without retuning to twelve works from
 an external music archive under the same degradations. Intervals favored the adapted model in all

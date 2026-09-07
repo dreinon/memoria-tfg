@@ -6,21 +6,23 @@ precauciones exige su uso profesional en bibliotecas, archivos, conservación, c
 preparación editorial.
 
 Se auditó Sheet Music Benchmark (SMB) y se reservó una muestra intacta para la comparación
-principal. Esta utilizó 64 páginas de 64 obras independientes y seis degradaciones sintéticas:
+principal. Esta utilizó 64 páginas de 64 grupos documentales y seis degradaciones sintéticas:
 factores de ampliación dos y cuatro, combinados con severidad limpia, moderada y fuerte. Para que la
 severidad fuese comparable entre páginas, el desenfoque se normalizó por la separación entre líneas
 de pentagrama. Se compararon interpolación bicúbica, la red residual EDSR y el transformador ligero
-SwinIR mediante PSNR y SSIM sobre luminancia, intervalos emparejados por obra, tiempo de inferencia
+SwinIR mediante PSNR y SSIM sobre luminancia, intervalos emparejados por grupo, tiempo de inferencia
 y una revisión cualitativa preseleccionada de errores de notación. La implementación reproducible
 se desarrolló en Python con PyTorch, OpenCV y \texttt{uv}, y la ejecución acelerada se realizó en
 Kaggle sobre GPU Tesla T4.
 
 Tras preservar la comparación principal, se ejecutó un estudio secundario de ajuste fino de EDSR.
-Se definieron roles internos por obra con 45 grupos de entrenamiento, 13 de validación y 20 de
-prueba, sin solapamiento ni reutilización de las 64 obras principales. El modelo adaptado superó al
+Se definieron roles internos con 45 grupos de entrenamiento, 13 de validación y 20 de
+prueba, sin solapamiento de identificadores ni reutilización de los 64 grupos principales.
+Estos grupos pueden ser movimientos de una misma composición: no garantizan independencia
+musical y los intervalos son descriptivos, condicionados a esa agrupación. El modelo adaptado superó al
 EDSR oficial en PSNR-Y y SSIM-Y para las seis condiciones, con intervalos emparejados que no
-cruzaron cero. Este resultado demuestra adaptación dentro de SMB y degradaciones coincidentes, no
-transferencia a otras colecciones ni corrección musical.
+cruzaron cero. Este resultado respalda adaptación sobre documentos retenidos de SMB con degradaciones
+coincidentes, sin certificar generalización a composiciones nunca vistas ni corrección musical.
 
 Como extensión profesional, el modelo adaptado se aplicó sin reajuste a doce obras de un archivo
 musical externo bajo las mismas degradaciones. Los intervalos favorecieron al modelo adaptado en
@@ -36,4 +38,4 @@ texto y trazos curvos o texturados incluso cuando aumentaba la fidelidad promedi
 EDSR ofrece el compromiso más defendible entre fidelidad y coste para generar copias de consulta
 asistidas, mientras que SwinIR debe reservarse para condiciones donde su ganancia compense el
 coste. Ningún método queda validado como restauración semántica, sustituto archivístico o entrada
-autónoma de OMR: debe conservarse el original y verificarse humanamente cada derivado relevante.
+autónoma de OMR: debe conservarse el original y someterse cada derivado relevante a revisión humana.

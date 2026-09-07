@@ -46,28 +46,28 @@ control por su resultado final.
 \section{Adaptación al dominio}
 La decisión inicial fue no adaptar ningún modelo antes de asegurar la comparación principal. Una
 vez reconciliada, se aprobó un estudio secundario limitado a EDSR, porque era posible definir roles
-independientes por obra dentro de la revisión fijada de SMB sin reutilizar ninguna de las 64 obras
+separados por grupo documental dentro de la revisión fijada de SMB sin reutilizar ninguno de los 64 grupos documentales
 v2. Este cambio no altera retrospectivamente el experimento principal ni convierte los roles
 internos en particiones oficiales del conjunto.
 
 Se iniciaron dos modelos desde los pesos oficiales EDSR x2 y x4. El entrenamiento utilizó pérdida
 L1 RGB, Adam, tasa inicial \(5\cdot10^{-5}\) con descenso coseno hasta \(10^{-6}\), lotes de ocho
 recortes LR de 48 por 48 píxeles y un máximo de 2.500 pasos por escala. Cada lote equilibró los tres
-perfiles de degradación y muestreó primero una obra y después una página, para evitar que las obras
-largas dominaran el ajuste. Los recortes se centraron en regiones anotadas; no se aplicaron giros
+perfiles de degradación y muestreó primero un grupo y después una página, para evitar que los grupos
+con más páginas dominaran el ajuste. Los recortes se centraron en regiones anotadas; no se aplicaron giros
 ni volteos que pudieran alterar la geometría musical. La semilla fue 20260902, se empleó precisión
 mixta en CUDA y recorte de norma de gradiente a 1,0.
 
-Cada 250 pasos se midió L1 RGB en casos fijos de las 13 obras de validación. La selección minimizó
-esa pérdida con paciencia cuatro y mejora mínima \(10^{-5}\), sin acceder a las 20 obras de prueba.
+Cada 250 pasos se midió L1 RGB en casos fijos de los 13 grupos documentales de validación. La selección minimizó
+esa pérdida con paciencia cuatro y mejora mínima \(10^{-5}\), sin acceder a los 20 grupos documentales de prueba.
 El punto seleccionado fue el paso 1.500 para x2 y el 2.500 para x4. Que x4 alcanzara su mejor valor
 en el límite del presupuesto se conserva como limitación; no se amplió el entrenamiento tras
 observar la prueba.
 
-La evaluación secundaria cruzó 20 obras, seis condiciones y tres métodos: bicúbica, EDSR oficial y
-EDSR adaptado. Conservó 360 tuplas y calculó diferencias emparejadas por obra con 2.000 remuestreos
+La evaluación secundaria cruzó 20 grupos documentales, seis condiciones y tres métodos: bicúbica, EDSR oficial y
+EDSR adaptado. Conservó 360 tuplas y calculó diferencias emparejadas por grupo con 2.000 remuestreos
 y semilla 20260903. Su comparación primaria fue EDSR adaptado menos EDSR oficial; la comparación
-con bicúbica fue secundaria. Los resultados no se combinaron con las 64 obras del experimento
+con bicúbica fue secundaria. Los resultados no se combinaron con los 64 grupos documentales del experimento
 principal.
 
 \section{Piloto externo y demostrador profesional}
@@ -111,19 +111,28 @@ SSIM combina comparaciones locales de luminancia, contraste y covarianza mediant
 estándar de su implementación. El cálculo se realizó después de alinear y recortar la salida al
 tamaño HR; no se compararon imágenes de dimensiones diferentes.
 
-Cada página se comparó con los tres métodos bajo exactamente la misma degradación. La obra o fuente
-fue la unidad independiente y las comparaciones se realizaron dentro de cada condición. La muestra
-final contiene una sola página por cada una de las 64 obras, por lo que la media por fuente coincide
-con la observación de página sin introducir pseudorreplicación. Para cada par de métodos se calculó
+Cada página se comparó con los tres métodos bajo exactamente la misma degradación. El grupo
+documental fue la unidad operativa de análisis en SMB, con el alcance definido en la
+Sección~\ref{sec:smb-grouping}. Las comparaciones se realizaron dentro de cada condición. La muestra
+final contiene una página por cada uno de los 64 grupos, por lo que la media por grupo coincide
+con la observación de página y no cuenta sus recortes como réplicas. Para cada par de métodos se calculó
 la diferencia media emparejada y un intervalo percentil del 95\,\% mediante 2.000 remuestreos de
-las 64 fuentes con semilla 20260831. Un intervalo que cruza cero se interpreta como comparación no
+los 64 grupos con semilla 20260831. Un intervalo que cruza cero se interpreta como comparación no
 resuelta, no como igualdad entre métodos. Los intervalos no corrigen una familia de 36
 comparaciones ni constituyen pruebas de superioridad universal; se usan para describir magnitud y
 estabilidad de comparaciones predeclaradas, junto con la evidencia cualitativa.
 
-En el estudio de adaptación se aplicó el mismo principio con 20 obras independientes. Sus 24 filas
+El remuestreo trata esos identificadores como unidades independientes. Sin embargo, la agrupación
+documental no elimina el parentesco entre movimientos o ediciones de una misma composición.
+Los intervalos SMB son, por tanto, descriptivos y condicionales a la agrupación operativa; no
+certifican independencia estadística ni cobertura del 95\,\% a nivel de composición completa.
+La dependencia residual puede alterar su precisión. No se ha ejecutado una sensibilidad por
+composición ni se han recalculado los intervalos bajo una agrupación diferente.
+
+En el estudio de adaptación se aplicó el mismo principio con 20 grupos documentales. Sus 24 filas
 de remuestreo corresponden a dos comparadores, dos métricas y seis condiciones. Los intervalos
-describen únicamente esas obras y el protocolo sintético coincidente; no convierten la adaptación
+describen únicamente esos grupos y el protocolo sintético coincidente, con la misma limitación
+de dependencia residual; no convierten la adaptación
 dentro de SMB en evidencia sobre otro corpus o sobre escaneos reales.
 
 En el piloto externo se aplicó de nuevo el análisis a doce obras independientes y 24 filas de
@@ -152,7 +161,7 @@ mejora apreciable. Esta distinción evita atribuir al método el daño causado p
 al mismo tiempo, evita llamar éxito a una salida que solo agranda una entrada legible.
 
 Este diseño conserva casos positivos y negativos, pero no estima prevalencias: seis páginas
-preseleccionadas no permiten inferir la frecuencia de defectos en las 64 obras ni en SMB. La
+preseleccionadas no permiten inferir la frecuencia de defectos en los 64 grupos documentales ni en SMB. La
 revisión sirve para detectar contradicciones entre fidelidad promedio y comportamiento de la
 notación, y para formular límites profesionales.
 
@@ -166,7 +175,7 @@ probabilidades de éxito.
 La Figura~\ref{fig:experimental-workflow} resume el flujo principal. Sus decisiones se cerraron
 antes de desbloquear la muestra v2; después de la inferencia, el análisis cuantitativo y el
 cualitativo se integraron antes de formular recomendaciones. La adaptación siguió un segundo
-contrato congelado, con obras y artefactos separados.
+contrato congelado, con identificadores de grupo y artefactos separados.
 
 \begin{figure}[htbp]
   \centering
@@ -179,14 +188,14 @@ contrato congelado, con obras y artefactos separados.
       arrow/.style={-{Latex[length=2mm]}, thick}]
     \node[box] (audit) {Auditoría y agrupación de SMB};
     \node[decision, right=of audit] (freeze) {Congelación: muestra, degradación, métodos y métricas};
-    \node[box, right=of freeze] (run) {Inferencia emparejada\\64 obras × 6 condiciones × 3 métodos};
+    \node[box, right=of freeze] (run) {Inferencia emparejada\\64 grupos × 6 condiciones × 3 métodos};
     \node[evidence, below=of run] (quant) {PSNR-Y, SSIM-Y, intervalos y tiempos};
     \node[evidence, below=of freeze] (qual) {Revisión fija de seis casos y 18 valoraciones};
     \node[decision, below=of qual] (decision) {Triangulación, límites y marco profesional};
     \draw[arrow] (audit) -- (freeze);
     \draw[arrow] (freeze) -- (run);
     \draw[arrow] (run) -- (quant);
-    \draw[arrow] (run.west) -- ++(-3.5mm,0) |- (qual.east);
+    \draw[arrow] (run.south) -- ++(0,-2.5mm) -| (qual.north);
     \draw[arrow] (quant.south) |- (decision.east);
     \draw[arrow] (qual) -- (decision);
   \end{tikzpicture}
@@ -197,7 +206,7 @@ contrato congelado, con obras y artefactos separados.
 La configuración congelada identifica la revisión inmutable de SMB, la muestra, métodos, puntos de
 control, degradaciones, métricas, unidades, exclusiones, semillas, selección cualitativa
 y reglas de interpretación. La ejecución verificó antes de inferir los hashes de píxel y la
-identidad de las 64 páginas contra el manifiesto auditado. Reconciliaron 1.152 combinaciones únicas
+identidad de las 64 páginas contra el manifiesto auditado. Se reconciliaron 1.152 combinaciones únicas
 ---64 páginas, seis condiciones y tres métodos---, 384 trazas de degradación y 30 imágenes
 cualitativas organizadas en seis casos, sin resultados ausentes. Cada caso contiene HR, LR y tres
 reconstrucciones; de esas imágenes se derivaron las 18 valoraciones método--condición.
@@ -216,13 +225,15 @@ visibles y uso de \texttt{cuda:0}. La revisión ejecutada fue
 \texttt{4e7806733d9d\ldots}; el archivo descargado tiene SHA-256
 \texttt{414613156e71\ldots}. Una verificación automatizada independiente del pipeline principal
 comprobó 50 ficheros, las 360 tuplas, 24 intervalos, 30 PNG cualitativos, dos puntos de control, los
-tres roles sin solapamiento y las identidades de píxel. Los pesos adaptados y las imágenes SMB se
-retienen fuera de Git por tamaño, acceso y derechos.
+tres roles sin solapamiento de identificadores y las identidades de píxel. Los pesos adaptados,
+el corpus SMB completo y las salidas no seleccionadas se retienen fuera de Git por tamaño,
+acceso y derechos; las figuras analíticas incluidas en la memoria se identifican y atribuyen.
 
 La ejecución externa se realizó localmente con CPU. La revisión limpia del código fue
 \texttt{62db40ff8f9\ldots}. El entorno registró Python 3.12.12, PyTorch 2.13.0, NumPy 2.5.2 y
 OpenCV 5.0.0.93;
 empleó 3.396,28 segundos y reconcilió las 216 tuplas. Tras incorporar las doce valoraciones, el
 manifiesto verificó 70 ficheros: entradas declarativas, identidad, entorno, métricas, intervalos,
-60 imágenes de revisión y la decisión humana. Las páginas, reconstrucciones y pesos permanecen
-fuera de los repositorios.
+60 imágenes de revisión y la decisión humana. El corpus completo, las reconstrucciones no
+seleccionadas y los pesos permanecen fuera de los repositorios; las reproducciones analíticas
+seleccionadas forman parte de las figuras de esta memoria y se atribuyen expresamente.

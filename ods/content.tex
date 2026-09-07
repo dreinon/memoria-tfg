@@ -32,52 +32,50 @@ ODS 17. \textbf{Alianzas para lograr los objetivos.} & & & & \textbf{X} \\ \hlin
 
 \section*{Reflexión}
 
-La relación principal de este TFG se encuentra con el ODS 9, Industria, innovación e
-infraestructuras. El trabajo estudia una técnica de inteligencia artificial aplicada a
-infraestructuras digitales de patrimonio musical y propone un procedimiento reproducible para
-decidir cuándo utilizarla. La aportación no consiste únicamente en ejecutar modelos existentes:
-incluye una degradación normalizada por escala de pentagrama, controles contra fugas de datos,
-comparaciones emparejadas, revisión de fallos propios de la notación y una guía profesional por
-condición. Por ese componente metodológico y de innovación responsable se asigna una relación alta,
-aunque no se haya desplegado un producto ni una infraestructura de producción.
+La relación principal del TFG es con el ODS 9, Industria, innovación e
+infraestructuras. El trabajo estudia la inteligencia artificial aplicada al patrimonio musical
+digital y propone un procedimiento reproducible para decidir cuándo utilizarla. Incluye
+degradación normalizada por escala de pentagrama, controles contra fugas de datos,
+comparaciones emparejadas, revisión de fallos de notación y una guía profesional por
+condición. Este componente metodológico y de innovación responsable justifica una relación alta,
+sin desplegar un producto ni infraestructura de producción.
 
 La relación con el ODS 11, Ciudades y comunidades sostenibles, es media. Su meta 11.4 contempla la
-protección del patrimonio cultural (Naciones Unidas, Agenda 2030), y las partituras digitalizadas
-forman parte de ese patrimonio.
-Una copia de consulta de mayor tamaño puede facilitar el acceso y reducir la manipulación del
-original. Sin embargo, la superresolución no conserva por sí misma un documento: puede alterar
+protección del patrimonio cultural \cite{un2030Agenda}, que incluye las partituras digitalizadas.
+Una copia ampliada de consulta puede facilitar el acceso y reducir la manipulación del
+original. La superresolución no conserva por sí misma un documento: puede alterar
 símbolos, texto o trazos y generar una apariencia engañosa. Por ello, el uso recomendado mantiene
 siempre la imagen original, identifica el derivado y exige cotejo humano cuando haya consecuencias
-editoriales, interpretativas o de conservación. El trabajo aporta criterios para evitar que una
-mejora visual se presente como una restauración histórica auténtica.
+editoriales, interpretativas o de conservación. Se busca evitar confundir mejora visual y
+restauración histórica auténtica.
 
-El ODS 12, Producción y consumo responsables, recibe una relación media. Se han comparado no solo
-las métricas de fidelidad, sino también el coste temporal de los métodos. SwinIR fue entre 5,2 y 8,5
-veces más lento que EDSR en la ejecución retenida y no obtuvo una ventaja general. Recomendar el
-modelo más complejo en cualquier circunstancia habría consumido más recursos sin un beneficio
+El ODS 12, Producción y consumo responsables, tiene relación media. Se compararon
+fidelidad y coste temporal: SwinIR fue entre 5,2 y 8,5 veces más lento que EDSR en la ejecución
+retenida, sin ventaja general. Su uso indiscriminado habría consumido más recursos sin beneficio
 consistente. El marco profesional propone EDSR como opción general y reserva SwinIR para las
-condiciones donde su ganancia emparejada justifica el coste. También evita redistribuir datos,
-pesos o imágenes sin derecho: SMB se utiliza con acceso autorizado, sus fuentes no se incorporan a
-la memoria y cada licencia se trata de forma separada.
+condiciones donde su ganancia emparejada justifica el coste. También distingue el acceso a datos
+de su reproducción: SMB se utiliza con acceso autorizado y no se redistribuye el corpus bruto;
+la memoria incorpora comparaciones analíticas seleccionadas, atribuidas y con
+transformaciones identificadas. Cada licencia y la base de publicación de cada imagen se consideran por
+separado, sin presumir que el acceso autorice cualquier reproducción.
 
 La relación con el ODS 13, Acción por el clima, es baja porque no se midió energía ni huella de
-carbono con instrumentación validada. Sí se registraron hardware y duración y se limitó el número
-de modelos y ejecuciones. El uso de una única comparación controlada, la reutilización del mismo
-código en local y Kaggle y la decisión de no ajustar modelos sin datos independientes redujeron
-cálculo innecesario. Estas medidas son coherentes con un uso prudente de recursos, pero no permiten
-cuantificar un beneficio climático y por ello no justifican una valoración mayor.
+carbono con instrumentación validada. Se registraron hardware y duración y se limitaron modelos y
+ejecuciones. Una comparación controlada, reutilizar código en local y Kaggle y acotar la adaptación
+a un estudio secundario redujeron cálculo innecesario. Estas medidas ahorran recursos,
+pero no permiten cuantificar un beneficio climático ni justifican una valoración mayor.
 
-Los ODS 4 y 10 tienen una relación baja e indirecta. Las copias de consulta podrían facilitar el
+Los ODS 4 y 10 tienen relación baja e indirecta. Las copias de consulta podrían facilitar el
 estudio de fuentes musicales a estudiantes, intérpretes o investigadores y mejorar el acceso a
-material digitalizado cuya resolución es insuficiente. No obstante, este TFG no ha medido
+material digitalizado de resolución insuficiente. El TFG no ha medido
 aprendizaje, accesibilidad, cobertura geográfica ni reducción de desigualdades, y tampoco ha creado
-un servicio público. La posible contribución se formula como escenario profesional futuro, no como
+un servicio público. La contribución es un escenario profesional futuro, no
 impacto demostrado.
 
-Los demás ODS se marcan como no aplicables porque forzar una vinculación diluiría la evaluación. El
+Los demás ODS no son aplicables. El
 trabajo no aborda pobreza, alimentación, salud, género, agua, energía asequible, empleo, ecosistemas,
-instituciones o alianzas mediante resultados directos. La reflexión más importante es que la
-innovación debe evaluarse junto con sus riesgos. En patrimonio musical, un detalle falso puede ser
+instituciones o alianzas mediante resultados directos. La innovación debe evaluarse junto con
+sus riesgos: en patrimonio musical, un detalle falso puede ser
 más perjudicial que una imagen borrosa porque parece fiable. La transparencia de las degradaciones,
-los hashes, las licencias, los resultados negativos y los casos de no uso constituye por tanto una
-parte esencial de la responsabilidad social de la solución.
+los hashes, las licencias, los resultados negativos y los casos de no uso es
+esencial para la responsabilidad social de la solución.

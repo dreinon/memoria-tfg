@@ -10,16 +10,17 @@ coste y revisión de los elementos musicales.
 El estado del arte permitió separar interpolación, redes convolucionales, transformadores y métodos
 perceptuales, y mostró que los resultados sobre imágenes naturales, documentos u OMR no demuestran
 fidelidad musical. La auditoría de SMB conservó 685 elementos, identificó 260 grupos de fuente,
-documentó 67 páginas no elegibles para comparación por sus anotaciones y preservó una muestra
+documentó 67 páginas no elegibles para análisis dependientes de sus anotaciones (66 por texto
+incompleto y una por caja inválida), ocho de ellas incluidas en la comparación de imagen, y preservó una muestra
 principal intacta dentro de su única partición oficial. La degradación final definió seis condiciones normalizadas por
-escala de pentagrama y la ejecución reconcilió 1.152 resultados sobre 64 obras independientes.
+escala de pentagrama y la ejecución reconcilió 1.152 resultados sobre 64 grupos documentales.
 
 EDSR y SwinIR superaron a bicúbica en PSNR-Y y SSIM-Y para todas las condiciones. SwinIR destacó en
 x2 limpia, x2 moderada y x4 limpia, pero EDSR igualó o superó su fidelidad en las condiciones más
 difíciles y fue entre 5,2 y 8,5 veces más rápido. La revisión cualitativa halló símbolos alterados,
 texto o dígitos corruptos y textura no natural en casos de ambas redes. La adaptación al dominio se
-ejecutó después como estudio secundario sin reutilizar las 64 obras principales: el EDSR adaptado
-mejoró al oficial en PSNR-Y y SSIM-Y en las seis condiciones sobre 20 obras nuevas, con intervalos
+ejecutó después como estudio secundario sin reutilizar los 64 grupos documentales principales: el EDSR adaptado
+mejoró al oficial en PSNR-Y y SSIM-Y en las seis condiciones sobre 20 grupos documentales retenidos, con intervalos
 emparejados que no cruzaron cero. Aplicado después sin reajuste a doce obras de otra colección,
 mantuvo intervalos favorables en las seis comparaciones PSNR-Y y en cinco de seis SSIM-Y. El
 resultado profesional es un marco condicionado en el que EDSR preentrenado constituye la opción
@@ -57,10 +58,10 @@ compatible con la integridad de la comparación principal.
     Objetivo & Evidencia principal & Estado \\
     \midrule
     Estado del arte trazable & Síntesis crítica, fuentes primarias y criterios de selección & Cumplido \\
-    Auditar y gobernar SMB & 685 registros, 260 obras, elegibilidad, licencias y hashes & Cumplido \\
+    Auditar y gobernar SMB & 685 registros, 260 grupos documentales, elegibilidad, licencias y hashes & Cumplido \\
     Predeclarar el experimento & Protocolo v2, muestra, pesos, métricas, semillas y reglas & Cumplido \\
     Comparar métodos emparejados & 1.152 resultados, intervalos, revisión fija y tiempos & Cumplido \\
-    Evaluar adaptación acotada & 45/13/20 obras separadas; dos puntos de control y 360 resultados & Cumplido con límites \\
+    Evaluar adaptación acotada & 45/13/20 grupos separados por identificador; dos puntos de control y 360 resultados & Cumplido con límites \\
     Comprobar transferencia externa & 12 obras, 216 resultados, 12 decisiones y demostrador local & Cumplido con límites \\
     Producir una guía profesional & Marco por condición, salvaguardas y casos de no uso & Cumplido con límites \\
     \bottomrule
@@ -72,15 +73,20 @@ La principal desviación fue metodológica. El primer protocolo aplicó un desen
 calibrado sobre fragmentos sintéticos de pentagrama mayor. En páginas SMB completas, las condiciones
 moderada y fuerte cambiaron de significado y algunas se volvieron destructivas. En lugar de
 reinterpretar aquel resultado, se conservó como piloto de desarrollo, se normalizó el desenfoque
-por la separación entre líneas, se seleccionaron 64 obras nuevas sin solapamiento y se repitió la
+por la separación entre líneas, se seleccionaron 64 grupos documentales sin solapamiento de identificadores y se repitió la
 comparación completa. Esta corrección retrasó el trabajo, pero produjo una conclusión más sólida y
 dejó una lección general: una degradación debe expresarse en relación con la estructura que pretende
 modelar, no solo en píxeles de una muestra cómoda.
 
 Las conclusiones principales se limitan a páginas SMB impresas con escala de pentagrama mensurable,
 a degradaciones sintéticas y a los pesos exactos de EDSR y SwinIR. La adaptación comparte corpus y
-generador de degradación entre sus roles, aunque mantenga obras disjuntas, y x4 alcanzó su mejor
-validación en el límite de 2.500 pasos. El piloto externo añade doce partes de banda, pero mantiene
+generador de degradación entre sus roles, aunque mantenga identificadores disjuntos, y x4 alcanzó su mejor
+validación en el límite de 2.500 pasos. La unidad SMB identifica documentos, movimientos o secciones,
+no necesariamente composiciones completas: hay movimientos de una misma sonata en entrenamiento
+y prueba. Por ello, los resultados describen las fuentes retenidas, sin certificar generalización
+a composiciones completas nunca vistas. Los intervalos dependen de esa agrupación y su precisión
+puede verse afectada por parentesco residual; no se ha realizado sensibilidad por composición.
+El piloto externo añade doce partes de banda, pero mantiene
 LR sintética, un único revisor no ciego y solo dos casos por condición; por ello no se conocen tasas
 de fallo poblacionales. No hubo entradas LR naturalmente adquiridas, manuscritos, medición de
 energía, OMR, tarea editorial ni evaluación formal de usabilidad. PSNR y SSIM miden fidelidad de
@@ -108,7 +114,8 @@ El legado técnico reside en el código Python, la aplicación local, configurac
 hashes de puntos de control, manifiestos, semillas, pruebas, cuadernos y scripts de análisis. Un
 tercero con acceso autorizado a SMB y a sus propias páginas puede reconstruir el entorno, verificar
 las identidades y repetir el flujo. Los artefactos públicos conservan contratos, denominadores,
-resultados y limitaciones, pero no redistribuyen los conjuntos ni sus imágenes. EDSR se apoya en
+resultados y limitaciones, pero no redistribuyen los corpus completos ni las salidas restantes;
+las reproducciones analíticas incluidas se identifican y atribuyen expresamente. EDSR se apoya en
 código MIT, SwinIR en Apache-2.0 y SMB se declara CC BY-NC 4.0 a nivel de conjunto; cualquier
 reutilización debe revisar además los derechos de cada fuente y de los pesos adaptados.
 
