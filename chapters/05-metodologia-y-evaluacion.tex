@@ -186,7 +186,7 @@ contrato congelado, con obras y artefactos separados.
     \draw[arrow] (audit) -- (freeze);
     \draw[arrow] (freeze) -- (run);
     \draw[arrow] (run) -- (quant);
-    \draw[arrow] (run) |- (qual);
+    \draw[arrow] (run.west) -- ++(-3.5mm,0) |- (qual.east);
     \draw[arrow] (quant.south) |- (decision.east);
     \draw[arrow] (qual) -- (decision);
   \end{tikzpicture}
