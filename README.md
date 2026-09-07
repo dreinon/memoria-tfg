@@ -39,4 +39,18 @@ igualmente **TeX Live 2025**, **pdfLaTeX** y `main.tex` como documento principal
 revisión visual final debe realizarse siempre también en Overleaf, porque el servicio puede aplicar
 ajustes propios alrededor de la distribución estándar.
 
-No se deben versionar PDFs ni artefactos de compilación de LaTeX.
+No se deben versionar los PDFs finales ni artefactos de compilación de LaTeX. Los PDF de
+`figures/` sí son recursos de publicación: conservan la resolución de las comparaciones.
+Sus previews PNG y las imágenes generadas también se conservan como parte del trabajo.
+
+## Organización
+
+- `frontmatter/`: resúmenes, agradecimientos y glosario.
+- `chapters/`: capítulos principales.
+- `appendices/`: anexos; `ods/` mantiene la fuente compartida del anexo ODS.
+- `figures/context/` y `figures/results/`: ilustraciones utilizadas por la memoria.
+- `docs/tfg-guidance/`: guías académicas y referencias normativas.
+- `scripts/`: herramientas de compilación; `build/`: salidas locales no versionadas.
+
+Los metadatos `output.xmpdata` son necesarios para el nombre de compilación usado por
+Overleaf; no son un archivo temporal. La oferta aprobada se conserva en su ruta original.

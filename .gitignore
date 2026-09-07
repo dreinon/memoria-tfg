@@ -14,3 +14,10 @@
 main.pdf
 ods-standalone.pdf
 build/
+
+# Local editor and operating-system clutter
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
